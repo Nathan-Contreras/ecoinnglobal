@@ -1,0 +1,188 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Package, Truck, Shield, Star } from "lucide-react";
+import heroImage from "@/assets/hero-catalog.jpg";
+import toysImage from "@/assets/toys-category.jpg";
+import homeImage from "@/assets/home-category.jpg";
+import partsImage from "@/assets/parts-category.jpg";
+import petsImage from "@/assets/pets-category.jpg";
+
+interface HomeSectionProps {
+  onTabChange: (tab: string) => void;
+}
+
+const HomeSection = ({ onTabChange }: HomeSectionProps) => {
+  const categories = [
+    {
+      id: "toys",
+      name: "Juguetes",
+      description: "Juguetes educativos y de entretenimiento",
+      image: toysImage,
+      count: "150+ productos"
+    },
+    {
+      id: "home",
+      name: "Hogar",
+      description: "Artículos para el hogar y decoración",
+      image: homeImage,
+      count: "200+ productos"
+    },
+    {
+      id: "parts",
+      name: "Repuestos",
+      description: "Repuestos automotrices de calidad",
+      image: partsImage,
+      count: "300+ productos"
+    },
+    {
+      id: "pets",
+      name: "Mascotas",
+      description: "Accesorios y productos para mascotas",
+      image: petsImage,
+      count: "100+ productos"
+    }
+  ];
+
+  const features = [
+    {
+      icon: Package,
+      title: "Productos de Calidad",
+      description: "Seleccionamos solo los mejores productos de importación"
+    },
+    {
+      icon: Truck,
+      title: "Envío Rápido",
+      description: "Entrega rápida y segura a todo el país"
+    },
+    {
+      icon: Shield,
+      title: "Garantía",
+      description: "Todos nuestros productos incluyen garantía"
+    },
+    {
+      icon: Star,
+      title: "Atención Personalizada",
+      description: "Asesoramiento especializado para cada cliente"
+    }
+  ];
+
+  return (
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <section className="relative h-96 rounded-2xl overflow-hidden">
+        <img 
+          src={heroImage} 
+          alt="Catálogo de productos de importación" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 flex items-center justify-center">
+          <div className="text-center text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4">
+              Catálogo de Importación
+            </h2>
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl">
+              Los mejores productos de importación para tu hogar, negocio y familia
+            </p>
+            <Button 
+              size="lg" 
+              variant="secondary"
+              onClick={() => onTabChange("products")}
+              className="text-lg px-8 py-3"
+            >
+              Ver Productos Destacados
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Grid */}
+      <section>
+        <div className="text-center mb-8">
+          <h3 className="text-3xl font-bold text-foreground mb-4">
+            Nuestras Categorías
+          </h3>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Explora nuestra amplia gama de productos organizados por categorías
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((category) => (
+            <Card key={category.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20">
+              <CardHeader className="p-0">
+                <div className="relative h-48 overflow-hidden rounded-t-lg">
+                  <img 
+                    src={category.image} 
+                    alt={category.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
+                    {category.count}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-4">
+                <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
+                <CardDescription>{category.description}</CardDescription>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-accent/30 rounded-2xl p-8">
+        <div className="text-center mb-8">
+          <h3 className="text-3xl font-bold text-foreground mb-4">
+            ¿Por qué elegirnos?
+          </h3>
+          <p className="text-muted-foreground text-lg">
+            Razones que nos hacen tu mejor opción para productos de importación
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card key={index} className="text-center border-0 bg-card/50 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
+                    <Icon className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">
+                    {feature.title}
+                  </h4>
+                  <p className="text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white">
+        <h3 className="text-3xl font-bold mb-4">
+          ¿Listo para hacer tu pedido?
+        </h3>
+        <p className="text-xl mb-6">
+          Contáctanos para obtener más información sobre nuestros productos
+        </p>
+        <Button 
+          size="lg" 
+          variant="secondary"
+          onClick={() => onTabChange("contact")}
+          className="text-lg px-8 py-3"
+        >
+          Solicitar Información
+        </Button>
+      </section>
+    </div>
+  );
+};
+
+export default HomeSection;

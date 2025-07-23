@@ -1,12 +1,57 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Header from "@/components/Header";
+import HomeSection from "@/components/HomeSection";
+import AboutSection from "@/components/AboutSection";
+import ProductsSection from "@/components/ProductsSection";
+import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  const renderActiveSection = () => {
+    switch (activeTab) {
+      case "home":
+        return <HomeSection onTabChange={setActiveTab} />;
+      case "about":
+        return <AboutSection />;
+      case "products":
+        return <ProductsSection onTabChange={setActiveTab} />;
+      case "contact":
+        return <ContactSection />;
+      default:
+        return <HomeSection onTabChange={setActiveTab} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header activeTab={activeTab} onTabChange={setActiveTab} />
+      
+      <main className="container mx-auto px-4 py-8">
+        {renderActiveSection()}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gradient-to-r from-primary to-secondary mt-16">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center text-primary-foreground">
+            <h3 className="text-2xl font-bold mb-4">ImportCatalog</h3>
+            <p className="mb-4">
+              Tu socio confiable para productos de importación de calidad
+            </p>
+            <div className="flex justify-center space-x-6 text-sm">
+              <span>ventas@importcatalog.com</span>
+              <span>•</span>
+              <span>+1 (555) 123-4567</span>
+              <span>•</span>
+              <span>Av. Principal 123, Ciudad</span>
+            </div>
+            <p className="text-xs mt-4 opacity-80">
+              © 2024 ImportCatalog. Todos los derechos reservados.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
