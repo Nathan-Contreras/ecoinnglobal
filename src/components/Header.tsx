@@ -22,7 +22,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
           <div className="flex items-center space-x-2">
             <Package className="h-8 w-8 text-primary-foreground" />
             <h1 className="text-2xl font-bold text-primary-foreground">
-              ImportCatalog
+              EcoInn Global
             </h1>
           </div>
           

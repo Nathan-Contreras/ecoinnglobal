@@ -35,19 +35,19 @@ const Index = () => {
       <footer className="bg-gradient-to-r from-primary to-secondary mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-primary-foreground">
-            <h3 className="text-2xl font-bold mb-4">ImportCatalog</h3>
+            <h3 className="text-2xl font-bold mb-4">EcoInn Global</h3>
             <p className="mb-4">
               Tu socio confiable para productos de importación de calidad
             </p>
             <div className="flex justify-center space-x-6 text-sm">
-              <span>ventas@importcatalog.com</span>
+              <span>ventas@ecoinn-global.com</span>
               <span>•</span>
               <span>+1 (555) 123-4567</span>
               <span>•</span>
               <span>Av. Principal 123, Ciudad</span>
             </div>
             <p className="text-xs mt-4 opacity-80">
-              © 2024 ImportCatalog. Todos los derechos reservados.
+              © 2024 EcoInn Global. Todos los derechos reservados.
             </p>
           </div>
         </div>
