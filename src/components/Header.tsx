@@ -20,7 +20,11 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center space-x-2">
-            <Package className="h-8 w-8 text-primary-foreground" />
+            <img 
+              src="/lovable-uploads/356e712d-91e3-4364-b62a-8843ac219e02.png" 
+              alt="EcoInn Global Logo" 
+              className="h-10 w-auto bg-white rounded-md p-1"
+            />
             <h1 className="text-2xl font-bold text-primary-foreground">
               EcoInn Global
             </h1>
