@@ -8,6 +8,10 @@ import toysImage from "@/assets/toys-category.jpg";
 import homeImage from "@/assets/home-category.jpg";
 import partsImage from "@/assets/parts-category.jpg";
 import petsImage from "@/assets/pets-category.jpg";
+import serviceImportImage from "@/assets/service-import.jpg";
+import serviceWholesaleImage from "@/assets/service-wholesale.jpg";
+import serviceSuppliersImage from "@/assets/service-suppliers.jpg";
+import serviceConsultationImage from "@/assets/service-consultation.jpg";
 
 interface HomeSectionProps {
   onTabChange: (tab: string) => void;
@@ -42,6 +46,37 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       description: "Accesorios y productos para mascotas",
       image: petsImage,
       count: "100+ productos"
+    }
+  ];
+
+  const services = [
+    {
+      id: "import",
+      name: "Servicio de Importación",
+      description: "Importamos productos directamente desde origen con los mejores precios",
+      image: serviceImportImage,
+      features: ["Gestión completa", "Mejores precios", "Calidad garantizada"]
+    },
+    {
+      id: "wholesale",
+      name: "Venta al Mayor",
+      description: "Productos al por mayor para distribuidores y comerciantes",
+      image: serviceWholesaleImage,
+      features: ["Precios especiales", "Grandes volúmenes", "Flexibilidad"]
+    },
+    {
+      id: "suppliers",
+      name: "Proveedores Recomendados",
+      description: "Red de proveedores confiables y verificados internacionalmente",
+      image: serviceSuppliersImage,
+      features: ["Proveedores verificados", "Calidad asegurada", "Confiabilidad"]
+    },
+    {
+      id: "consultation",
+      name: "Consultoría Personalizada",
+      description: "Asesoramiento especializado para encontrar los productos ideales",
+      image: serviceConsultationImage,
+      features: ["Atención personalizada", "Experiencia", "Resultados garantizados"]
     }
   ];
 
@@ -128,6 +163,62 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                   <CardContent className="p-4">
                     <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
                     <CardDescription>{category.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </section>
+
+      {/* Services Carousel */}
+      <section>
+        <div className="text-center mb-8">
+          <h3 className="text-3xl font-bold text-foreground mb-4">
+            Nuestros Servicios
+          </h3>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Descubre las diferentes formas en que podemos ayudarte con tus importaciones
+          </p>
+        </div>
+
+        <Carousel className="w-full max-w-6xl mx-auto">
+          <CarouselContent>
+            {services.map((service) => (
+              <CarouselItem key={service.id} className="md:basis-1/2 lg:basis-1/2">
+                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src={service.image} 
+                      alt={service.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 text-white">
+                      <h4 className="text-2xl font-bold mb-2">{service.name}</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {service.features.map((feature, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">
+                            {feature}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <CardDescription className="text-base leading-relaxed">
+                      {service.description}
+                    </CardDescription>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="mt-4 w-full"
+                      onClick={() => onTabChange("business")}
+                    >
+                      Más Información
+                    </Button>
                   </CardContent>
                 </Card>
               </CarouselItem>
