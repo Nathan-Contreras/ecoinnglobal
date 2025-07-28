@@ -11,7 +11,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
-    { id: "products", label: "Productos Más Vendidos", icon: ShoppingCart },
+    { id: "business", label: "Modelos de Negocio", icon: ShoppingCart },
     { id: "contact", label: "Solicitar Información", icon: Phone },
   ];
 

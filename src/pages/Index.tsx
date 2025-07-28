@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import HomeSection from "@/components/HomeSection";
 import AboutSection from "@/components/AboutSection";
-import ProductsSection from "@/components/ProductsSection";
+import BusinessModelsSection from "@/components/BusinessModelsSection";
 import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
@@ -14,8 +14,8 @@ const Index = () => {
         return <HomeSection onTabChange={setActiveTab} />;
       case "about":
         return <AboutSection />;
-      case "products":
-        return <ProductsSection onTabChange={setActiveTab} />;
+      case "business":
+        return <BusinessModelsSection onTabChange={setActiveTab} />;
       case "contact":
         return <ContactSection />;
       default:

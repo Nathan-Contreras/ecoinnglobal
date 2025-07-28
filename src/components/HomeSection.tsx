@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Package, Truck, Shield, Star } from "lucide-react";
 import heroImage from "@/assets/hero-catalog.jpg";
 import toysImage from "@/assets/toys-category.jpg";
@@ -87,10 +88,10 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
             <Button 
               size="lg" 
               variant="secondary"
-              onClick={() => onTabChange("products")}
+              onClick={() => onTabChange("business")}
               className="text-lg px-8 py-3"
             >
-              Ver Productos Destacados
+              Ver Modelos de Negocio
             </Button>
           </div>
         </div>
@@ -107,28 +108,34 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((category) => (
-            <Card key={category.id} className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20">
-              <CardHeader className="p-0">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
-                  <img 
-                    src={category.image} 
-                    alt={category.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
-                    {category.count}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="p-4">
-                <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
-                <CardDescription>{category.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Carousel className="w-full max-w-5xl mx-auto">
+          <CarouselContent>
+            {categories.map((category) => (
+              <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/4">
+                <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20 h-full">
+                  <CardHeader className="p-0">
+                    <div className="relative h-48 overflow-hidden rounded-t-lg">
+                      <img 
+                        src={category.image} 
+                        alt={category.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
+                        {category.count}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
+                    <CardDescription>{category.description}</CardDescription>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </section>
 
       {/* Features Section */}
