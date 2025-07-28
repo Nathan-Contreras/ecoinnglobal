@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Package, Home, Phone } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { ShoppingCart, Package, Home, Phone, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 interface HeaderProps {
   activeTab: string;
@@ -8,6 +10,9 @@ interface HeaderProps {
 }
 
 const Header = ({ activeTab, onTabChange }: HeaderProps) => {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === "dark";
+  
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
@@ -18,7 +23,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   return (
     <header className="bg-gradient-to-r from-primary to-secondary shadow-lg">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-4 md:justify-start md:space-x-8">
           <div className="flex items-center space-x-2">
             <img 
               src="/lovable-uploads/356e712d-91e3-4364-b62a-8843ac219e02.png" 
@@ -30,7 +35,20 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </h1>
           </div>
           
-          <nav className="hidden md:flex space-x-1">
+          <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <div className="flex items-center space-x-2">
+              <Sun className="h-4 w-4 text-primary-foreground" />
+              <Switch
+                checked={isDark}
+                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+                className="data-[state=checked]:bg-primary-foreground data-[state=unchecked]:bg-primary-foreground/30"
+              />
+              <Moon className="h-4 w-4 text-primary-foreground" />
+            </div>
+          </div>
+          
+          <nav className="hidden md:flex space-x-1 flex-1 justify-center">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
