@@ -38,7 +38,7 @@ const AboutSection = () => {
       {/* Hero Section */}
       <section className="text-center">
         <h2 className="text-4xl font-bold text-foreground mb-6">
-          Sobre ImportCatalog
+          Sobre EcoInn Global
         </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Somos una empresa especializada en la importación y distribución de productos de alta calidad. 
@@ -144,6 +144,31 @@ const AboutSection = () => {
             Contamos con un equipo de profesionales altamente capacitados, dedicados a 
             brindarte el mejor servicio y asesoramiento especializado en cada categoría de productos.
           </p>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+            {[
+              { name: "Ana García", role: "Directora General", specialty: "Gestión Empresarial" },
+              { name: "Carlos Mendoza", role: "Gerente de Importaciones", specialty: "Comercio Internacional" },
+              { name: "María López", role: "Especialista en Calidad", specialty: "Control de Calidad" },
+              { name: "Roberto Silva", role: "Coordinador de Logística", specialty: "Supply Chain" },
+              { name: "Laura Jiménez", role: "Atención al Cliente", specialty: "Servicio al Cliente" }
+            ].map((member, index) => (
+              <Card key={index} className="text-center">
+                <CardContent className="p-4">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-muted-foreground">
+                        {member.name.split(' ').map(n => n[0]).join('')}
+                      </span>
+                    </div>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-1">{member.name}</h4>
+                  <p className="text-sm text-primary font-medium mb-1">{member.role}</p>
+                  <p className="text-xs text-muted-foreground">{member.specialty}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
           
           <div className="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
             <Badge variant="secondary" className="text-sm py-2">
