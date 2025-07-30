@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
@@ -41,7 +42,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </h1>
           </div>
           
-          <nav className="hidden md:flex space-x-1 flex-1 justify-center">
+          <nav className="hidden md:flex space-x-1 ml-auto mr-4">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
