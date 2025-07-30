@@ -7,25 +7,36 @@ import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const [activeBusinessModel, setActiveBusinessModel] = useState("importacion");
+
+  const handleTabChange = (tab: string) => {
+    if (tab.startsWith("business-")) {
+      const model = tab.replace("business-", "");
+      setActiveTab("business");
+      setActiveBusinessModel(model);
+    } else {
+      setActiveTab(tab);
+    }
+  };
 
   const renderActiveSection = () => {
     switch (activeTab) {
       case "home":
-        return <HomeSection onTabChange={setActiveTab} />;
+        return <HomeSection onTabChange={handleTabChange} />;
       case "about":
         return <AboutSection />;
       case "business":
-        return <BusinessModelsSection onTabChange={setActiveTab} />;
+        return <BusinessModelsSection onTabChange={handleTabChange} activeModel={activeBusinessModel} />;
       case "contact":
         return <ContactSection />;
       default:
-        return <HomeSection onTabChange={setActiveTab} />;
+        return <HomeSection onTabChange={handleTabChange} />;
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
-      <Header activeTab={activeTab} onTabChange={setActiveTab} />
+      <Header activeTab={activeTab} onTabChange={handleTabChange} />
       
       <main className="container mx-auto px-4 py-8">
         {renderActiveSection()}

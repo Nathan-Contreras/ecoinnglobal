@@ -84,7 +84,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 {businessModels.map((model) => (
                   <DropdownMenuItem
                     key={model.id}
-                    onClick={() => onTabChange("business")}
+                    onClick={() => onTabChange(`business-${model.id}`)}
                     className="cursor-pointer hover:bg-accent focus:bg-accent"
                   >
                     {model.label}

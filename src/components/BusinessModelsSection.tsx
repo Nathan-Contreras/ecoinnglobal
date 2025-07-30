@@ -6,9 +6,10 @@ import { Package, Users, HandHeart, Truck, Globe, Shield, TrendingUp, CheckCircl
 
 interface BusinessModelsSectionProps {
   onTabChange: (tab: string) => void;
+  activeModel?: string;
 }
 
-const BusinessModelsSection = ({ onTabChange }: BusinessModelsSectionProps) => {
+const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: BusinessModelsSectionProps) => {
   const businessModels = [
     {
       id: "importacion",
@@ -149,7 +150,7 @@ const BusinessModelsSection = ({ onTabChange }: BusinessModelsSectionProps) => {
 
       {/* Business Models Tabs */}
       <section>
-        <Tabs defaultValue="importacion" className="w-full">
+        <Tabs value={activeModel} onValueChange={(value) => onTabChange(`business-${value}`)} className="w-full">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="importacion">Importación</TabsTrigger>
             <TabsTrigger value="mayoreo">Venta al Mayor</TabsTrigger>
