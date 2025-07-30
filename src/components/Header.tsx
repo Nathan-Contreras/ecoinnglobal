@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { ShoppingCart, Package, Home, Phone, Sun, Moon } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ShoppingCart, Package, Home, Phone, Sun, Moon, ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface HeaderProps {
@@ -16,8 +17,13 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
-    { id: "business", label: "Modelos de Negocio", icon: ShoppingCart },
     { id: "contact", label: "Solicitar Información", icon: Phone },
+  ];
+
+  const businessModels = [
+    { id: "importacion", label: "Importación" },
+    { id: "mayoreo", label: "Venta al Mayor" },
+    { id: "proveedores", label: "Proveedores" },
   ];
 
   return (
@@ -54,6 +60,38 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </Button>
               );
             })}
+            
+            {/* Business Models Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant={activeTab === "business" ? "secondary" : "ghost"}
+                  className={`flex items-center space-x-2 ${
+                    activeTab === "business" 
+                      ? "text-secondary-foreground" 
+                      : "text-primary-foreground hover:bg-white/20"
+                  }`}
+                >
+                  <ShoppingCart className="h-4 w-4" />
+                  <span>Modelos de Negocio</span>
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent 
+                align="center" 
+                className="w-48 bg-background border border-border shadow-lg z-50"
+              >
+                {businessModels.map((model) => (
+                  <DropdownMenuItem
+                    key={model.id}
+                    onClick={() => onTabChange("business")}
+                    className="cursor-pointer hover:bg-accent focus:bg-accent"
+                  >
+                    {model.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -98,6 +136,19 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </Button>
               );
             })}
+            {/* Mobile Business Models Button */}
+            <Button
+              variant={activeTab === "business" ? "secondary" : "ghost"}
+              onClick={() => onTabChange("business")}
+              className={`flex items-center space-x-2 ${
+                activeTab === "business" 
+                  ? "text-secondary-foreground" 
+                  : "text-primary-foreground hover:bg-white/20"
+              }`}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              <span className="text-sm">Modelos de Negocio</span>
+            </Button>
           </div>
         </nav>
       </div>
