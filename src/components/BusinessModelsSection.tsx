@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Package, Users, HandHeart, Truck, Globe, Shield, TrendingUp, CheckCircle } from "lucide-react";
 
 interface BusinessModelsSectionProps {
@@ -146,13 +147,23 @@ const BusinessModelsSection = ({ onTabChange }: BusinessModelsSectionProps) => {
         </p>
       </section>
 
-      {/* Business Models Grid */}
+      {/* Business Models Tabs */}
       <section>
-        <div className="grid lg:grid-cols-3 gap-8">
+        <Tabs defaultValue="importacion" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="importacion">Importación</TabsTrigger>
+            <TabsTrigger value="mayoreo">Venta al Mayor</TabsTrigger>
+            <TabsTrigger value="proveedores">Proveedores</TabsTrigger>
+          </TabsList>
+          
           {businessModels.map((model) => (
-            <ModelCard key={model.id} model={model} />
+            <TabsContent key={model.id} value={model.id} className="mt-8">
+              <div className="max-w-4xl mx-auto">
+                <ModelCard model={model} />
+              </div>
+            </TabsContent>
           ))}
-        </div>
+        </Tabs>
       </section>
 
       {/* Statistics */}

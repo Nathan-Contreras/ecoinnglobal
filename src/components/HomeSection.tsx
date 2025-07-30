@@ -59,8 +59,8 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
     },
     {
       id: "wholesale",
-      name: "Venta al Mayor",
-      description: "Productos al por mayor para distribuidores y comerciantes",
+      name: "Comercialización e Importación",
+      description: "Servicios completos de comercialización e importación para tu negocio",
       image: serviceWholesaleImage,
       features: ["Precios especiales", "Grandes volúmenes", "Flexibilidad"]
     },
