@@ -23,7 +23,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
 
   const businessModels = [
     { id: "importacion", label: "Importación" },
-    { id: "mayoreo", label: "Venta al Mayor" },
+    { id: "mayoreo", label: "Comercialización e Importación" },
     { id: "proveedores", label: "Proveedores" },
   ];
 
