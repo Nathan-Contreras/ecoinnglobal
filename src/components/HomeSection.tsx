@@ -145,45 +145,30 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <Carousel 
-          className="w-full max-w-5xl mx-auto"
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 3000,
-            }),
-          ]}
-        >
-          <CarouselContent>
-            {categories.map((category) => (
-              <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/2">
-                <Link to={`/catalog/${category.id}`}>
-                  <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20 h-full">
-                    <CardHeader className="p-0">
-                      <div className="relative h-48 overflow-hidden rounded-t-lg">
-                        <img 
-                          src={category.image} 
-                          alt={category.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
-                          {category.count}
-                        </Badge>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="p-4">
-                      <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
-                      <CardDescription>{category.description}</CardDescription>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((category) => (
+            <Link key={category.id} to={`/catalog/${category.id}`}>
+              <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20 h-full">
+                <CardHeader className="p-0">
+                  <div className="relative h-48 overflow-hidden rounded-t-lg">
+                    <img 
+                      src={category.image} 
+                      alt={category.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
+                      {category.count}
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4">
+                  <CardTitle className="mb-2 text-primary">{category.name}</CardTitle>
+                  <CardDescription>{category.description}</CardDescription>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* Services Carousel */}
