@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Package, Truck, Shield, Star } from "lucide-react";
+import { Package, Truck, Shield, Star, Download } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 import heroImage from "@/assets/hero-catalog.jpg";
 import toysImage from "@/assets/toys-category.jpg";
 import homeImage from "@/assets/home-category.jpg";
@@ -143,7 +144,14 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <Carousel className="w-full max-w-5xl mx-auto">
+        <Carousel 
+          className="w-full max-w-5xl mx-auto"
+          plugins={[
+            Autoplay({
+              delay: 3000,
+            }),
+          ]}
+        >
           <CarouselContent>
             {categories.map((category) => (
               <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/4">
@@ -184,7 +192,14 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <Carousel className="w-full max-w-6xl mx-auto">
+        <Carousel 
+          className="w-full max-w-6xl mx-auto"
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+        >
           <CarouselContent>
             {services.map((service) => (
               <CarouselItem key={service.id} className="md:basis-1/2 lg:basis-1/2">
@@ -259,6 +274,39 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
               </Card>
             );
           })}
+        </div>
+      </section>
+
+      {/* Download Catalog Section */}
+      <section className="bg-card border rounded-2xl p-8">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
+            <Download className="h-8 w-8 text-primary" />
+          </div>
+          <h3 className="text-3xl font-bold text-foreground mb-4">
+            Descarga Nuestro Catálogo Completo
+          </h3>
+          <p className="text-muted-foreground text-lg mb-8">
+            Accede a toda nuestra gama de productos con precios, especificaciones y detalles técnicos. 
+            Ideal para planificar tu próxima importación.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button size="lg" className="text-lg px-8 py-3">
+              <Download className="mr-2 h-5 w-5" />
+              Descargar Catálogo PDF
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              onClick={() => onTabChange("contact")}
+              className="text-lg px-8 py-3"
+            >
+              Solicitar Catálogo Físico
+            </Button>
+          </div>
+          <p className="text-sm text-muted-foreground mt-4">
+            Archivo PDF • 15.2 MB • Actualizado mensualmente
+          </p>
         </div>
       </section>
 
