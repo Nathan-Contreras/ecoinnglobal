@@ -146,6 +146,10 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
         <Carousel 
           className="w-full max-w-5xl mx-auto"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
           plugins={[
             Autoplay({
               delay: 3000,
@@ -194,6 +198,10 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
         <Carousel 
           className="w-full max-w-6xl mx-auto"
+          opts={{
+            align: "start",
+            loop: true,
+          }}
           plugins={[
             Autoplay({
               delay: 4000,
