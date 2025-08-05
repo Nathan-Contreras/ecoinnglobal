@@ -94,12 +94,12 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
 
             {/* Call to Action Button */}
             <Button
-              variant={activeTab === "contact" ? "secondary" : "ghost"}
+              variant={activeTab === "contact" ? "default" : "outline"}
               onClick={() => onTabChange("contact")}
               className={`flex items-center space-x-2 ${
                 activeTab === "contact" 
-                  ? "text-secondary-foreground" 
-                  : "text-primary-foreground hover:bg-white/20"
+                  ? "bg-blue-600 text-white hover:bg-blue-700" 
+                  : "bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
               }`}
             >
               <Phone className="h-4 w-4" />
@@ -164,12 +164,12 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </Button>
             {/* Mobile Call to Action Button */}
             <Button
-              variant={activeTab === "contact" ? "secondary" : "ghost"}
+              variant={activeTab === "contact" ? "default" : "outline"}
               onClick={() => onTabChange("contact")}
               className={`flex items-center space-x-2 col-span-2 ${
                 activeTab === "contact" 
-                  ? "text-secondary-foreground" 
-                  : "text-primary-foreground hover:bg-white/20"
+                  ? "bg-blue-600 text-white hover:bg-blue-700" 
+                  : "bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
               }`}
             >
               <Phone className="h-4 w-4" />
