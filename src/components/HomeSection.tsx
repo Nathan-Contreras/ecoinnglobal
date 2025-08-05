@@ -159,7 +159,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         >
           <CarouselContent>
             {categories.map((category) => (
-              <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/4">
+              <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/2">
                 <Link to={`/catalog/${category.id}`}>
                   <Card className="group hover:shadow-lg transition-all duration-300 cursor-pointer bg-gradient-to-b from-card to-accent/20 h-full">
                     <CardHeader className="p-0">
@@ -183,8 +183,6 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
         </Carousel>
       </section>
 
