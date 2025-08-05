@@ -18,7 +18,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
-    { id: "contact", label: "Solicitar Información", icon: Phone },
   ];
 
   const businessModels = [
@@ -61,7 +60,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </Button>
               );
             })}
-            
             {/* Business Models Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -93,6 +91,15 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Call to Action Button */}
+            <Button
+              onClick={() => onTabChange("contact")}
+              className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-accent-foreground/20 shadow-lg ring-2 ring-accent/30 ring-offset-2 ring-offset-primary animate-pulse"
+            >
+              <Phone className="h-4 w-4" />
+              <span className="font-semibold">Solicitar Información</span>
+            </Button>
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -149,6 +156,14 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             >
               <ShoppingCart className="h-4 w-4" />
               <span className="text-sm">Modelos de Negocio</span>
+            </Button>
+            {/* Mobile Call to Action Button */}
+            <Button
+              onClick={() => onTabChange("contact")}
+              className="bg-accent text-accent-foreground hover:bg-accent/90 border border-accent-foreground/20 shadow-md col-span-2"
+            >
+              <Phone className="h-4 w-4" />
+              <span className="text-sm font-semibold">Solicitar Información</span>
             </Button>
           </div>
         </nav>
