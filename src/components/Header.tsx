@@ -94,11 +94,16 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
 
             {/* Call to Action Button */}
             <Button
+              variant={activeTab === "contact" ? "secondary" : "ghost"}
               onClick={() => onTabChange("contact")}
-              className="bg-accent text-accent-foreground hover:bg-accent/90 border-2 border-accent-foreground/20 shadow-lg ring-2 ring-accent/30 ring-offset-2 ring-offset-primary animate-pulse"
+              className={`flex items-center space-x-2 ${
+                activeTab === "contact" 
+                  ? "text-secondary-foreground" 
+                  : "text-primary-foreground hover:bg-white/20"
+              }`}
             >
               <Phone className="h-4 w-4" />
-              <span className="font-semibold">Solicitar Información</span>
+              <span>Solicitar Información</span>
             </Button>
           </nav>
 
@@ -159,11 +164,16 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </Button>
             {/* Mobile Call to Action Button */}
             <Button
+              variant={activeTab === "contact" ? "secondary" : "ghost"}
               onClick={() => onTabChange("contact")}
-              className="bg-accent text-accent-foreground hover:bg-accent/90 border border-accent-foreground/20 shadow-md col-span-2"
+              className={`flex items-center space-x-2 col-span-2 ${
+                activeTab === "contact" 
+                  ? "text-secondary-foreground" 
+                  : "text-primary-foreground hover:bg-white/20"
+              }`}
             >
               <Phone className="h-4 w-4" />
-              <span className="text-sm font-semibold">Solicitar Información</span>
+              <span className="text-sm">Solicitar Información</span>
             </Button>
           </div>
         </nav>
