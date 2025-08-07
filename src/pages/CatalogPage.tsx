@@ -193,9 +193,6 @@ const CatalogPage = () => {
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge className="absolute top-2 right-2 bg-primary text-primary-foreground">
-                  {product.price}
-                </Badge>
               </div>
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg text-foreground group-hover:text-primary transition-colors">
