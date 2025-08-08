@@ -6,6 +6,7 @@ import { Package, Truck, Shield, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import Autoplay from "embla-carousel-autoplay";
 import heroImage from "@/assets/hero-catalog.jpg";
+import importBusinessImage from "@/assets/import-business.jpg";
 import toysImage from "@/assets/toys-category.jpg";
 import homeImage from "@/assets/home-category.jpg";
 import partsImage from "@/assets/parts-category.jpg";
@@ -108,28 +109,37 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <section className="relative h-96 rounded-2xl overflow-hidden">
-        <img 
-          src={heroImage} 
-          alt="Catálogo de productos de importación" 
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-secondary/80 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h2 className="text-4xl md:text-6xl font-bold mb-4">
-              Catálogo de Importación
-            </h2>
-            <p className="text-xl md:text-2xl mb-8 max-w-2xl">
-              Los mejores productos de importación para tu hogar, negocio y familia
-            </p>
-            <Button 
-              size="lg" 
-              variant="secondary"
-              onClick={() => onTabChange("business")}
-              className="text-lg px-8 py-3"
-            >
-              Ver Modelos de Negocio
-            </Button>
+      <section className="relative rounded-2xl overflow-hidden bg-card border">
+        <div className="grid lg:grid-cols-2 gap-0 min-h-[500px]">
+          {/* Content Side */}
+          <div className="flex flex-col justify-center p-8 lg:p-12 space-y-6">
+            <div>
+              <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6 leading-tight">
+                Transformamos Tu Negocio con Importación Inteligente
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Ofrecemos soluciones completas de importación y comercialización que incluyen gestión de proveedores internacionales, 
+                consultoría especializada, y servicios de logística integral. Desde la selección de productos hasta la entrega en tu negocio, 
+                te acompañamos en cada paso para maximizar tu rentabilidad.
+              </p>
+              <Button 
+                size="lg" 
+                onClick={() => onTabChange("business")}
+                className="text-lg px-8 py-4 font-semibold"
+              >
+                Descubre Nuestros Modelos de Negocio
+              </Button>
+            </div>
+          </div>
+          
+          {/* Image Side */}
+          <div className="relative h-64 lg:h-auto">
+            <img 
+              src={importBusinessImage} 
+              alt="Servicios profesionales de importación y comercialización internacional" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-primary/10"></div>
           </div>
         </div>
       </section>
