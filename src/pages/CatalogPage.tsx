@@ -163,19 +163,19 @@ const CatalogPage = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <div className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <Link to="/" className="inline-flex items-center text-primary-foreground/80 hover:text-primary-foreground mb-4">
+        <div className="container mx-auto px-4 py-6 md:py-8">
+          <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+            <div className="flex-1">
+              <Link to="/" className="inline-flex items-center text-primary-foreground/80 hover:text-primary-foreground mb-3 md:mb-4">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Volver al catálogo
               </Link>
-              <h1 className="text-4xl font-bold">{categoryName}</h1>
-              <p className="text-primary-foreground/80 mt-2">
+              <h1 className="text-2xl md:text-4xl font-bold">{categoryName}</h1>
+              <p className="text-primary-foreground/80 mt-2 text-sm md:text-base">
                 Explora nuestra selección de productos en {categoryName.toLowerCase()}
               </p>
             </div>
-            <Badge variant="secondary" className="text-lg px-4 py-2">
+            <Badge variant="secondary" className="text-sm md:text-lg px-3 py-1 md:px-4 md:py-2 self-start md:self-auto">
               {products.length} productos
             </Badge>
           </div>
@@ -183,31 +183,31 @@ const CatalogPage = () => {
       </div>
 
       {/* Products Grid */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {products.map((product) => (
             <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-40 sm:h-48 overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg text-foreground group-hover:text-primary transition-colors">
+              <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
+                <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
                   {product.name}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="pt-0">
-                <CardDescription className="mb-4 line-clamp-2">
+              <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
+                <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
                   {product.description}
                 </CardDescription>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                  <span className="text-xl md:text-2xl font-bold text-primary">
                     {product.price}
                   </span>
-                  <Button size="sm" variant="outline">
+                  <Button size="sm" variant="outline" className="w-full sm:w-auto">
                     Ver detalles
                   </Button>
                 </div>
