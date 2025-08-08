@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { Newspaper, TrendingUp, Globe, Clock, ExternalLink } from "lucide-react"
 import {
   Sidebar,
@@ -143,7 +142,7 @@ export function AppSidebar() {
                       
                       {!isCollapsed && (
                         <CardContent className="p-3 pt-0">
-                          <p className="text-xs text-muted-foreground mb-2 line-clamp-3">
+                          <p className="text-xs text-muted-foreground mb-2">
                             {news.summary}
                           </p>
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">
