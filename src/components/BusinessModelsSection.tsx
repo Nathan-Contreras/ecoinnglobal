@@ -13,7 +13,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
   const businessModels = [
     {
       id: "importacion",
-      title: "Servicio de Importación",
+      title: "Importa con nosotros",
       description: "Gestionamos todo el proceso de importación por ti",
       icon: Package,
       color: "from-blue-500 to-blue-600",
@@ -152,7 +152,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       <section>
         <Tabs value={activeModel} onValueChange={(value) => onTabChange(`business-${value}`)} className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="importacion">Importación</TabsTrigger>
+            <TabsTrigger value="importacion">Importa con nosotros</TabsTrigger>
             <TabsTrigger value="mayoreo">Venta al Mayor</TabsTrigger>
             <TabsTrigger value="proveedores">Proveedores</TabsTrigger>
           </TabsList>
