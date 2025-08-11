@@ -110,7 +110,16 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
     <div className="space-y-12">
       {/* Hero Section */}
       <section className="relative rounded-2xl overflow-hidden bg-card border">
-        <div className="grid lg:grid-cols-2 gap-0 min-h-[500px]">
+        {/* Background Logo Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none z-0">
+          <img 
+            src="/lovable-uploads/1cf72272-446d-47a1-9934-5b191c36b54b.png" 
+            alt="EcoInn Global Background Logo" 
+            className="w-96 h-auto"
+          />
+        </div>
+        
+        <div className="relative z-10 grid lg:grid-cols-2 gap-0 min-h-[500px]">
           {/* Content Side */}
           <div className="flex flex-col justify-center p-8 lg:p-12 space-y-6">
             <div>
