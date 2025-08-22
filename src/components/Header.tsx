@@ -32,9 +32,9 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/356e712d-91e3-4364-b62a-8843ac219e02.png" 
+              src="/lovable-uploads/1cf72272-446d-47a1-9934-5b191c36b54b.png" 
               alt="EcoInn Global Logo" 
-              className="h-10 w-auto bg-white rounded-md p-1"
+              className="h-10 w-auto rounded-md"
             />
             <h1 className="text-2xl font-bold text-primary-foreground">
               EcoInn Global
