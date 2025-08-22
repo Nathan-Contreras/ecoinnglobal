@@ -38,6 +38,10 @@ All colors MUST be HSL.
     
     --gradient-primary: linear-gradient(135deg, hsl(210 85% 45%), hsl(145 75% 40%));
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 20% 98%));
+    --gradient-service: linear-gradient(135deg, hsl(210 85% 45% / 0.1), hsl(145 75% 40% / 0.1));
+    --gradient-hero: linear-gradient(135deg, hsl(210 85% 45% / 0.05), hsl(145 75% 40% / 0.05));
+    --shadow-modern: 0 25px 50px -12px hsl(210 85% 45% / 0.25);
+    --shadow-service: 0 10px 25px -5px hsl(210 85% 45% / 0.1);
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
