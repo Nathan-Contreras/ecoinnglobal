@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react()
   ].filter(Boolean),
-  base: "ecoinnglobal",
+  base: "/ecoinnglobal/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
