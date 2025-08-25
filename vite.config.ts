@@ -9,9 +9,9 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   plugins: [
-    react(),
-    // componentTagger(), // Elimina o comenta esta línea
+    react()
   ].filter(Boolean),
+  base: "ecoinnglobal",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
