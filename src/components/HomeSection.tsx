@@ -192,68 +192,76 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
       {/* Services Carousel */}
       <section>
-        <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary mb-6">
+            <Package className="h-6 w-6 text-white" />
+          </div>
+          <h3 className="text-4xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Nuestros Servicios
           </h3>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Descubre las diferentes formas en que podemos ayudarte con tus importaciones
+          <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
+            Descubre las diferentes formas en que podemos transformar tu negocio con nuestras soluciones integrales
           </p>
         </div>
 
         <Carousel 
-          className="w-full max-w-6xl mx-auto"
+          className="w-full max-w-7xl mx-auto"
           opts={{
             align: "start",
             loop: true,
           }}
           plugins={[
             Autoplay({
-              delay: 4000,
+              delay: 5000,
             }),
           ]}
         >
-          <CarouselContent>
-            {services.map((service) => (
-              <CarouselItem key={service.id} className="md:basis-1/2 lg:basis-1/2">
-                <Card className="group hover:shadow-xl transition-all duration-300 cursor-pointer h-full overflow-hidden">
-                  <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src={service.image} 
-                      alt={service.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h4 className="text-2xl font-bold mb-2">{service.name}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {service.features.map((feature, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {feature}
-                          </Badge>
-                        ))}
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {services.map((service, index) => (
+              <CarouselItem key={service.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
+                <div className="group relative">
+                  <Card className="group-hover:shadow-[var(--shadow-modern)] transition-all duration-500 cursor-pointer h-full overflow-hidden border-0 bg-gradient-to-br from-card to-accent/10 backdrop-blur-sm animate-fade-in" style={{animationDelay: `${index * 150}ms`}}>
+                    <div className="relative h-72 overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 z-10" />
+                      <img 
+                        src={service.image} 
+                        alt={service.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
+                      <div className="absolute bottom-6 left-6 right-6 text-white z-30">
+                        <h4 className="text-2xl font-bold mb-3 group-hover:text-primary-foreground transition-colors duration-300">{service.name}</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {service.features.map((feature, idx) => (
+                            <Badge key={idx} className="bg-white/20 text-white border-white/30 backdrop-blur-sm hover:bg-white/30 transition-all duration-300">
+                              {feature}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <CardDescription className="text-base leading-relaxed">
-                      {service.description}
-                    </CardDescription>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-4 w-full"
-                      onClick={() => onTabChange("business")}
-                    >
-                      Más Información
-                    </Button>
-                  </CardContent>
-                </Card>
+                    <CardContent className="p-6 relative">
+                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
+                      <CardDescription className="text-base leading-relaxed mb-6 text-muted-foreground">
+                        {service.description}
+                      </CardDescription>
+                      <Button 
+                        className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                        onClick={() => onTabChange("business")}
+                      >
+                        <span className="mr-2">Descubrir más</span>
+                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="left-2 bg-white/90 hover:bg-white border-0 shadow-lg" />
+          <CarouselNext className="right-2 bg-white/90 hover:bg-white border-0 shadow-lg" />
         </Carousel>
       </section>
 
