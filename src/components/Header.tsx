@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ShoppingCart, Package, Home, Phone, Sun, Moon, ChevronDown } from "lucide-react";
+import { ShoppingCart, Package, Home, Phone, Sun, Moon, ChevronDown, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface HeaderProps {
@@ -14,7 +13,8 @@ interface HeaderProps {
 const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
-  
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
@@ -60,7 +60,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </Button>
               );
             })}
-            {/* Business Models Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -91,8 +90,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-
-            {/* Call to Action Button */}
             <Button
               variant={activeTab === "contact" ? "default" : "outline"}
               onClick={() => onTabChange("contact")}
@@ -108,8 +105,8 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
           </nav>
 
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle */}
-            <div className="flex items-center space-x-2">
+            {/* Theme Toggle (solo escritorio) */}
+            <div className="hidden md:flex items-center space-x-2">
               <Sun className="h-4 w-4 text-primary-foreground" />
               <Switch
                 checked={isDark}
@@ -118,66 +115,110 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               />
               <Moon className="h-4 w-4 text-primary-foreground" />
             </div>
-
             {/* Mobile menu button */}
             <div className="md:hidden">
-              <Button variant="ghost" className="text-primary-foreground">
-                <Package className="h-6 w-6" />
+              <Button variant="ghost" className="text-primary-foreground" onClick={() => setMobileOpen(true)}>
+                <Menu className="h-6 w-6" />
               </Button>
             </div>
           </div>
         </div>
-
-        {/* Mobile navigation */}
-        <nav className="md:hidden pb-4">
-          <div className="grid grid-cols-2 gap-2">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <Button
-                  key={tab.id}
-                  variant={activeTab === tab.id ? "secondary" : "ghost"}
-                  onClick={() => onTabChange(tab.id)}
-                  className={`flex items-center space-x-2 ${
-                    activeTab === tab.id 
-                      ? "text-secondary-foreground" 
-                      : "text-primary-foreground hover:bg-white/20"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span className="text-sm">{tab.label}</span>
-                </Button>
-              );
-            })}
-            {/* Mobile Business Models Button */}
-            <Button
-              variant={activeTab === "business" ? "secondary" : "ghost"}
-              onClick={() => onTabChange("business")}
-              className={`flex items-center space-x-2 ${
-                activeTab === "business" 
-                  ? "text-secondary-foreground" 
-                  : "text-primary-foreground hover:bg-white/20"
-              }`}
-            >
-              <ShoppingCart className="h-4 w-4" />
-              <span className="text-sm">Modelos de Negocio</span>
-            </Button>
-            {/* Mobile Call to Action Button */}
-            <Button
-              variant={activeTab === "contact" ? "default" : "outline"}
-              onClick={() => onTabChange("contact")}
-              className={`flex items-center space-x-2 col-span-2 ${
-                activeTab === "contact" 
-                  ? "bg-blue-600 text-white hover:bg-blue-700" 
-                  : "bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
-              }`}
-            >
-              <Phone className="h-4 w-4" />
-              <span className="text-sm">Solicitar Información</span>
-            </Button>
-          </div>
-        </nav>
       </div>
+
+      {/* Drawer lateral móvil */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex">
+          <aside className="ml-auto w-64 h-full bg-white dark:bg-gray-900 flex flex-col p-6 shadow-xl animate-slide-in">
+            <div className="flex justify-end mb-6">
+              <Button variant="ghost" onClick={() => setMobileOpen(false)}>
+                <X className="h-6 w-6" />
+              </Button>
+            </div>
+            <div className="flex flex-col gap-2 flex-grow">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <Button
+                    key={tab.id}
+                    variant={activeTab === tab.id ? "secondary" : "ghost"}
+                    onClick={() => {
+                      onTabChange(tab.id);
+                      setMobileOpen(false);
+                    }}
+                    className={`justify-start flex items-center space-x-2 w-full ${
+                      activeTab === tab.id 
+                        ? "text-secondary-foreground" 
+                        : "text-primary-foreground hover:bg-white/20"
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span className="text-base">{tab.label}</span>
+                  </Button>
+                );
+              })}
+              {/* Business Models */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant={activeTab === "business" ? "secondary" : "ghost"}
+                    className={`justify-start flex items-center space-x-2 w-full ${
+                      activeTab === "business" 
+                        ? "text-secondary-foreground" 
+                        : "text-primary-foreground hover:bg-white/20"
+                    }`}
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                    <span className="text-base">Modelos de Negocio</span>
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="start" 
+                  className="w-56 bg-background border border-border shadow-lg z-50"
+                >
+                  {businessModels.map((model) => (
+                    <DropdownMenuItem
+                      key={model.id}
+                      onClick={() => {
+                        onTabChange(`business-${model.id}`);
+                        setMobileOpen(false);
+                      }}
+                      className="cursor-pointer hover:bg-accent focus:bg-accent"
+                    >
+                      {model.label}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <Button
+                variant={activeTab === "contact" ? "default" : "outline"}
+                onClick={() => {
+                  onTabChange("contact");
+                  setMobileOpen(false);
+                }}
+                className={`justify-start flex items-center space-x-2 w-full ${
+                  activeTab === "contact" 
+                    ? "bg-blue-600 text-white hover:bg-blue-700" 
+                    : "bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
+                }`}
+              >
+                <Phone className="h-4 w-4" />
+                <span className="text-base">Solicitar Información</span>
+              </Button>
+            </div>
+            {/* Theme Toggle al fondo */}
+            <div className="mt-auto pt-6 flex items-center space-x-2 justify-center border-t border-border">
+              <Sun className="h-4 w-4 text-primary-foreground" />
+              <Switch
+                checked={isDark}
+                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+                className="data-[state=checked]:bg-primary-foreground data-[state=unchecked]:bg-primary-foreground/30"
+              />
+              <Moon className="h-4 w-4 text-primary-foreground" />
+            </div>
+          </aside>
+        </div>
+      )}
     </header>
   );
 };
