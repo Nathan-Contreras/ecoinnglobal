@@ -78,7 +78,7 @@ export default {
 			},
 			keyframes: {
 				'slide-in':{
-					from:{transform: 'translateX(-100%)'},
+					from:{transform: 'translateX(100%)'},
 					to:{transform: 'translateX(0)'}
 				},
 				'accordion-down': {
