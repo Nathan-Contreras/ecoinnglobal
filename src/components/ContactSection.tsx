@@ -287,8 +287,14 @@ const ContactSection = () => {
                 Para consultas urgentes, puedes contactarnos directamente por WhatsApp
               </p>
               <Button variant="secondary" className="w-full bg-success text-success-foreground hover:bg-success/90">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Contactar por WhatsApp
+                <a
+                href="https://wa.me/584247158666"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                  <MessageCircle className="h-4 w-4 mr-2" />
+                  Contactar por WhatsApp
+                </a>
               </Button>
             </CardContent>
           </Card>
