@@ -147,11 +147,10 @@ const AboutSection = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             {[
-              { name: "Ana García", role: "Directora General", specialty: "Gestión Empresarial" },
-              { name: "Carlos Mendoza", role: "Gerente de Importaciones", specialty: "Comercio Internacional" },
+              { name: "Angel Mendez", role: "Directora General", specialty: "Gestión Empresarial" },
+              { name: "Normando Contreras", role: "Gerente de Importaciones", specialty: "Comercio Internacional" },
               { name: "María López", role: "Especialista en Calidad", specialty: "Control de Calidad" },
               { name: "Roberto Silva", role: "Coordinador de Logística", specialty: "Supply Chain" },
-              { name: "Laura Jiménez", role: "Atención al Cliente", specialty: "Servicio al Cliente" }
             ].map((member, index) => (
               <Card key={index} className="text-center">
                 <CardContent className="p-4">
@@ -168,27 +167,6 @@ const AboutSection = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            <Badge variant="secondary" className="text-sm py-2">
-              Especialistas en Importación
-            </Badge>
-            <Badge variant="secondary" className="text-sm py-2">
-              Asesores Comerciales
-            </Badge>
-            <Badge variant="secondary" className="text-sm py-2">
-              Equipo de Logística
-            </Badge>
-            <Badge variant="secondary" className="text-sm py-2">
-              Control de Calidad
-            </Badge>
-            <Badge variant="secondary" className="text-sm py-2">
-              Atención al Cliente
-            </Badge>
-            <Badge variant="secondary" className="text-sm py-2">
-              Soporte Técnico
-            </Badge>
           </div>
         </div>
       </section>

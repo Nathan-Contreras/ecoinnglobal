@@ -52,13 +52,13 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       ]
     },
     {
-      id: "proveedores",
-      title: "Proveedores Recomendados",
-      description: "Red de proveedores confiables y verificados",
+      id: "aliados",
+      title: "Aliados Recomendados",
+      description: "Red de aliados confiables y verificados",
       icon: HandHeart,
       color: "from-purple-500 to-purple-600",
       features: [
-        "Proveedores pre-verificados",
+        "Aliados pre-verificados",
         "Evaluación de calidad continua",
         "Conexión directa con fabricantes",
         "Negociación de precios especiales",

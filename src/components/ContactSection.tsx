@@ -51,19 +51,19 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: "Teléfono",
-      details: ["+1 (555) 123-4567", "+1 (555) 123-4568"],
+      details: ["+58 (212) 258-7155", "+58 (412) 791-7318"],
       color: "bg-primary"
     },
     {
       icon: Mail,
       title: "Email",
-      details: ["ventas@importcatalog.com", "soporte@importcatalog.com"],
+      details: ["ventas@ecoinnglobal.com", "ecoinnglobal@ecoinnglobal.com"],
       color: "bg-secondary"
     },
     {
       icon: MapPin,
       title: "Dirección",
-      details: ["Av. Principal 123", "Ciudad, CP 12345"],
+      details: ["C.C. Macaracuay Plaza, Nivel C2, Local 3-E", "Caracas, Venezuela"],
       color: "bg-info"
     },
     {
@@ -239,7 +239,11 @@ const ContactSection = () => {
                 const Icon = info.icon;
                 return (
                   <div key={index} className="flex items-start space-x-3">
-                    <div className={`flex-shrink-0 w-10 h-10 rounded-full ${info.color} flex items-center justify-center`}>
+                    <div className={`flex-shrink-0 w-10 h-10 rounded-full ${
+  info.title === "Teléfono"
+    ? "bg-primary dark:bg-primary/80"
+    : info.color
+} flex items-center justify-center`}>
                       <Icon className="h-5 w-5 text-white" />
                     </div>
                     <div>
@@ -286,11 +290,15 @@ const ContactSection = () => {
               <p className="text-muted-foreground text-sm mb-4">
                 Para consultas urgentes, puedes contactarnos directamente por WhatsApp
               </p>
-              <Button variant="secondary" className="w-full bg-success text-success-foreground hover:bg-success/90">
+              <Button
+                asChild
+                variant="secondary"
+                className="w-full bg-success text-success-foreground hover:bg-success/90 flex items-center justify-center"
+              >
                 <a
-                href="https://wa.me/584247158666"
-                target="_blank"
-                rel="noopener noreferrer"
+                  href="https://wa.me/584247158666"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <MessageCircle className="h-4 w-4 mr-2" />
                   Contactar por WhatsApp

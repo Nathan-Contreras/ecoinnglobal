@@ -48,17 +48,17 @@ const Index = () => {
           <div className="text-center text-primary-foreground">
             <h3 className="text-2xl font-bold mb-4">EcoInn Global</h3>
             <p className="mb-4">
-              Tu socio confiable para productos de importación de calidad
+              Innovación, Calidad y Sostenibilidad
             </p>
             <div className="flex justify-center space-x-6 text-sm">
-              <span>ventas@ecoinn-global.com</span>
+              <span>ventas@ecoinnglobal.com</span>
               <span>•</span>
-              <span>+1 (555) 123-4567</span>
+              <span>+58 (212) 258-7155</span>
               <span>•</span>
-              <span>Av. Principal 123, Ciudad</span>
+              <span>C.C. Macaracuay Plaza, Nivel C2, Local 3-E</span>
             </div>
             <p className="text-xs mt-4 opacity-80">
-              © 2024 EcoInn Global. Todos los derechos reservados.
+              © 2025 EcoInn Global. Todos los derechos reservados.
             </p>
           </div>
         </div>
