@@ -53,7 +53,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
     },
     {
       id: "aliados",
-      title: "Aliados Recomendados",
+      title: "Aliados de Instalación",
       description: "Red de aliados confiables y verificados",
       icon: HandHeart,
       color: "from-purple-500 to-purple-600",
@@ -154,7 +154,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="importacion">Importa con nosotros</TabsTrigger>
             <TabsTrigger value="mayoreo">Venta al Mayor</TabsTrigger>
-            <TabsTrigger value="proveedores">Proveedores</TabsTrigger>
+            <TabsTrigger value="aliados">Aliados de Instalación</TabsTrigger>
           </TabsList>
           
           {businessModels.map((model) => (

@@ -145,7 +145,7 @@ const AboutSection = () => {
             brindarte el mejor servicio y asesoramiento especializado en cada categoría de productos.
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 max-w-5xl mx-auto">
             {[
               { name: "Angel Mendez", role: "Directora General", specialty: "Gestión Empresarial" },
               { name: "Normando Contreras", role: "Gerente de Importaciones", specialty: "Comercio Internacional" },

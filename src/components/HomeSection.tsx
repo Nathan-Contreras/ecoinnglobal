@@ -1,18 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Package, Truck, Shield, Star, Download } from "lucide-react";
+import { Package, Truck, CircleDollarSign, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
-import Autoplay from "embla-carousel-autoplay";
-import heroImage from "@/assets/hero-catalog.jpg";
 import importBusinessImage from "@/assets/import-business.jpg";
 import toysImage from "@/assets/toys-category.jpg";
 import homeImage from "@/assets/home-category.jpg";
 import partsImage from "@/assets/parts-category.jpg";
 import petsImage from "@/assets/pets-category.jpg";
 import serviceImportImage from "@/assets/service-import.jpg";
-import serviceWholesaleImage from "@/assets/service-wholesale.jpg";
 import serviceSuppliersImage from "@/assets/service-suppliers.jpg";
 import serviceConsultationImage from "@/assets/service-consultation.jpg";
 
@@ -27,28 +22,24 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       name: "Juguetes",
       description: "Juguetes educativos y de entretenimiento",
       image: toysImage,
-      count: "150+ productos"
     },
     {
       id: "home",
       name: "Hogar",
       description: "Artículos para el hogar y decoración",
       image: homeImage,
-      count: "200+ productos"
     },
     {
       id: "parts",
       name: "Repuestos",
       description: "Repuestos automotrices de calidad",
       image: partsImage,
-      count: "300+ productos"
     },
     {
       id: "pets",
       name: "Mascotas",
       description: "Accesorios y productos para mascotas",
       image: petsImage,
-      count: "100+ productos"
     }
   ];
 
@@ -61,18 +52,11 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       features: ["Gestión completa", "Mejores precios", "Calidad garantizada"]
     },
     {
-      id: "wholesale",
-      name: "Comercialización e Importación",
-      description: "Servicios completos de comercialización e importación para tu negocio",
-      image: serviceWholesaleImage,
-      features: ["Precios especiales", "Grandes volúmenes", "Flexibilidad"]
-    },
-    {
       id: "suppliers",
-      name: "Proveedores Recomendados",
-      description: "Red de proveedores confiables y verificados internacionalmente",
+      name: "Aliados Recomendados",
+      description: "Conectamos tu proyecto con instaladores expertos y confiables",
       image: serviceSuppliersImage,
-      features: ["Proveedores verificados", "Calidad asegurada", "Confiabilidad"]
+      features: ["Instaladores certificados", "Cobertura nacional", "Soporte continuo"]
     },
     {
       id: "consultation",
@@ -95,9 +79,9 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       description: "Entrega rápida y segura a todo el país"
     },
     {
-      icon: Shield,
-      title: "Garantía",
-      description: "Todos nuestros productos incluyen garantía"
+      icon: CircleDollarSign,
+      title: "Mejores Precios",
+      description: "Los precios más competitivos del mercado"
     },
     {
       icon: Star,
@@ -168,15 +152,12 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           {categories.map((category) => (
             <Link key={category.id} to={`/catalog/${category.id}`}>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-card to-accent/20 mb-4 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-card to-accent/20 mb-4 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover"
                   />
-                  <Badge className="absolute top-2 right-2 bg-secondary text-secondary-foreground">
-                    {category.count}
-                  </Badge>
                 </div>
                 <div className="text-center">
                   <h4 className="text-lg font-semibold text-primary mb-1">{category.name}</h4>
@@ -188,7 +169,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         </div>
       </section>
 
-      {/* Services Carousel */}
+      {/* Services Section */}
       <section>
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary to-secondary mb-6">
@@ -202,65 +183,32 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <Carousel 
-          className="w-full max-w-7xl mx-auto"
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 5000,
-            }),
-          ]}
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {services.map((service, index) => (
-              <CarouselItem key={service.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/2">
-                <div className="group relative">
-                  <Card className="group-hover:shadow-[var(--shadow-modern)] transition-all duration-500 cursor-pointer h-full overflow-hidden border-0 bg-gradient-to-br from-card to-accent/10 backdrop-blur-sm animate-fade-in" style={{animationDelay: `${index * 150}ms`}}>
-                    <div className="relative h-72 overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 z-10" />
-                      <img 
-                        src={service.image} 
-                        alt={service.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ease-out"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
-                      <div className="absolute bottom-6 left-6 right-6 text-white z-30">
-                        <h4 className="text-2xl font-bold mb-3 group-hover:text-primary-foreground transition-colors duration-300">{service.name}</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {service.features.map((feature, idx) => (
-                            <Badge key={idx} className="bg-white/20 text-white border-white/30 backdrop-blur-sm hover:bg-white/30 transition-all duration-300">
-                              {feature}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <CardContent className="p-6 relative">
-                      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-                      <CardDescription className="text-base leading-relaxed mb-6 text-muted-foreground">
-                        {service.description}
-                      </CardDescription>
-                      <Button 
-                        className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-                        onClick={() => onTabChange("business")}
-                      >
-                        <span className="mr-2">Descubrir más</span>
-                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Button>
-                    </CardContent>
-                  </Card>
+        <div className="grid gap-10 md:grid-cols-3">
+          {services.map((service, index) => (
+            <div
+              key={service.id}
+              className="flex flex-col items-center text-center space-y-6 animate-fade-in"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg shadow-primary/10 border-4 border-primary/10 bg-gradient-to-b from-card to-accent/20">
+                <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-2xl font-semibold text-foreground">{service.name}</h4>
+                <p className="text-muted-foreground text-base leading-relaxed max-w-xs mx-auto">{service.description}</p>
+                <div className="flex flex-wrap justify-center gap-2">
+
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-2 bg-white/90 hover:bg-white border-0 shadow-lg" />
-          <CarouselNext className="right-2 bg-white/90 hover:bg-white border-0 shadow-lg" />
-        </Carousel>
+                <Button variant="outline" onClick={() => onTabChange("business")} className="group">
+                  <span className="mr-2">Descubrir más</span>
+                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Features Section */}
@@ -310,9 +258,11 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
             Ideal para planificar tu próxima importación.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="text-lg px-8 py-3">
-              <Download className="mr-2 h-5 w-5" />
-              Descargar Catálogo PDF
+            <Button size="lg" className="text-lg px-8 py-3" asChild>
+              <a href="/catalogo-ecoinn.pdf" download>
+                <Download className="mr-2 h-5 w-5" />
+                Descargar Catálogo PDF
+              </a>
             </Button>
             <Button 
               size="lg" 
