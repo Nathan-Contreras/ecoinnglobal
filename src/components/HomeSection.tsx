@@ -259,7 +259,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button size="lg" className="text-lg px-8 py-3" asChild>
-              <a href="/catalogo-ecoinn.pdf" download>
+              <a href="./catalogo-ecoinn.pdf" download="catalogo-ecoinn.pdf">
                 <Download className="mr-2 h-5 w-5" />
                 Descargar Catálogo PDF
               </a>
