@@ -4,6 +4,7 @@ import HomeSection from "@/components/HomeSection";
 import AboutSection from "@/components/AboutSection";
 import BusinessModelsSection from "@/components/BusinessModelsSection";
 import ContactSection from "@/components/ContactSection";
+import { FaWhatsapp, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -47,9 +48,48 @@ const Index = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-primary-foreground">
             <h3 className="text-2xl font-bold mb-4">EcoInn Global</h3>
-            <p className="mb-4">
+            <p className="mb-2">
               Innovación, Calidad y Sostenibilidad
             </p>
+            {/* Redes sociales */}
+            <div className="flex justify-center space-x-6 mb-4">
+              <a
+                href="https://wa.me/584247158666"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="hover:text-green-400 transition-colors"
+              >
+                <FaWhatsapp size={24} />
+              </a>
+              <a
+                href="https://instagram.com/ecoinnglobal"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="hover:text-pink-400 transition-colors"
+              >
+                <FaInstagram size={24} />
+              </a>
+              <a
+                href="https://tiktok.com/@ecoinnglobal"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="hover:text-blue-300 transition-colors"
+              >
+                <FaTiktok size={20} />
+              </a>
+              <a
+                href="https://linkedin.com/company/ecoinnglobal"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="hover:text-blue-300 transition-colors"
+              >
+                <FaLinkedin size={24} />
+              </a>
+            </div>
             <div className="flex justify-center space-x-6 text-sm">
               <span>ventas@ecoinnglobal.com</span>
               <span>•</span>

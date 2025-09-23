@@ -27,14 +27,16 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   ];
 
   return (
-    <header className="bg-gradient-to-r from-primary to-secondary shadow-lg">
+    <header className="bg-gradient-to-r from-white via-primary to-secondary shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
-          <div className="flex items-center space-x-2">
+          {/* Logo plano, más grande y desplazado a la derecha */}
+          <div className="flex items-center" style={{ marginLeft: "1.5rem" }}>
             <img
               src="/ecoinnglobal/lovable-uploads/logo_base.png"
               alt="EcoInn Global Logo"
-              className="h-14 w-auto rounded-md"
+              className="h-20 w-auto md:h-20 sm:h-16" // más grande en todos los tamaños
+              style={{ minWidth: "80px" }}
             />
           </div>
           
@@ -104,13 +106,15 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
           <div className="flex items-center space-x-4">
             {/* Theme Toggle (solo escritorio) */}
             <div className="hidden md:flex items-center space-x-2">
-              <Sun className="h-4 w-4 text-primary-foreground" />
-              <Switch
-                checked={isDark}
-                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
-                className="data-[state=checked]:bg-primary-foreground data-[state=unchecked]:bg-primary-foreground/30"
-              />
-              <Moon className="h-4 w-4 text-primary-foreground" />
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Cambiar tema"
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="text-primary-foreground hover:bg-white/20"
+              >
+                {isDark ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+              </Button>
             </div>
             {/* Mobile menu button */}
             <div className="md:hidden">
@@ -145,7 +149,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                     className={`justify-start flex items-center space-x-2 w-full ${
                       activeTab === tab.id 
                         ? "text-secondary-foreground" 
-                        : "text-primary-foreground hover:bg-white/20"
+                        : "text-gray-800 dark:text-gray-200 hover:bg-primary/10"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -158,7 +162,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant={activeTab === "business" ? "secondary" : "ghost"}
-                    className={`justify-start flex items-center space-x-2 w-full ${
+                    className={`justify-start flex items-center space-x-2 w-full py-3 text-base ${
                       activeTab === "business" 
                         ? "text-secondary-foreground" 
                         : "text-primary-foreground hover:bg-white/20"
@@ -180,7 +184,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                         onTabChange(`business-${model.id}`);
                         setMobileOpen(false);
                       }}
-                      className="cursor-pointer hover:bg-accent focus:bg-accent"
+                      className="cursor-pointer hover:bg-accent focus:bg-accent py-3 text-base"
                     >
                       {model.label}
                     </DropdownMenuItem>
@@ -203,15 +207,17 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 <span className="text-base">Solicitar Información</span>
               </Button>
             </div>
-            {/* Theme Toggle al fondo */}
+            {/* Botón de tema en mobile */}
             <div className="mt-auto pt-6 flex items-center space-x-2 justify-center border-t border-border">
-              <Sun className="h-4 w-4 text-primary-foreground" />
-              <Switch
-                checked={isDark}
-                onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
-                className="data-[state=checked]:bg-primary-foreground data-[state=unchecked]:bg-primary-foreground/30"
-              />
-              <Moon className="h-4 w-4 text-primary-foreground" />
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Cambiar tema"
+                onClick={() => setTheme(isDark ? "light" : "dark")}
+                className="text-primary-foreground hover:bg-white/20"
+              >
+                {isDark ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+              </Button>
             </div>
           </aside>
         </div>
