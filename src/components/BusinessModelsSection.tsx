@@ -82,56 +82,40 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
 
   const ModelCard = ({ model }: { model: typeof businessModels[0] }) => {
     const Icon = model.icon;
-    
     return (
-      <Card className="group hover:shadow-2xl transition-all duration-500 overflow-hidden border-0 bg-gradient-to-br from-card/50 to-accent/30 backdrop-blur-sm">
-        <CardHeader className="pb-4">
-          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${model.color} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-            <Icon className="h-8 w-8 text-white" />
+      <div className="flex flex-col gap-6 items-start bg-transparent p-0">
+        <div className="flex items-center gap-4">
+          <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br ${model.color}`}>
+            <Icon className="h-7 w-7 text-white" />
           </div>
-          <CardTitle className="text-2xl text-foreground group-hover:text-primary transition-colors">
-            {model.title}
-          </CardTitle>
-          <CardDescription className="text-lg">
-            {model.description}
-          </CardDescription>
-        </CardHeader>
-        
-        <CardContent className="space-y-6">
           <div>
-            <h4 className="font-semibold text-foreground mb-3 flex items-center">
-              <TrendingUp className="h-4 w-4 mr-2 text-primary" />
-              Características Principales
-            </h4>
-            <ul className="space-y-2">
-              {model.features.map((feature, index) => (
-                <li key={index} className="flex items-start space-x-2 text-sm text-muted-foreground">
-                  <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
+            <h2 className="text-2xl font-bold text-primary mb-1">{model.title}</h2>
+            <p className="text-base text-muted-foreground">{model.description}</p>
           </div>
-          
-          <div>
-            <h4 className="font-semibold text-foreground mb-3">Beneficios</h4>
-            <div className="flex flex-wrap gap-2">
-              {model.benefits.map((benefit, index) => (
-                <Badge key={index} variant="secondary" className="text-xs">
-                  {benefit}
-                </Badge>
-              ))}
-            </div>
-          </div>
-          
-          <Button 
-            className="w-full mt-4"
-            onClick={() => onTabChange("contact")}
-          >
-            Solicitar Información
-          </Button>
-        </CardContent>
-      </Card>
+        </div>
+        <div>
+          <h4 className="font-semibold text-foreground mb-2 flex items-center">
+            <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+            Características Principales
+          </h4>
+          <ul className="space-y-2">
+            {model.features.map((feature, index) => (
+              <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Button 
+          className="w-full mt-4"
+          onClick={() => onTabChange("contact")}
+          variant="secondary"
+          size="lg"
+        >
+          Solicitar Información
+        </Button>
+      </div>
     );
   };
 
@@ -139,27 +123,31 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
     <div className="space-y-12">
       {/* Header */}
       <section className="text-center">
-        <h2 className="text-4xl font-bold text-foreground mb-4">
+        <h2
+          className="text-5xl md:text-6xl font-extrabold mb-4 font-inter bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent"
+          style={{ lineHeight: "1.15" }}
+        >
           Modelos de Negocio
         </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Ofrecemos diferentes modelos de negocio adaptados a las necesidades específicas de cada cliente, 
-          desde importación personalizada hasta venta mayorista
-        </p>
       </section>
 
       {/* Business Models Tabs */}
       <section>
         <Tabs value={activeModel} onValueChange={(value) => onTabChange(`business-${value}`)} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="importacion">Importa con nosotros</TabsTrigger>
-            <TabsTrigger value="mayoreo">Venta al Mayor</TabsTrigger>
-            <TabsTrigger value="aliados">Aliados de Instalación</TabsTrigger>
+          <TabsList className="flex w-full justify-center gap-2 bg-transparent">
+            <TabsTrigger value="importacion" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
+              Importa con nosotros
+            </TabsTrigger>
+            <TabsTrigger value="mayoreo" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
+              Venta al Mayor
+            </TabsTrigger>
+            <TabsTrigger value="aliados" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
+              Aliados de Instalación
+            </TabsTrigger>
           </TabsList>
-          
           {businessModels.map((model) => (
             <TabsContent key={model.id} value={model.id} className="mt-8">
-              <div className="max-w-4xl mx-auto">
+              <div className="max-w-3xl mx-auto">
                 <ModelCard model={model} />
               </div>
             </TabsContent>

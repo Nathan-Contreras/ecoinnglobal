@@ -69,7 +69,10 @@ const ContactSection = () => {
     {
       icon: Clock,
       title: "Horarios",
-      details: ["Lun - Vie: 9:00 - 18:00", "Sáb: 9:00 - 14:00"],
+      details: [
+        "Lunes - Viernes de 9:00 AM a 6:00 PM",
+        "Atención web 24/7"
+      ],
       color: "bg-success"
     }
   ];
@@ -267,16 +270,16 @@ const ContactSection = () => {
             <CardContent>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm">Consultas Generales:</span>
-                  <span className="font-semibold text-success">2-4 horas</span>
+                  <span className="text-sm">Consultas técnicas y generales:</span>
+                  <span className="font-semibold text-success">30 minutos</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm">Cotizaciones:</span>
+                  <span className="text-sm">Cotizaciones Servicios:</span>
                   <span className="font-semibold text-info">24 horas</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-sm">Soporte Técnico:</span>
-                  <span className="font-semibold text-primary">1-2 horas</span>
+                  <span className="text-sm">Cotizaciones Productos:</span>
+                  <span className="font-semibold text-primary">4 horas</span>
                 </div>
               </div>
             </CardContent>

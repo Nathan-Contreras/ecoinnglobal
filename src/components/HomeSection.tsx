@@ -18,10 +18,10 @@ interface HomeSectionProps {
 const HomeSection = ({ onTabChange }: HomeSectionProps) => {
   const categories = [
     {
-      id: "toys",
-      name: "Juguetes",
-      description: "Juguetes educativos y de entretenimiento",
-      image: toysImage,
+      id: "pets",
+      name: "Mascotas",
+      description: "Accesorios y productos para mascotas",
+      image: petsImage,
     },
     {
       id: "home",
@@ -30,16 +30,16 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       image: homeImage,
     },
     {
-      id: "parts",
-      name: "Repuestos",
-      description: "Repuestos automotrices de calidad",
-      image: partsImage,
+      id: "supplies",
+      name: "Insumos",
+      description: "Materiales y suministros para tu negocio",
+      image: partsImage, // Cambia la imagen si tienes una específica para insumos
     },
     {
-      id: "pets",
-      name: "Mascotas",
-      description: "Accesorios y productos para mascotas",
-      image: petsImage,
+      id: "toys",
+      name: "Juguetes",
+      description: "Juguetes educativos y de entretenimiento",
+      image: toysImage,
     }
   ];
 

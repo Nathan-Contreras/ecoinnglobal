@@ -113,7 +113,16 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 onClick={() => setTheme(isDark ? "light" : "dark")}
                 className="text-primary-foreground hover:bg-white/20"
               >
-                {isDark ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+                <span
+                  className="inline-block transition-all duration-500 ease-in-out"
+                  style={{
+                    transform: isDark
+                      ? "rotate(180deg) scale(1.2)"
+                      : "rotate(0deg) scale(1.2)",
+                  }}
+                >
+                  {isDark ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
+                </span>
               </Button>
             </div>
             {/* Mobile menu button */}
