@@ -36,8 +36,8 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               <img
                 src="/ecoinnglobal/lovable-uploads/logo_base.png"
                 alt="EcoInn Global Logo"
-                className="h-20 w-auto md:h-20 sm:h-16" // más grande en todos los tamaños
-                style={{ minWidth: "80px" }}
+                className="h-28 w-auto md:h-28 sm:h-24 object-contain" // más alto y recortado por debajo
+                style={{ minWidth: "100px", objectPosition: "top" }}
               />
             </div>
             

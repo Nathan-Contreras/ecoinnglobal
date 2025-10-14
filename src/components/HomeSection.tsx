@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
 import { Package, Truck, CircleDollarSign, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import importBusinessImage from "@/assets/import-business.jpg";
@@ -10,6 +10,7 @@ import petsImage from "@/assets/pets-category.jpg";
 import serviceImportImage from "@/assets/service-import.jpg";
 import serviceSuppliersImage from "@/assets/service-suppliers.jpg";
 import serviceConsultationImage from "@/assets/service-consultation.jpg";
+import logoGlob from "../assets/logo_glob.png";
 
 interface HomeSectionProps {
   onTabChange: (tab: string) => void;
@@ -93,7 +94,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
   return (
     <>
       {/* Hero a todo lo ancho */}
-      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] aspect-[3/1] min-h-[250px] max-h-[450px]">
+      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] aspect-[3/1.1] min-h-[320px] max-h-[520px]">
         {/* Imagen de fondo */}
         <img
           src={importBusinessImage}
@@ -112,13 +113,15 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         </div>
         {/* Contenido sobrepuesto */}
         <div className="relative z-10 flex flex-col justify-center h-full pl-8 pr-4 lg:pl-24 max-w-2xl">
+          <p className="text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
+            Tu socio estratégico en importación y comercialización internacional
+          </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-            Transformamos Tu Negocio con Importación Inteligente
+            Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
           </h2>
-          <p className="text-lg text-white/90 mb-8 leading-relaxed drop-shadow">
-            Ofrecemos soluciones completas de importación y comercialización que incluyen gestión de proveedores internacionales,
-            consultoría especializada y servicios de logística integral. Desde la selección de productos hasta la entrega en tu negocio,
-            te acompañamos en cada paso para maximizar tu rentabilidad.
+          <p className="text-lg text-white/90 mb-8 leading-loose drop-shadow">
+            Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.<br /><br />
+            Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
           </p>
           <Button
             size="lg"
@@ -136,15 +139,15 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       <div className="space-y-12 container mx-auto px-4">
         {/* Categories Grid */}
         <section className="mt-16">
-          <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-foreground mb-4">
-              Nuestras Categorías
-            </h3>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Explora nuestra amplia gama de productos organizados por categorías
-            </p>
+          <div className="flex flex-col items-center mb-8">
+            <img
+              src={logoGlob}
+              alt="EcoInn Global Logo"
+              className="h-20 w-auto mb-4"
+              style={{ maxWidth: "180px" }}
+            />
+            <h3 className="text-3xl font-bold">Categorías de productos</h3>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
               <Link key={category.id} to={`/catalog/${category.id}`}>

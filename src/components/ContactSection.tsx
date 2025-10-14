@@ -313,47 +313,51 @@ const ContactSection = () => {
       </div>
 
       {/* FAQ Section */}
-      <section className="bg-accent/30 rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-foreground mb-4">
-            Preguntas Frecuentes
-          </h3>
-          <p className="text-muted-foreground">
-            Respuestas a las consultas más comunes de nuestros clientes
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-semibold text-foreground mb-2">¿Cuál es el tiempo de entrega?</h4>
-              <p className="text-muted-foreground text-sm">
-                Los tiempos de entrega varían entre 5-15 días hábiles dependiendo del producto y la ubicación.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-2">¿Ofrecen garantía?</h4>
-              <p className="text-muted-foreground text-sm">
-                Sí, todos nuestros productos incluyen garantía del fabricante que varía según el tipo de producto.
-              </p>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <div>
-              <h4 className="font-semibold text-foreground mb-2">¿Manejan pedidos al mayor?</h4>
-              <p className="text-muted-foreground text-sm">
-                Por supuesto, ofrecemos precios especiales para compras al mayor. Contáctanos para más información.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-foreground mb-2">¿Qué formas de pago aceptan?</h4>
-              <p className="text-muted-foreground text-sm">
-                Aceptamos transferencias bancarias, tarjetas de crédito/débito y sistemas de pago online.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="my-16">
+  <h3 className="text-3xl font-bold mb-8 text-center">Preguntas Frecuentes</h3>
+  <div className="space-y-6 max-w-2xl mx-auto">
+    <details className="bg-white rounded-lg shadow p-4 group" open>
+      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
+        ¿Cuál es el origen de sus productos y cómo garantizan la calidad?
+      </summary>
+      <p className="mt-2 text-gray-700">
+        Todos nuestros productos provienen de fábricas líderes y verificadas en China. Seleccionamos proveedores que cumplen altos estándares de fabricación, asegurando la mejor relación calidad-precio para el mercado venezolano.
+      </p>
+    </details>
+    <details className="bg-white rounded-lg shadow p-4 group">
+      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
+        ¿Existe una cantidad mínima de compra (MOQ) para sus productos?
+      </summary>
+      <p className="mt-2 text-gray-700">
+        Sí, manejamos una cantidad mínima de compra (MOQ) que varía según el producto y portafolio. Consulte con nuestro equipo de ventas para conocer el MOQ específico de su interés.
+      </p>
+    </details>
+    <details className="bg-white rounded-lg shadow p-4 group">
+      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
+        ¿Realizan despachos a nivel nacional? ¿Cómo funciona la distribución?
+      </summary>
+      <p className="mt-2 text-gray-700">
+        Sí, despachamos a nivel nacional para mayoristas y distribuidores. Coordinamos la entrega con transportistas de confianza y le proporcionamos detalles de seguimiento tras la confirmación del pedido y pago.
+      </p>
+    </details>
+    <details className="bg-white rounded-lg shadow p-4 group">
+      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
+        ¿Cómo manejan el proceso de importación y qué tan rápido puedo recibir mi pedido?
+      </summary>
+      <p className="mt-2 text-gray-700">
+        Nos encargamos de todo el proceso logístico, desde la validación del proveedor hasta los trámites aduaneros. El tiempo de entrega depende del producto y volumen; contáctenos para conocer el estimado exacto.
+      </p>
+    </details>
+    <details className="bg-white rounded-lg shadow p-4 group">
+      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
+        ¿Qué documentación legal o respaldo ofrecen sobre la importación de la mercancía?
+      </summary>
+      <p className="mt-2 text-gray-700">
+        Toda nuestra mercancía cumple con el régimen legal venezolano vigente y cuenta con respaldo documental para su comercialización legal, garantizando la legitimidad del producto final.
+      </p>
+    </details>
+  </div>
+</section>
     </div>
   );
 };
