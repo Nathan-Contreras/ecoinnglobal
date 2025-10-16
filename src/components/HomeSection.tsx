@@ -140,7 +140,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
             style={{ maxWidth: "240px" }}
           />
             <h3 className="text-4xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Nuestros Servicios
+            Nuestros Productos
           </h3>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
