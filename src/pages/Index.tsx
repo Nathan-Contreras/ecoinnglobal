@@ -54,7 +54,7 @@ const Index = () => {
             {/* Redes sociales */}
             <div className="flex justify-center space-x-6 mb-4">
               <a
-                href="https://wa.me/584247158666"
+                href="https://wa.me/584127917318"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
@@ -72,7 +72,7 @@ const Index = () => {
                 <FaInstagram size={24} />
               </a>
               <a
-                href="https://tiktok.com/@ecoinnglobal"
+                href="https://tiktok.com/@ecoinnglobalvzla"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
@@ -81,7 +81,7 @@ const Index = () => {
                 <FaTiktok size={20} />
               </a>
               <a
-                href="https://linkedin.com/company/ecoinnglobal"
+                href="https://linkedin.com/company/ecoinn-global"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"

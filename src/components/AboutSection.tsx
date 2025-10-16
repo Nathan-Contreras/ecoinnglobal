@@ -1,5 +1,4 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Globe, Users, Award, Clock } from "lucide-react";
 
 const AboutSection = () => {
@@ -12,23 +11,23 @@ const AboutSection = () => {
 
   const values = [
     {
-      title: "Calidad Garantizada",
-      description: "Todos nuestros productos pasan por rigurosos controles de calidad antes de llegar a nuestros clientes.",
+      title: "Investigación de Mercado Profunda",
+      description: "Realizamos una investigación exhaustiva del mercado local para entender las necesidades y tendencias actuales, asegurando que los productos que importamos sean altamente relevantes y demandados en Venezuela.",
       color: "bg-primary"
     },
     {
-      title: "Precios Competitivos",
-      description: "Trabajamos directamente con fabricantes para ofrecerte los mejores precios del mercado.",
+      title: "Sourcing Global Verificado",
+      description: "Nuestros expertos buscan y validan fábricas líderes en China con una amplia trayectoria en la producción de artículos de alta calidad. Solo trabajamos con proveedores verificados que cumplen con los más altos estándares.",
       color: "bg-secondary"
     },
     {
-      title: "Atención Personalizada",
-      description: "Nuestro equipo de expertos está disponible para asesorarte en cada paso de tu compra.",
+      title: "Logística Segura y Rápida",
+      description: "Implementamos un proceso logístico seguro y eficiente que garantiza la llegada rápida de la mercancía.",
       color: "bg-info"
     },
     {
       title: "Entrega Confiable",
-      description: "Sistema de logística optimizado para garantizar entregas puntuales y productos en perfecto estado.",
+      description: "Nos encargamos de todos los trámites aduaneros y cumplimos estrictamente con todas las exigencias del régimen legal vigente en Venezuela, dándote total tranquilidad.",
       color: "bg-success"
     }
   ];
@@ -37,13 +36,14 @@ const AboutSection = () => {
     <div className="space-y-12">
       {/* Hero Section */}
       <section className="text-center">
-        <h2 className="text-4xl font-bold text-foreground mb-6">
-          Sobre EcoInn Global
+        <h2 className="text-4xl font-bold text-foreground mb-8 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Sobre EcoInn
         </h2>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Somos una empresa especializada en la importación y distribución de productos de alta calidad. 
-          Con más de 5 años en el mercado, nos hemos consolidado como líderes en la importación de 
-          juguetes, artículos para el hogar, repuestos automotrices y productos para mascotas.
+          Somos  profesionales venezolanos que apostamos al crecimiento y desarrollo del 
+          comercio local, a través de las relaciones comerciales intercontinentales con 
+          aliados estratégicos en china, quien es hoy en día el mayor generador de intercambio 
+          comercial con países de américa. 
         </p>
       </section>
 

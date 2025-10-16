@@ -299,7 +299,7 @@ const ContactSection = () => {
                 className="w-full bg-success text-success-foreground hover:bg-success/90 flex items-center justify-center"
               >
                 <a
-                  href="https://wa.me/584247158666"
+                  href="https://wa.me/584127917318"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

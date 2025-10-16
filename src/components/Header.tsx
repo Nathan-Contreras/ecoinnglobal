@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Switch } from "@/components/ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ShoppingCart, Package, Home, Phone, Sun, Moon, ChevronDown, Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -31,7 +30,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
       <header className="bg-white shadow-none border-b-0 sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-4">
-            {/* Logo plano, más grande y desplazado a la derecha */}
             <div className="flex items-center" style={{ marginLeft: "1.5rem" }}>
               <img
                 src="/ecoinnglobal/lovable-uploads/logo_base.png"
