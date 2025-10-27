@@ -1,8 +1,19 @@
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import ProductSpecsTable, { ProductSpecs } from "@/components/ProductSpecsTable";
+import { lookupSpecs, defaultSpec as defaultProductSpec } from "@/data/productSpecs";
 
 // Mock data for products
 const productData = {
@@ -137,6 +148,12 @@ const categoryNames = {
 
 const CatalogPage = () => {
   const { category } = useParams<{ category: string }>();
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const getSpecsForProduct = (product: any, categoryKey?: string): ProductSpecs => {
+    return lookupSpecs(categoryKey ?? category ?? undefined, product?.id ?? undefined, product?.name ?? undefined) as ProductSpecs;
+  };
   
   if (!category || !productData[category as keyof typeof productData]) {
     return (
@@ -207,7 +224,15 @@ const CatalogPage = () => {
                   <span className="text-xl md:text-2xl font-bold text-primary">
                     {product.price}
                   </span>
-                  <Button size="sm" variant="outline" className="w-full sm:w-auto">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                    onClick={() => {
+                      setSelectedProduct(product);
+                      setDialogOpen(true);
+                    }}
+                  >
                     Ver detalles
                   </Button>
                 </div>
@@ -216,6 +241,27 @@ const CatalogPage = () => {
           ))}
         </div>
       </div>
+      {/* Dialog con especificaciones */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{selectedProduct ? selectedProduct.name : "Detalles del producto"}</DialogTitle>
+            <DialogDescription>
+              {selectedProduct ? selectedProduct.description : "Especificaciones del producto"}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="mt-4">
+            <ProductSpecsTable specs={selectedProduct ? getSpecsForProduct(selectedProduct) : defaultProductSpec} />
+          </div>
+
+          <DialogFooter className="mt-4">
+            <div className="w-full flex justify-end">
+              <Button onClick={() => setDialogOpen(false)}>Cerrar</Button>
+            </div>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

@@ -95,7 +95,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
   return (
     <>
       {/* Hero a todo lo ancho - dividido en dos columnas (texto izquierda, carrusel derecha) */}
-      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[360px] max-h-[720px]">
+  <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-20 lg:-mt-24 min-h-[480px] max-h-[900px]">
         <img
           src={importBusinessImage}
           alt=""
@@ -103,19 +103,19 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
+  <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
           {/* Left: texto (slogan + descripción) */}
           <div className="w-full lg:w-1/2 pr-0 lg:pr-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
               Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
             </h2>
 
-            <div style={{ textAlign: "justify", maxWidth: "820px" }}>
-              <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
+            <div style={{ maxWidth: "820px" }}>
+                <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
                 Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.
               </p>
 
-              <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
+                <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
               </p>
             </div>
@@ -172,9 +172,9 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 </div>
                 <div className="text-center max-w-[220px]">
                   <h4 className="text-lg font-semibold text-primary mb-1">{category.name}</h4>
-                  <p className="text-muted-foreground text-sm" style={{ textAlign: "justify" }}>
-                    {category.description}
-                  </p>
+                  <p className="text-muted-foreground text-sm text-center">
+                      {category.description}
+                    </p>
                   <div className="mt-4">
                     {/* Ver detalles llevará a ficha técnica; quitar precio (no mostrado aquí) */}
                     <button className="text-primary font-medium">Ver ficha técnica &gt;</button>

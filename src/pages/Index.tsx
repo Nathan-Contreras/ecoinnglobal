@@ -5,6 +5,7 @@ import AboutSection from "@/components/AboutSection";
 import BusinessModelsSection from "@/components/BusinessModelsSection";
 import ContactSection from "@/components/ContactSection";
 import { FaWhatsapp, FaInstagram, FaLinkedin, FaTiktok } from "react-icons/fa";
+import FloatingSocials from "@/components/FloatingSocials";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -103,6 +104,8 @@ const Index = () => {
           </div>
         </div>
       </footer>
+      {/* Floating social button */}
+      <FloatingSocials />
     </div>
   );
 };
