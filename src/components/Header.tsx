@@ -14,6 +14,9 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const isDark = theme === "dark";
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // nuevo estado para mostrar el menú de modelos al hacer hover (escritorio)
+  const [businessHover, setBusinessHover] = useState(false);
+
   const tabs = [
     { id: "home", label: "Principal", icon: Home },
     { id: "about", label: "Sobre Nosotros", icon: Package },
@@ -22,7 +25,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const businessModels = [
     { id: "importacion", label: "Importación" },
     { id: "mayoreo", label: "Comercialización e Importación" },
-    { id: "proveedores", label: "Proveedores" },
   ];
 
   return (
@@ -34,12 +36,12 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               <img
                 src="/ecoinnglobal/lovable-uploads/logo_base.png"
                 alt="EcoInn Global Logo"
-                className="h-28 w-auto md:h-28 sm:h-24 object-contain" // más alto y recortado por debajo
+                className="h-28 w-auto md:h-28 sm:h-24 object-contain"
                 style={{ minWidth: "100px", objectPosition: "top" }}
               />
             </div>
             
-            <nav className="hidden md:flex space-x-1 ml-auto mr-4">
+            <nav className="hidden md:flex space-x-1 ml-auto mr-4 items-center">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 return (
@@ -58,36 +60,43 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                   </Button>
                 );
               })}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant={activeTab === "business" ? "secondary" : "ghost"}
-                    className={`flex items-center space-x-2 ${
-                      activeTab === "business" 
-                        ? "text-secondary-foreground" 
-                        : "text-gray-800 dark:text-gray-200 hover:bg-gray-100"
-                    }`}
-                  >
-                    <ShoppingCart className="h-4 w-4" />
-                    <span>Modelos de Negocio</span>
-                    <ChevronDown className="h-3 w-3" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="center" 
-                  className="w-48 bg-background border border-border shadow-lg z-50"
+
+              {/* Desktop: mostrar menú de modelos al hacer hover */}
+              <div
+                className="relative"
+                onMouseEnter={() => setBusinessHover(true)}
+                onMouseLeave={() => setBusinessHover(false)}
+              >
+                <Button
+                  variant={activeTab.startsWith("business") ? "secondary" : "ghost"}
+                  className={`flex items-center space-x-2 ${
+                    activeTab.startsWith("business")
+                      ? "text-secondary-foreground"
+                      : "text-gray-800 dark:text-gray-200 hover:bg-gray-100"
+                  }`}
+                  aria-haspopup="menu"
+                  aria-expanded={businessHover}
                 >
-                  {businessModels.map((model) => (
-                    <DropdownMenuItem
-                      key={model.id}
-                      onClick={() => onTabChange(`business-${model.id}`)}
-                      className="cursor-pointer hover:bg-accent focus:bg-accent"
-                    >
-                      {model.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  <ShoppingCart className="h-4 w-4" />
+                  <span>Modelos de Negocio</span>
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+
+                {businessHover && (
+                  <div className="absolute right-0 mt-2 w-48 bg-background border border-border shadow-lg z-50 rounded-md overflow-hidden">
+                    {businessModels.map((model) => (
+                      <button
+                        key={model.id}
+                        onClick={() => onTabChange(`business-${model.id}`)}
+                        className="w-full text-left px-4 py-3 hover:bg-accent focus:bg-accent"
+                      >
+                        {model.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <Button
                 variant={activeTab === "contact" ? "default" : "outline"}
                 onClick={() => onTabChange("contact")}
@@ -103,7 +112,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </nav>
 
             <div className="flex items-center space-x-4">
-              {/* Theme Toggle (solo escritorio) */}
               <div className="hidden md:flex items-center space-x-2">
                 <Button
                   variant="ghost"
@@ -124,7 +132,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                   </span>
                 </Button>
               </div>
-              {/* Mobile menu button */}
               <div className="md:hidden">
                 <Button
                   variant="ghost"
@@ -137,7 +144,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
             </div>
           </div>
         </div>
-        {/* Franja degradada inferior */}
         <div className="w-full h-2 bg-gradient-to-r from-blue-500 via-primary to-green-500" />
       </header>
 
@@ -172,7 +178,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                   </Button>
                 );
               })}
-              {/* Business Models */}
+              {/* Business Models (mobile keeps DropdownMenu) */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -206,6 +212,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
+
               <Button
                 variant={activeTab === "contact" ? "default" : "outline"}
                 onClick={() => {
@@ -222,7 +229,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 <span className="text-base">Solicitar Información</span>
               </Button>
             </div>
-            {/* Botón de tema en mobile (dentro del Drawer) */}
             <div className="mt-auto pt-6 flex items-center space-x-2 justify-center border-t border-border">
               <Button
                 variant="ghost"

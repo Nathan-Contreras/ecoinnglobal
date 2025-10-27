@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent} from "@/components/ui/card";
 import { Package, Truck, CircleDollarSign, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import importBusinessImage from "@/assets/import-business.jpg";
 import toysImage from "@/assets/toys-category.jpg";
 import homeImage from "@/assets/home-category.jpg";
@@ -93,89 +94,118 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
   return (
     <>
-      {/* Hero a todo lo ancho */}
-      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] aspect-[3/1.1] min-h-[320px] max-h-[520px]">
+      {/* Hero a todo lo ancho - dividido en dos columnas (texto izquierda, carrusel derecha) */}
+      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[360px] max-h-[720px]">
         <img
           src={importBusinessImage}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-        {/* Logo marca de agua */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none z-0">
-          <img
-            src="/lovable-uploads/1cf72272-446d-47a1-9934-5b191c36b54b.png"
-            alt="EcoInn Global Background Logo"
-            className="w-96 h-auto"
-          />
-        </div>
-        {/* Contenido sobrepuesto */}
-        <div className="relative z-10 flex flex-col justify-center h-full pl-8 pr-4 lg:pl-24 max-w-2xl">
-          {/* Frase de poder eliminada */}
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-            Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
-          </h2>
-          <p className="text-lg text-white/90 mb-8 leading-loose drop-shadow">
-            Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.<br />
-          </p>
-          <Button
-            size="lg"
-            onClick={() => onTabChange("business")}
-            className="text-lg px-8 py-4 font-semibold bg-primary/90 hover:bg-primary"
-          >
-            Descubre Nuestros Modelos de Negocio
-          </Button>
+
+        <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
+          {/* Left: texto (slogan + descripción) */}
+          <div className="w-full lg:w-1/2 pr-0 lg:pr-12">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+              Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
+            </h2>
+
+            <div style={{ textAlign: "justify", maxWidth: "820px" }}>
+              <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
+                Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.
+              </p>
+
+              <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
+                Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
+              </p>
+            </div>
+
+            {/* NOTE: botón "Descubre Nuestros Modelos de Negocio" eliminado por solicitud */}
+          </div>
+
+          {/* Right: carrusel de fotos (placeholder) */}
+          <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
+            <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg bg-black/20">
+              {/* Carousel placeholder - imágenes que nos enviarán */}
+              <div className="absolute inset-0 flex items-center justify-center text-white/60">
+                <span className="text-sm md:text-base">Carrusel de fotos (imágenes a subir)</span>
+              </div>
+              {/* Aquí se integrará el carrusel con las imágenes que Angel/usuario entregue */}
+            </div>
+          </div>
         </div>
       </section>
+
       {/* Franja degradada invertida a todo lo ancho */}
       <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen h-2 bg-gradient-to-r from-green-500 via-primary to-blue-500" />
 
-      {/* Resto del contenido en caja */}
-      <section className="mt-4">
-        <div className="flex flex-col items-center mb-4">
+      {/* Ajuste: aumentar separación vertical entre secciones */}
+      <section className="mt-8">
+        <div className="flex flex-col items-center mb-2">
           <img
             src={logoGlob}
             alt="EcoInn Global Logo"
-            className="h-36 w-auto mb-2"
-            style={{ maxWidth: "240px" }}
+            className="h-40 w-auto mb-1"
+            style={{ maxWidth: "320px" }}
           />
-            <h3 className="text-4xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <motion.h3
+            className="text-3xl md:text-4xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+            initial={{ filter: "blur(10px)", opacity: 0 }}
+            whileInView={{ filter: "blur(0px)", opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             Nuestros Productos
-          </h3>
+          </motion.h3>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 container mx-auto">
           {categories.map((category) => (
             <Link key={category.id} to={`/catalog/${category.id}`}>
               <div className="flex flex-col items-center group cursor-pointer">
-                <div className="w-40 h-40 rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-card to-accent/20 mb-4 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-44 h-44 rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-card to-accent/20 mb-4 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="text-center">
+                <div className="text-center max-w-[220px]">
                   <h4 className="text-lg font-semibold text-primary mb-1">{category.name}</h4>
-                  <p className="text-muted-foreground text-sm">{category.description}</p>
+                  <p className="text-muted-foreground text-sm" style={{ textAlign: "justify" }}>
+                    {category.description}
+                  </p>
+                  <div className="mt-4">
+                    {/* Ver detalles llevará a ficha técnica; quitar precio (no mostrado aquí) */}
+                    <button className="text-primary font-medium">Ver ficha técnica &gt;</button>
+                  </div>
                 </div>
               </div>
             </Link>
           ))}
         </div>
       </section>
-      <br /><br />
 
-      {/* Services Section */}
-      <section>
+      {/* Separador adicional */}
+      <div className="h-8" />
+
+      {/* Services Section - más separación respecto a categorías */}
+      <section className="container mx-auto px-4 mt-12">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-primary to-secondary mb-6">
-            <Package className="h-10 w-10 text-white" />
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-primary to-secondary mb-6 shadow-md">
+            <Package className="h-12 w-12 text-white" />
           </div>
-          <h3 className="text-4xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <motion.h3
+            className="text-3xl md:text-4xl font-bold text-foreground mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+            initial={{ filter: "blur(10px)", opacity: 0 }}
+            whileInView={{ filter: "blur(0px)", opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
             Nuestros Servicios
-          </h3>
-          <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
-            Descubre las diferentes formas en que podemos transformar tu negocio con nuestras soluciones integrales
+          </motion.h3>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+            Descubre cómo acompañamos tu negocio en cada etapa de la importación y comercialización.
           </p>
         </div>
 
@@ -183,112 +213,92 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="flex flex-col items-center text-center space-y-6 animate-fade-in"
+              className="flex flex-col items-center text-center space-y-6"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg shadow-primary/10 border-4 border-primary/10 bg-gradient-to-b from-card to-accent/20">
+              <div className="relative w-44 h-44 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg border-4 border-primary/10 bg-gradient-to-b from-card to-accent/20">
                 <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3 max-w-xs">
                 <h4 className="text-2xl font-semibold text-foreground">{service.name}</h4>
-                <p className="text-muted-foreground text-base leading-relaxed max-w-xs mx-auto">{service.description}</p>
+                <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
                 <div className="flex flex-wrap justify-center gap-2">
-
+                  {service.id === "import" ? (
+                    <Button variant="outline" onClick={() => onTabChange("business-import")}>
+                      Describir servicio de importación
+                    </Button>
+                  ) : service.id === "suppliers" ? (
+                    <Button variant="outline" onClick={() => onTabChange("business-aliados")}>
+                      Aliados comerciales
+                    </Button>
+                  ) : (
+                    <Button variant="outline" onClick={() => onTabChange("contact")}>
+                      Solicitar Consultoría
+                    </Button>
+                  )}
                 </div>
-                <Button variant="outline" onClick={() => onTabChange("business")} className="group">
-                  <span className="mr-2">Descubrir más</span>
-                  <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Button>
               </div>
             </div>
           ))}
         </div>
       </section>
-      <br /><br />
-      {/* Features Section */}
-      <section className="bg-accent/30 rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            ¿Por qué elegirnos?
-          </h3>
-          <p className="text-muted-foreground text-lg">
-            Razones que nos hacen tu mejor opción para productos de importación
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <Card key={index} className="text-center border-0 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-4">
-                    <Icon className="h-6 w-6 text-primary-foreground" />
-                  </div>
-                  <h4 className="text-lg font-semibold mb-2 text-foreground">
-                    {feature.title}
-                  </h4>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+      {/* Más separación antes de siguientes bloques */}
+      <div className="h-12" />
+
+      {/* Why choose us - mostrar carrusel de imágenes reales (placeholder) */}
+      <section className="container mx-auto px-4">
+        <div className="bg-accent/30 rounded-2xl p-8">
+          <div className="text-center mb-6">
+            <h3 className="text-3xl font-bold text-foreground mb-4">¿Por qué elegirnos?</h3>
+            <p className="text-muted-foreground text-lg">Razones que nos hacen tu mejor opción</p>
+          </div>
+
+          <div className="w-full h-64 rounded-lg overflow-hidden bg-black/10 flex items-center justify-center">
+            <span className="text-muted-foreground">Carrusel de imágenes reales (a subir)</span>
+          </div>
         </div>
       </section>
-      <br /><br />
-      {/* Download Catalog Section */}
-      <section className="bg-card border rounded-2xl p-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
-            <Download className="h-8 w-8 text-primary" />
+
+      {/* Download Catalog Section - actualizar PDF (Angel lo subirá) */}
+      <div className="h-10" />
+      <section className="container mx-auto px-4">
+        <div className="bg-card border rounded-2xl p-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
+              <Download className="h-8 w-8 text-primary" />
+            </div>
+            <h3 className="text-3xl font-bold text-foreground mb-4">Descarga Nuestro Catálogo Completo</h3>
+            <p className="text-muted-foreground text-lg mb-8">
+              Accede a toda nuestra gama de productos con precios, especificaciones y detalles técnicos.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button size="lg" className="text-lg px-8 py-3" asChild>
+                <a href="/assets/catalogo-ecoinn.pdf" download="catalogo-ecoinn.pdf">
+                  <Download className="mr-2 h-5 w-5" />
+                  Descargar Catálogo PDF
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => onTabChange("contact")}
+                className="text-lg px-8 py-3"
+              >
+                Solicitar Catálogo Físico
+              </Button>
+            </div>
+            <p className="text-sm text-muted-foreground mt-4">Archivo PDF • actualizado</p>
           </div>
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            Descarga Nuestro Catálogo Completo
-          </h3>
-          <p className="text-muted-foreground text-lg mb-8">
-            Accede a toda nuestra gama de productos con precios, especificaciones y detalles técnicos. 
-            Ideal para planificar tu próxima importación.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="text-lg px-8 py-3" asChild>
-              <a href="./catalogo-ecoinn.pdf" download="catalogo-ecoinn.pdf">
-                <Download className="mr-2 h-5 w-5" />
-                Descargar Catálogo PDF
-              </a>
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline"
-              onClick={() => onTabChange("contact")}
-              className="text-lg px-8 py-3"
-            >
-              Solicitar Catálogo Físico
-            </Button>
-          </div>
-          <p className="text-sm text-muted-foreground mt-4">
-            Archivo PDF • 15.2 MB • Actualizado mensualmente
-          </p>
         </div>
       </section>
-      <br /><br />
-      {/* CTA Section */}
-      <section className="text-center bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white">
-        <h3 className="text-3xl font-bold mb-4">
-          ¿Listo para hacer tu pedido?
-        </h3>
-        <p className="text-xl mb-6">
-          Contáctanos para obtener más información sobre nuestros productos
-        </p>
-        <Button 
-          size="lg" 
-          variant="secondary"
-          onClick={() => onTabChange("contact")}
-          className="text-lg px-8 py-3"
-        >
+
+      {/* CTA Section - separación aplicada */}
+      <div className="h-10" />
+      <section className="text-center bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white container mx-auto px-4">
+        <h3 className="text-3xl font-bold mb-4">¿Listo para hacer tu pedido?</h3>
+        <p className="text-xl mb-6">Contáctanos para obtener más información sobre nuestros productos</p>
+        <Button size="lg" variant="secondary" onClick={() => onTabChange("contact")} className="text-lg px-8 py-3">
           Solicitar Información
         </Button>
       </section>

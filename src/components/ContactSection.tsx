@@ -312,52 +312,97 @@ const ContactSection = () => {
         </div>
       </div>
 
-      {/* FAQ Section */}
+      {/* FAQ Section - texto más corto, plegable, dos columnas con la quinta centrada */}
       <section className="my-16">
-  <h3 className="text-3xl font-bold mb-8 text-center">Preguntas Frecuentes</h3>
-  <div className="space-y-6 max-w-2xl mx-auto">
-    <details className="bg-white rounded-lg shadow p-4 group" open>
-      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
-        ¿Cuál es el origen de sus productos y cómo garantizan la calidad?
-      </summary>
-      <p className="mt-2 text-gray-700">
-        Todos nuestros productos provienen de fábricas líderes y verificadas en China. Seleccionamos proveedores que cumplen altos estándares de fabricación, asegurando la mejor relación calidad-precio para el mercado venezolano.
-      </p>
-    </details>
-    <details className="bg-white rounded-lg shadow p-4 group">
-      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
-        ¿Existe una cantidad mínima de compra (MOQ) para sus productos?
-      </summary>
-      <p className="mt-2 text-gray-700">
-        Sí, manejamos una cantidad mínima de compra (MOQ) que varía según el producto y portafolio. Consulte con nuestro equipo de ventas para conocer el MOQ específico de su interés.
-      </p>
-    </details>
-    <details className="bg-white rounded-lg shadow p-4 group">
-      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
-        ¿Realizan despachos a nivel nacional? ¿Cómo funciona la distribución?
-      </summary>
-      <p className="mt-2 text-gray-700">
-        Sí, despachamos a nivel nacional para mayoristas y distribuidores. Coordinamos la entrega con transportistas de confianza y le proporcionamos detalles de seguimiento tras la confirmación del pedido y pago.
-      </p>
-    </details>
-    <details className="bg-white rounded-lg shadow p-4 group">
-      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
-        ¿Cómo manejan el proceso de importación y qué tan rápido puedo recibir mi pedido?
-      </summary>
-      <p className="mt-2 text-gray-700">
-        Nos encargamos de todo el proceso logístico, desde la validación del proveedor hasta los trámites aduaneros. El tiempo de entrega depende del producto y volumen; contáctenos para conocer el estimado exacto.
-      </p>
-    </details>
-    <details className="bg-white rounded-lg shadow p-4 group">
-      <summary className="font-semibold cursor-pointer text-lg group-open:text-primary">
-        ¿Qué documentación legal o respaldo ofrecen sobre la importación de la mercancía?
-      </summary>
-      <p className="mt-2 text-gray-700">
-        Toda nuestra mercancía cumple con el régimen legal venezolano vigente y cuenta con respaldo documental para su comercialización legal, garantizando la legitimidad del producto final.
-      </p>
-    </details>
-  </div>
-</section>
+        <h3 className="text-3xl font-bold mb-8 text-center">Preguntas Frecuentes</h3>
+
+        {/* Estilos locales para triángulo y animación */}
+        <style>{`
+          details summary { position: relative; padding-bottom: 0.5rem; padding-right: 2rem; cursor: pointer; }
+          /* Triángulo en el extremo derecho; apunta abajo cuando cerrado, arriba cuando abierto */
+          details summary .faq-triangle {
+            position: absolute;
+            right: 0.25rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            transform-origin: center;
+            transition: transform 180ms ease, opacity 180ms ease;
+            opacity: 1;
+            pointer-events: none;
+          }
+          details[open] summary .faq-triangle {
+            transform: translateY(-50%) rotate(180deg);
+          }
+          .faq-answer {
+            opacity: 0;
+            transform: translateY(-6px);
+            transition: opacity 220ms ease, transform 220ms ease;
+            will-change: opacity, transform;
+          }
+          details[open] .faq-answer {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        `}</style>
+
+        {(() => {
+          const qas = [
+            {
+              q: "¿Cuál es el origen y cómo garantizan la calidad?",
+              a: "Productos de fábricas verificadas en China. Sourcing riguroso y control de calidad antes del envío."
+            },
+            {
+              q: "¿Hay MOQ (cantidad mínima)?",
+              a: "Sí. Varía por producto y portafolio. Consulte a ventas para el detalle."
+            },
+            {
+              q: "¿Hacen despachos a nivel nacional?",
+              a: "Sí. Coordinamos logística y entregas a almacén o punto de venta con seguimiento."
+            },
+            {
+              q: "¿Cómo es el proceso de importación y tiempos?",
+              a: "Gestionamos proveedor, transporte y aduanas. Tiempos varían por producto/volumen; pregunte para su caso."
+            },
+            {
+              q: "¿Qué respaldo documental ofrecen?",
+              a: "Toda la mercancía cumple el régimen legal venezolano y cuenta con la documentación necesaria."
+            }
+          ];
+
+          return (
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {qas.map((item, idx) => {
+                  const isFifth = idx === 4;
+                  return (
+                    <details
+                      key={idx}
+                      className={`${isFifth ? "md:col-span-2" : ""} p-3 rounded-md group`}
+                    >
+                      <summary className="font-semibold cursor-pointer list-none outline-none">
+                        {item.q}
+                        <span className="faq-triangle text-muted-foreground" aria-hidden>
+                          <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 1L7 7L13 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                      </summary>
+
+                      {/* Contenido: la quinta respuesta se centra y limita su ancho */}
+                      <div
+                        className={`mt-2 text-muted-foreground faq-answer ${isFifth ? "mx-auto max-w-xl" : ""}`}
+                        style={{ textAlign: isFifth ? "center" : "justify" }}
+                      >
+                        {item.a}
+                      </div>
+                    </details>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+      </section>
     </div>
   );
 };

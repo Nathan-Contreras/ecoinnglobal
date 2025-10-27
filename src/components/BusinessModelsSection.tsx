@@ -2,7 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Package, Users, HandHeart, Truck, Globe, Shield, TrendingUp, CheckCircle } from "lucide-react";
+import { Package, Users, Truck, Globe, Shield, TrendingUp, CheckCircle } from "lucide-react";
+import React, { useState, useEffect } from "react";
 
 interface BusinessModelsSectionProps {
   onTabChange: (tab: string) => void;
@@ -49,26 +50,6 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
         "Inventario garantizado",
         "Soporte comercial especializado",
         "Descuentos progresivos"
-      ]
-    },
-    {
-      id: "aliados",
-      title: "Aliados de Instalación",
-      description: "Red de aliados confiables y verificados",
-      icon: HandHeart,
-      color: "from-purple-500 to-purple-600",
-      features: [
-        "Aliados pre-verificados",
-        "Evaluación de calidad continua",
-        "Conexión directa con fabricantes",
-        "Negociación de precios especiales",
-        "Garantía de cumplimiento"
-      ],
-      benefits: [
-        "Confiabilidad garantizada",
-        "Mejores precios del mercado",
-        "Calidad certificada",
-        "Relaciones a largo plazo"
       ]
     }
   ];
@@ -119,133 +100,131 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
     );
   };
 
+  // --- Nueva lógica de animación entre tabs ---
+  const [active, setActive] = useState<string>(activeModel);
+  const [isFading, setIsFading] = useState(false);
+  const [pending, setPending] = useState<string | null>(null);
+
+  // Manejo de cambio desde los triggers (intercepta para animar)
+  const handleTabChange = (value: string) => {
+    if (value === active) return;
+    setIsFading(true);
+    setPending(value);
+    window.setTimeout(() => {
+      setActive(value);
+      setIsFading(false);
+      setPending(null);
+      onTabChange(`business-${value}`);
+    }, 260); // duración de la animación (ms)
+  };
+
+  // Si el prop externo cambia, animar igualmente
+  useEffect(() => {
+    if (activeModel !== active) {
+      setIsFading(true);
+      setPending(activeModel);
+      const t = window.setTimeout(() => {
+        setActive(activeModel);
+        setIsFading(false);
+        setPending(null);
+      }, 260);
+      return () => clearTimeout(t);
+    }
+  }, [activeModel, active]);
+
   return (
     <div className="space-y-12">
       {/* Header */}
       <section className="text-center">
+        {/* Blur effect: ligero blur por defecto, se quita al hover */}
+        <style>{`
+          .bm-title { filter: blur(2px); transition: filter 350ms ease, opacity 350ms ease; }
+          .bm-title:hover { filter: blur(0); }
+        `}</style>
+
         <h2
-          className="text-5xl md:text-6xl font-extrabold mb-4 font-inter bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent"
+          className="bm-title text-4xl md:text-5xl font-extrabold mb-4 font-inter bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent"
           style={{ lineHeight: "1.15" }}
         >
           Modelos de Negocio
         </h2>
       </section>
 
-      {/* Business Models Tabs */}
+      {/* Business Models Tabs - con animación al cambiar */}
       <section>
-        <Tabs value={activeModel} onValueChange={(value) => onTabChange(`business-${value}`)} className="w-full">
+        <Tabs value={active} onValueChange={handleTabChange} className="w-full">
           <TabsList className="flex w-full justify-center gap-2 bg-transparent">
             <TabsTrigger value="importacion" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
-              Importa con nosotros
+              Servicio de Importación
             </TabsTrigger>
             <TabsTrigger value="mayoreo" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
               Venta al Mayor
             </TabsTrigger>
-            <TabsTrigger value="aliados" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
-              Aliados de Instalación
-            </TabsTrigger>
           </TabsList>
+
           {businessModels.map((model) => (
             <TabsContent key={model.id} value={model.id} className="mt-8">
-              <div className="max-w-3xl mx-auto">
-                <ModelCard model={model} />
+              {/* Wrapper animado: fade + slight translate */}
+              <div
+                className={`transition-all duration-260 ease-out ${isFading && active === model.id ? "opacity-0 translate-y-3" : "opacity-100 translate-y-0"}`}
+                style={{ willChange: "opacity, transform" }}
+              >
+                <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  {/* Left: texto detallado */}
+                  <div>
+                    <h3 className="text-2xl font-bold text-primary mb-3">{model.title}</h3>
+                    <p className="text-muted-foreground mb-4" style={{ textAlign: "justify" }}>{model.description}</p>
+
+                    <h4 className="font-semibold text-foreground mb-2 flex items-center">
+                      <TrendingUp className="h-4 w-4 mr-2 text-primary" />
+                      Características Principales
+                    </h4>
+                    <ul className="space-y-2 mb-4">
+                      {model.features.map((feature, index) => (
+                        <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <CheckCircle className="h-4 w-4 text-green-500" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <h4 className="font-semibold text-foreground mb-2">Beneficios</h4>
+                    <ul className="list-disc list-inside text-sm text-muted-foreground mb-4">
+                      {model.benefits.map((b, i) => <li key={i}>{b}</li>)}
+                    </ul>
+
+                    <Button className="mt-2" onClick={() => onTabChange("contact")} variant="secondary">Solicitar Información</Button>
+                  </div>
+
+                  {/* Right: galería / imágenes reales (dos columnas visuales) */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {/* placeholders de imagen; reemplazar por imágenes reales */}
+                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
+                      <img src="/assets/business-1.jpg" alt="img1" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
+                      <img src="/assets/business-2.jpg" alt="img2" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
+                      <img src="/assets/business-3.jpg" alt="img3" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
+                      <img src="/assets/business-4.jpg" alt="img4" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                </div>
               </div>
             </TabsContent>
           ))}
         </Tabs>
       </section>
 
-      {/* Statistics */}
-      <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            Nuestros Resultados
-          </h3>
-          <p className="text-muted-foreground text-lg">
-            Números que respaldan nuestra experiencia y confiabilidad
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-full mb-3">
-                  <Icon className="h-6 w-6 text-primary-foreground" />
-                </div>
-                <div className="text-3xl font-bold text-primary mb-1">
-                  {stat.value}
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  {stat.label}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="bg-accent/30 rounded-2xl p-8">
-        <div className="text-center mb-8">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            Nuestro Proceso
-          </h3>
-          <p className="text-muted-foreground text-lg">
-            Un enfoque estructurado para garantizar el éxito de tu negocio
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full text-white font-bold text-xl mb-4">
-              1
-            </div>
-            <h4 className="text-lg font-semibold mb-2">Consulta Inicial</h4>
-            <p className="text-muted-foreground">
-              Analizamos tus necesidades y objetivos comerciales para definir la mejor estrategia
-            </p>
-          </div>
-          
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full text-white font-bold text-xl mb-4">
-              2
-            </div>
-            <h4 className="text-lg font-semibold mb-2">Desarrollo de Propuesta</h4>
-            <p className="text-muted-foreground">
-              Creamos una propuesta personalizada con términos, precios y cronogramas específicos
-            </p>
-          </div>
-          
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full text-white font-bold text-xl mb-4">
-              3
-            </div>
-            <h4 className="text-lg font-semibold mb-2">Ejecución y Seguimiento</h4>
-            <p className="text-muted-foreground">
-              Implementamos la solución con seguimiento continuo y soporte dedicado
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="text-center bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white">
-        <h3 className="text-3xl font-bold mb-4">
-          ¿Listo para hacer crecer tu negocio?
-        </h3>
-        <p className="text-xl mb-6">
-          Contáctanos para una consulta personalizada y descubre cómo podemos ayudarte
-        </p>
-        <Button 
-          size="lg" 
-          variant="secondary"
-          onClick={() => onTabChange("contact")}
-          className="text-lg px-8 py-3"
-        >
-          Solicitar Consulta Gratuita
-        </Button>
+      {/* NOTE: Se eliminaron 'Nuestros Resultados' y 'Proceso' según solicitud */}
+      {/* CTA final (mantener una llamada a la acción) */}
+      <section className="text-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8">
+        <h3 className="text-2xl font-bold mb-4">¿Listo para implementar un modelo?</h3>
+        <p className="text-muted-foreground mb-6">Contáctanos para diseñar la solución a la medida de tu negocio.</p>
+        <Button onClick={() => onTabChange("contact")} variant="secondary">Solicitar Consulta</Button>
       </section>
     </div>
   );
