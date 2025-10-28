@@ -13,6 +13,7 @@ import serviceSuppliersImage from "@/assets/service-suppliers.jpg";
 import serviceConsultationImage from "@/assets/service-consultation.jpg";
 import logoGlob from "../assets/logo_glob.png";
 
+<br />
 interface HomeSectionProps {
   onTabChange: (tab: string) => void;
 }
@@ -35,7 +36,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       id: "supplies",
       name: "Insumos",
       description: "Materiales y suministros para tu negocio",
-      image: partsImage, // Cambia la imagen si tienes una específica para insumos
+      image: partsImage,
     },
     {
       id: "toys",
@@ -102,13 +103,9 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-
+<br /><br /><br />
   <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
-          {/* Left: texto (slogan + descripción) */}
           <div className="w-full lg:w-1/2 pr-0 lg:pr-12">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-              Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
-            </h2>
 
             <div style={{ maxWidth: "820px" }}>
                 <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
@@ -118,6 +115,9 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
               </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+              Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
+            </h2>
             </div>
 
             {/* NOTE: botón "Descubre Nuestros Modelos de Negocio" eliminado por solicitud */}
@@ -160,36 +160,42 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 container mx-auto">
-          {categories.map((category) => (
+          {categories.map((category, idx) => (
             <Link key={category.id} to={`/catalog/${category.id}`}>
-              <div className="flex flex-col items-center group cursor-pointer">
-                <div className="w-44 h-44 rounded-full overflow-hidden shadow-lg bg-gradient-to-b from-card to-accent/20 mb-4 group-hover:scale-105 transition-transform duration-300">
+              <motion.div
+                className="flex flex-col items-center group cursor-pointer"
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.45, delay: idx * 0.06 }}
+              >
+                <div className="w-44 h-44 rounded-full overflow-hidden shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-b from-green-500 via-primary to-blue-500">
                   <img
                     src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
+
+                {/* gradient bar (mismo degradado de la página principal) */}
+                <div className="w-full max-w-[220px] mb-3">
+                  <div className="h-1 w-full rounded bg-gradient-to-r from-green-500 via-primary to-blue-500" />
+                </div>
+
                 <div className="text-center max-w-[220px]">
                   <h4 className="text-lg font-semibold text-primary mb-1">{category.name}</h4>
                   <p className="text-muted-foreground text-sm text-center">
-                      {category.description}
-                    </p>
-                  <div className="mt-4">
-                    {/* Ver detalles llevará a ficha técnica; quitar precio (no mostrado aquí) */}
-                    <button className="text-primary font-medium">Ver ficha técnica &gt;</button>
-                  </div>
+                    {category.description}
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             </Link>
-          ))}
+          ))} 
         </div>
       </section>
 
-      {/* Separador adicional */}
       <div className="h-8" />
 
-      {/* Services Section - más separación respecto a categorías */}
       <section className="container mx-auto px-4 mt-12">
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-primary to-secondary mb-6 shadow-md">
@@ -211,10 +217,13 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
         <div className="grid gap-10 md:grid-cols-3">
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={service.id}
               className="flex flex-col items-center text-center space-y-6"
-              style={{ animationDelay: `${index * 150}ms` }}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.5, delay: index * 0.12, ease: "easeOut" }}
             >
               <div className="relative w-44 h-44 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg border-4 border-primary/10 bg-gradient-to-b from-card to-accent/20">
                 <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
@@ -224,23 +233,32 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
                 <div className="flex flex-wrap justify-center gap-2">
                   {service.id === "import" ? (
-                    <Button variant="outline" onClick={() => onTabChange("business-import")}>
+                    <Button
+                      onClick={() => onTabChange("business-import")}
+                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                    >
                       Describir servicio de importación
                     </Button>
                   ) : service.id === "suppliers" ? (
-                    <Button variant="outline" onClick={() => onTabChange("business-aliados")}>
-                      Aliados comerciales
+                    <Button
+                      onClick={() => onTabChange("business-aliados")}
+                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                    >
+                      Aliados recomendados
                     </Button>
                   ) : (
-                    <Button variant="outline" onClick={() => onTabChange("contact")}>
+                    <Button
+                      onClick={() => onTabChange("contact")}
+                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                    >
                       Solicitar Consultoría
                     </Button>
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+         </div>
       </section>
 
       {/* Más separación antes de siguientes bloques */}

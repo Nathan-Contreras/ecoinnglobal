@@ -1,6 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Package, Users, Truck, Globe, Shield, TrendingUp, CheckCircle } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -134,16 +132,10 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
 
   return (
     <div className="space-y-12">
-      {/* Header */}
-      <section className="text-center">
-        {/* Blur effect: ligero blur por defecto, se quita al hover */}
-        <style>{`
-          .bm-title { filter: blur(2px); transition: filter 350ms ease, opacity 350ms ease; }
-          .bm-title:hover { filter: blur(0); }
-        `}</style>
 
+      <section className="text-center">
         <h2
-          className="bm-title text-4xl md:text-5xl font-extrabold mb-4 font-inter bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent"
+          className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
           style={{ lineHeight: "1.15" }}
         >
           Modelos de Negocio

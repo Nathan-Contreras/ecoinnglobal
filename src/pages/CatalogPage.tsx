@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import {
   Dialog,
@@ -179,22 +178,20 @@ const CatalogPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-primary text-primary-foreground">
+      {/* Header: usar degradado previamente utilizado (azul/verde -> azul) */}
+      <div className="bg-gradient-to-r from-green-500 via-primary to-blue-500 text-white">
         <div className="container mx-auto px-4 py-6 md:py-8">
           <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
             <div className="flex-1">
-              <Link to="/" className="inline-flex items-center text-primary-foreground/80 hover:text-primary-foreground mb-3 md:mb-4">
+              <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-3 md:mb-4">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Volver al catálogo
               </Link>
               <h1 className="text-2xl md:text-4xl font-bold">{categoryName}</h1>
-              <p className="text-primary-foreground/80 mt-2 text-sm md:text-base">
+              <p className="text-white/80 mt-2 text-sm md:text-base">
                 Explora nuestra selección de productos en {categoryName.toLowerCase()}
               </p>
             </div>
-            <Badge variant="secondary" className="text-sm md:text-lg px-3 py-1 md:px-4 md:py-2 self-start md:self-auto">
-              {products.length} productos
-            </Badge>
           </div>
         </div>
       </div>
@@ -221,9 +218,6 @@ const CatalogPage = () => {
                   {product.description}
                 </CardDescription>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
-                  <span className="text-xl md:text-2xl font-bold text-primary">
-                    {product.price}
-                  </span>
                   <Button
                     size="sm"
                     variant="outline"
