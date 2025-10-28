@@ -11,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import ProductSpecsTable, { ProductSpecs } from "@/components/ProductSpecsTable";
+import ProductSpecsTable, { ProductSpecs } from "@/pages/ProductSpecsTable";
 import { lookupSpecs, defaultSpec as defaultProductSpec } from "@/data/productSpecs";
 
 // Mock data for products

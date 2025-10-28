@@ -157,8 +157,8 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           >
             Nuestros Productos
           </motion.h3>
+          <br /><br />
         </div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 container mx-auto">
           {categories.map((category, idx) => (
             <Link key={category.id} to={`/catalog/${category.id}`}>
