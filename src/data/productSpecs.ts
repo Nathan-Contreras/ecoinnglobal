@@ -1,4 +1,4 @@
-import { ProductSpecs } from "@/components/ProductSpecsTable";
+import { ProductSpecs } from "@/pages/ProductSpecsTable";
 
 // Default spec used as fallback
 export const defaultSpec: ProductSpecs = {

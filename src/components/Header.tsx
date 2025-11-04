@@ -34,7 +34,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center" style={{ marginLeft: "1.5rem" }}>
               <img
-                src="/ecoinnglobal/lovable-uploads/logo_base.png"
+                src="/ecoinnglobal/uploads/logo_base.png"
                 alt="EcoInn Global Logo"
                 className="h-28 w-auto md:h-28 sm:h-24 object-contain"
                 style={{ minWidth: "100px", objectPosition: "top" }}

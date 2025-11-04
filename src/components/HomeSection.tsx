@@ -4,14 +4,15 @@ import { Package, Truck, CircleDollarSign, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import importBusinessImage from "@/assets/import-business.jpg";
-import toysImage from "@/assets/toys-category.jpg";
-import homeImage from "@/assets/home-category.jpg";
-import partsImage from "@/assets/parts-category.jpg";
-import petsImage from "@/assets/pets-category.jpg";
-import serviceImportImage from "@/assets/service-import.jpg";
-import serviceSuppliersImage from "@/assets/service-suppliers.jpg";
-import serviceConsultationImage from "@/assets/service-consultation.jpg";
+import toysImage from "@/assets/categories/toys-category.jpg";
+import homeImage from "@/assets/categories/home-category.jpg";
+import partsImage from "@/assets/categories/parts-category.jpg";
+import petsImage from "@/assets/categories/pets-category.jpeg";
+import serviceImportImage from "@/assets/services/service-import.jpg";
+import serviceSuppliersImage from "@/assets/services/service-suppliers.jpg";
+import serviceConsultationImage from "@/assets/services/service-consultation.jpg";
 import logoGlob from "../assets/logo_glob.png";
+import whyVideo from "@/assets/por_que_elegirnos/porquelegirnos.mp4";
 
 <br />
 interface HomeSectionProps {
@@ -101,7 +102,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           src={importBusinessImage}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
-        />
+                  />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
 <br /><br /><br />
   <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
@@ -115,6 +116,11 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
               </p>
+
+                <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
+                Somos  profesionales venezolanos que apostamos al crecimiento y desarrollo del comercio local, a través de las relaciones comerciales intercontinentales con aliados estratégicos en china, quien es hoy en día el mayor generador de intercambio comercial con países de américa.
+              </p>
+
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
               Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
             </h2>
@@ -169,21 +175,20 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.45, delay: idx * 0.06 }}
               >
-                <div className="w-44 h-44 rounded-full overflow-hidden shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-b from-green-500 via-primary to-blue-500">
-                  <img
-                    src={category.image}
-                    alt={category.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                  <div className="w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-b from-green-500 via-primary to-blue-500">
+                    <img
+                      src={category.image}
+                      alt={category.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-                {/* gradient bar (mismo degradado de la página principal) */}
                 <div className="w-full max-w-[220px] mb-3">
                   <div className="h-1 w-full rounded bg-gradient-to-r from-green-500 via-primary to-blue-500" />
                 </div>
 
                 <div className="text-center max-w-[220px]">
-                  <h4 className="text-lg font-semibold text-primary mb-1">{category.name}</h4>
+                  <h4 className="text-[26px] font-semibold text-primary mb-1">{category.name}</h4>
                   <p className="text-muted-foreground text-sm text-center">
                     {category.description}
                   </p>
@@ -225,7 +230,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
               viewport={{ once: true, amount: 0.35 }}
               transition={{ duration: 0.5, delay: index * 0.12, ease: "easeOut" }}
             >
-              <div className="relative w-44 h-44 md:w-48 md:h-48 rounded-full overflow-hidden shadow-lg border-4 border-primary/10 bg-gradient-to-b from-card to-accent/20">
+              <div className="w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-b from-green-500 via-primary to-blue-500">
                 <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
               </div>
               <div className="space-y-3 max-w-xs">
@@ -264,21 +269,40 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       {/* Más separación antes de siguientes bloques */}
       <div className="h-12" />
 
-      {/* Why choose us - mostrar carrusel de imágenes reales (placeholder) */}
-      <section className="container mx-auto px-4">
-        <div className="bg-accent/30 rounded-2xl p-8">
-          <div className="text-center mb-6">
-            <h3 className="text-3xl font-bold text-foreground mb-4">¿Por qué elegirnos?</h3>
-            <p className="text-muted-foreground text-lg">Razones que nos hacen tu mejor opción</p>
-          </div>
+      <section className="w-full bg-primary text-white">
+        <div className="container mx-auto px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            {/* Video a la izquierda */}
+            <div className="w-full">
+              <video
+                src={whyVideo}
+                className="w-full h-auto rounded-lg shadow-lg object-cover"
+                controls
+                playsInline
+                autoPlay
+                muted
+                loop
+              />
+            </div>
 
-          <div className="w-full h-64 rounded-lg overflow-hidden bg-black/10 flex items-center justify-center">
-            <span className="text-muted-foreground">Carrusel de imágenes reales (a subir)</span>
+            <div className="w-full">
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">Por qué elegirnos</h3>
+              <p className="text-lg mb-6 leading-relaxed">
+                Seleccionamos proveedores verificados, gestionamos la logística y garantizamos respaldo documental para que su importación llegue segura y a tiempo. Somos su aliado para llevar productos de calidad al mercado venezolano.
+              </p>
+              <div>
+                <Button
+                  onClick={() => onTabChange("about")}
+                  className="bg-white text-primary font-semibold px-6 py-3 shadow-lg hover:shadow-xl transition"
+                >
+                  Conoce más
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Download Catalog Section - actualizar PDF (Angel lo subirá) */}
       <div className="h-10" />
       <section className="container mx-auto px-4">
         <div className="bg-card border rounded-2xl p-8">
@@ -311,7 +335,6 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         </div>
       </section>
 
-      {/* CTA Section - separación aplicada */}
       <div className="h-10" />
       <section className="text-center bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 text-white container mx-auto px-4">
         <h3 className="text-3xl font-bold mb-4">¿Listo para hacer tu pedido?</h3>

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-// Reemplazar imports de imágenes por rutas públicas (si están en public/assets)
-const missionImg = "/assets/mission.jpg";
-const visionImg = "/assets/vision.jpg";
-const valuesImg = "/assets/values.jpg";
+import missionImg from '@/assets/about_section/mision.jpg';
+import visionImg from '@/assets/about_section/vision.jpg';
+import valuesImg from '@/assets/about_section/vision.jpg';
 
 const AboutSection = () => {
   const values = [
@@ -29,6 +28,62 @@ const AboutSection = () => {
       color: "bg-success"
     }
   ];
+
+  // Equipo: imágenes en /public/assets/team-1.jpg .. team-4.jpg (reemplazar por fotos reales)
+  const team = [
+    {
+      slug: "angel-mendez",
+      name: "Ángel Méndez",
+      bio: "Profesional con amplia experiencia en gestión empresarial y comercio internacional.",
+      longBio:
+        "Profesional con amplia experiencia en gestión empresarial y comercio internacional. Responsable de la dirección estratégica y operativa de la compañía, con foco en expansión y relaciones comerciales.",
+      img: "/assets/team-1.jpg",
+      colorClass: "bg-primary"
+    },
+    {
+      slug: "normando-contreras",
+      name: "Normando Contreras",
+      bio: "Especialista en cadena de suministro y trámites aduaneros.",
+      longBio:
+        "Especialista en cadena de suministro y trámites aduaneros, con amplia trayectoria en operaciones internacionales y coordinación logística.",
+      img: "@/assets/team/normando_contreras.png",
+      colorClass: "bg-secondary"
+    },
+    {
+      slug: "maria-lopez",
+      name: "María López",
+      bio: "Líder en control de calidad y aseguramiento de productos.",
+      longBio:
+        "Líder en control de calidad y aseguramiento de productos, experta en procesos de inspección y certificación para cadenas de suministro.",
+      img: "/assets/team-3.jpg",
+      colorClass: "bg-info"
+    },
+    {
+      slug: "roberto-silva",
+      name: "Roberto Silva",
+      bio: "Experto en operaciones logísticas y distribución nacional.",
+      longBio:
+        "Experto en operaciones logísticas y distribución nacional, responsable de la planificación y ejecución de entregas a nivel nacional.",
+      img: "/assets/team-4.jpg",
+      colorClass: "bg-success"
+    }
+  ];
+
+  // --- Nuevo estado para modal interno ---
+  const [selectedMember, setSelectedMember] = useState<typeof team[number] | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openMemberModal = (member: typeof team[number]) => {
+    setSelectedMember(member);
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeMemberModal = () => {
+    setModalOpen(false);
+    setSelectedMember(null);
+    document.body.style.overflow = "";
+  };
 
   return (
     <div className="space-y-12">
@@ -98,42 +153,108 @@ const AboutSection = () => {
         </div>
       </section>
 
-      {/* Equipo (se mantiene) */}
-      <section className="bg-accent/30 rounded-2xl p-8">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold text-foreground mb-6">
-            Nuestro Equipo
-          </h3>
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Contamos con un equipo de profesionales altamente capacitados, dedicados a 
-            brindarte el mejor servicio y asesoramiento especializado en cada categoría de productos.
-          </p>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 max-w-5xl mx-auto">
-            {[ 
-              { name: "Angel Mendez", role: "Directora General", specialty: "Gestión Empresarial" },
-              { name: "Normando Contreras", role: "Gerente de Importaciones", specialty: "Comercio Internacional" },
-              { name: "María López", role: "Especialista en Calidad", specialty: "Control de Calidad" },
-              { name: "Roberto Silva", role: "Coordinador de Logística", specialty: "Supply Chain" },
-            ].map((member, index) => (
-              <Card key={index} className="text-center">
-                <CardContent className="p-4">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center">
-                      <span className="text-2xl font-bold text-muted-foreground">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
+      {/* Nuestro Equipo: dos columnas, rectángulos con foto integrada (abre modal interno) */}
+      <section className="container mx-auto px-4 py-8">
+        <h3 className="text-3xl font-bold mb-6 text-foreground">Nuestro Equipo</h3>
+
+        <style>{`
+          .team-grid { display:grid; grid-template-columns:1fr; gap:1rem; }
+          @media (min-width:768px) { .team-grid { grid-template-columns: 1fr 1fr; } }
+          .team-rect { display:flex; border-radius:12px; overflow:hidden; align-items:stretch; min-height:160px; }
+          .team-photo-wrap { flex:0 0 42%; min-height:160px; overflow:hidden; }
+          .team-photo { width:100%; height:100%; object-fit:cover; display:block; }
+          .team-content { flex:1; padding:1.25rem; display:flex; flex-direction:column; justify-content:center; color:rgba(255,255,255,0.95); }
+          .arrow-btn { margin-left:auto; background: rgba(255,255,255,0.12); border-radius:999px; width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; transition: transform 180ms ease, background 160ms ease; }
+          .arrow-btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.18); }
+        `}</style>
+
+        <div className="team-grid">
+          {team.map((member) => (
+            <div key={member.slug} className={`team-rect ${member.colorClass}`}>
+              <div className="team-photo-wrap" aria-hidden>
+                <img src={member.img} alt={member.name} className="team-photo" />
+              </div>
+
+              <div className="team-content">
+                <div className="flex items-start gap-4">
+                  <div>
+                    <div className="text-2xl font-bold">{member.name}</div>
                   </div>
-                  <h4 className="font-semibold text-foreground mb-1">{member.name}</h4>
-                  <p className="text-sm text-primary font-medium mb-1">{member.role}</p>
-                  <p className="text-xs text-muted-foreground">{member.specialty}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+
+                  {/* Abre modal interno */}
+                  <button
+                    aria-label={`Abrir perfil de ${member.name}`}
+                    onClick={() => openMemberModal(member)}
+                    className="arrow-btn"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 9l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <p className="mt-3 text-sm max-w-prose opacity-95">{member.bio}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* --- Modal interno para perfil del miembro --- */}
+      {modalOpen && selectedMember && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="w-full max-w-5xl bg-white rounded-lg shadow-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            {/* Imagen grande a la izquierda */}
+            <div className="h-64 md:h-auto">
+              <img src={selectedMember.img} alt={selectedMember.name} className="w-full h-full object-cover" />
+            </div>
+
+            {/* Contenido a la derecha */}
+            <div className="p-6 md:p-8 relative">
+              <button
+                onClick={closeMemberModal}
+                className="absolute top-4 right-4 p-2 rounded-full text-muted-foreground hover:bg-muted/10"
+                aria-label="Cerrar perfil"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+
+              <h2 className="text-2xl font-bold mb-1">{selectedMember.name}</h2>
+
+              <div className="text-sm leading-relaxed mb-6">
+                <p>{selectedMember.longBio}</p>
+                {/* Puedes extender con más contenido curricular aquí */}
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href={`/assets/cv-${selectedMember.slug}.pdf`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center px-4 py-2 bg-primary text-white rounded hover:opacity-95"
+                >
+                  Descargar CV
+                </a>
+
+                <button
+                  onClick={closeMemberModal}
+                  className="inline-flex items-center px-4 py-2 border border-border rounded"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ...existing other sections below ... */}
     </div>
   );
 };
