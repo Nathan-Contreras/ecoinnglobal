@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent} from "@/components/ui/card";
 import { Package, Truck, CircleDollarSign, Star, Download } from "lucide-react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
 import importBusinessImage from "@/assets/import-business.jpg";
 import toysImage from "@/assets/categories/toys-category.jpg";
 import homeImage from "@/assets/categories/home-category.jpg";
@@ -13,6 +14,9 @@ import serviceSuppliersImage from "@/assets/services/service-suppliers.jpg";
 import serviceConsultationImage from "@/assets/services/service-consultation.jpg";
 import logoGlob from "../assets/logo_glob.png";
 import whyVideo from "@/assets/por_que_elegirnos/porquelegirnos.mp4";
+import carousel1 from "@/assets/carrusel_hero/carrusel_1.jpg";
+import carousel2 from "@/assets/carrusel_hero/carrusel_2.jpg";
+import carousel3 from "@/assets/carrusel_hero/carrusel_3.jpg";
 
 <br />
 interface HomeSectionProps {
@@ -94,6 +98,18 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
     }
   ];
 
+  const slides = [carousel1, carousel2, carousel3];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(() => {
+      setCurrentSlide((s) => (s + 1) % slides.length);
+    }, 5000); // 5s por slide
+    return () => clearInterval(timer);
+  }, [paused, slides.length]);
+
   return (
     <>
       {/* Hero a todo lo ancho - dividido en dos columnas (texto izquierda, carrusel derecha) */}
@@ -104,12 +120,14 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           className="absolute inset-0 w-full h-full object-cover"
                   />
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-<br /><br /><br />
-  <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
-          <div className="w-full lg:w-1/2 pr-0 lg:pr-12">
 
+        {/* spacer (evita usar <br />) */}
+        <div className="my-16" />
+
+        <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
+          <div className="w-full lg:w-1/2 pr-0 lg:pr-12 z-30 relative">
             <div style={{ maxWidth: "820px" }}>
-                <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
+              <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
                 Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.
               </p>
 
@@ -121,22 +139,85 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 Somos  profesionales venezolanos que apostamos al crecimiento y desarrollo del comercio local, a través de las relaciones comerciales intercontinentales con aliados estratégicos en china, quien es hoy en día el mayor generador de intercambio comercial con países de américa.
               </p>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
             </h2>
             </div>
 
-            {/* NOTE: botón "Descubre Nuestros Modelos de Negocio" eliminado por solicitud */}
           </div>
 
-          {/* Right: carrusel de fotos (placeholder) */}
-          <div className="w-full lg:w-1/2 mt-8 lg:mt-0">
-            <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg bg-black/20">
-              {/* Carousel placeholder - imágenes que nos enviarán */}
-              <div className="absolute inset-0 flex items-center justify-center text-white/60">
-                <span className="text-sm md:text-base">Carrusel de fotos (imágenes a subir)</span>
+          {/* Carrusel: ocupa de la mitad de la pantalla (left:50%) hasta el borde derecho, responsive
+              Ahora sin fade: las imágenes están colocadas en fila y se desplazan con translateX para
+              dar la sensación de imágenes pegadas que pasan. */}
+          <div
+            className="hidden lg:block lg:absolute lg:inset-y-0 lg:left-1/2 lg:right-0 lg:w-1/2"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            aria-hidden="true"
+          >
+            <div className="relative w-full h-full overflow-hidden">
+              <div
+                className="absolute left-0 top-0 h-full flex"
+                style={{
+                  width: `${slides.length * 100}%`,
+                  transform: `translateX(-${currentSlide * (100 / slides.length)}%)`,
+                  transition: "transform 700ms ease-in-out",
+                }}
+              >
+                {slides.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt={`Slide ${i + 1}`}
+                    className="w-[calc(100%/3)] h-full object-cover flex-shrink-0"
+                    style={{ width: `${100 / slides.length}%` }}
+                  />
+                ))}
               </div>
-              {/* Aquí se integrará el carrusel con las imágenes que Angel/usuario entregue */}
+
+              {/* indicadores (opcionales) */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-40">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`w-2 h-2 rounded-full ${i === currentSlide ? "bg-white" : "bg-white/40"}`}
+                    aria-label={`Ir a slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* fallback / mobile: mostrar carrusel en flujo normal debajo del texto */}
+          <div className="w-full lg:hidden mt-8">
+            <div
+              className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg bg-black/10"
+              onMouseEnter={() => setPaused(true)}
+              onMouseLeave={() => setPaused(false)}
+            >
+              <AnimatePresence initial={false} mode="popLayout">
+                <motion.img
+                  key={currentSlide}
+                  src={slides[currentSlide]}
+                  initial={{ x: "100%", opacity: 0 }}
+                  animate={{ x: "0%", opacity: 1 }}
+                  exit={{ x: "-100%", opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  alt={`Hero slide ${currentSlide + 1}`}
+                />
+              </AnimatePresence>
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentSlide(i)}
+                    className={`w-2 h-2 rounded-full ${i === currentSlide ? "bg-white" : "bg-white/40"}`}
+                    aria-label={`Ir a slide ${i + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

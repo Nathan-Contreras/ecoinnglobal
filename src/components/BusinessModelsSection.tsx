@@ -16,6 +16,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       description: "Gestionamos todo el proceso de importación por ti",
       icon: Package,
       color: "from-blue-500 to-blue-600",
+      image: "/assets/business-importacion.jpg",
       features: [
         "Gestión completa de documentación",
         "Negociación directa con fabricantes",
@@ -32,10 +33,11 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
     },
     {
       id: "mayoreo",
-      title: "Venta al Mayor de Productos",
-      description: "Precios especiales para compras en volumen",
+      title: "Comercializadora",
+      description: "Precios especiales y gestión comercial para compras en volumen",
       icon: Users,
       color: "from-green-500 to-green-600",
+      image: "/assets/business-comercializadora.jpg",
       features: [
         "Precios preferenciales por volumen",
         "Catálogo exclusivo mayorista",
@@ -188,20 +190,14 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
                     <Button className="mt-2" onClick={() => onTabChange("contact")} variant="secondary">Solicitar Información</Button>
                   </div>
 
-                  {/* Right: galería / imágenes reales (dos columnas visuales) */}
-                  <div className="grid grid-cols-2 gap-4">
-                    {/* placeholders de imagen; reemplazar por imágenes reales */}
-                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
-                      <img src="/assets/business-1.jpg" alt="img1" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
-                      <img src="/assets/business-2.jpg" alt="img2" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
-                      <img src="/assets/business-3.jpg" alt="img3" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="w-full h-40 rounded-lg overflow-hidden bg-gray-100">
-                      <img src="/assets/business-4.jpg" alt="img4" className="w-full h-full object-cover" />
+                  {/* Right: una sola imagen centrada verticalmente */}
+                  <div className="flex items-center justify-center">
+                    <div className="w-full max-w-md h-64 rounded-lg overflow-hidden bg-gray-100 shadow-sm">
+                      <img
+                        src={model.image ?? "/assets/business-1.jpg"}
+                        alt={model.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ShoppingCart, Package, Home, Phone, Sun, Moon, ChevronDown, Menu, X } from "lucide-react";
@@ -24,8 +24,33 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
 
   const businessModels = [
     { id: "importacion", label: "Importación" },
-    { id: "mayoreo", label: "Comercialización e Importación" },
+    { id: "comercializadora", label: "Comercializadora" },
   ];
+ 
+  // -- Hover timing logic: mantiene el submenú abierto unos ms después de salir --
+  const hideTimer = useRef<number | null>(null);
+
+  const showBusinessMenu = () => {
+    if (hideTimer.current) {
+      window.clearTimeout(hideTimer.current);
+      hideTimer.current = null;
+    }
+    setBusinessHover(true);
+  };
+
+  const hideBusinessMenuWithDelay = (delay = 600) => {
+    if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    hideTimer.current = window.setTimeout(() => {
+      setBusinessHover(false);
+      hideTimer.current = null;
+    }, delay);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    };
+  }, []);
 
   return (
     <>
@@ -64,8 +89,10 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               {/* Desktop: mostrar menú de modelos al hacer hover */}
               <div
                 className="relative"
-                onMouseEnter={() => setBusinessHover(true)}
-                onMouseLeave={() => setBusinessHover(false)}
+                onMouseEnter={showBusinessMenu}
+                onMouseLeave={() => hideBusinessMenuWithDelay(600)}
+                onFocus={showBusinessMenu}
+                onBlur={() => hideBusinessMenuWithDelay(300)}
               >
                 <Button
                   variant={activeTab.startsWith("business") ? "secondary" : "ghost"}
@@ -83,7 +110,11 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                 </Button>
 
                 {businessHover && (
-                  <div className="absolute right-0 mt-2 w-48 bg-background border border-border shadow-lg z-50 rounded-md overflow-hidden">
+                  <div
+                    className="absolute right-0 mt-2 w-48 bg-background border border-border shadow-lg z-50 rounded-md overflow-hidden"
+                    onMouseEnter={showBusinessMenu}
+                    onMouseLeave={() => hideBusinessMenuWithDelay(400)}
+                  >
                     {businessModels.map((model) => (
                       <button
                         key={model.id}

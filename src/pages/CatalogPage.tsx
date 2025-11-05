@@ -14,134 +14,87 @@ import {
 import ProductSpecsTable, { ProductSpecs } from "@/pages/ProductSpecsTable";
 import { lookupSpecs, defaultSpec as defaultProductSpec } from "@/data/productSpecs";
 
-// Mock data for products
 const productData = {
   toys: [
     {
       id: 1,
-      name: "Bloques de Construcción Educativos",
-      price: "$29.99",
-      description: "Set de 100 piezas para desarrollo cognitivo",
+      name: "Scooter para niños (Acero)",
+      description: "Scooter de acero para niños, ligero y resistente.",
       image: "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=400&h=300&fit=crop"
     },
     {
       id: 2,
-      name: "Rompecabezas 3D Madera",
-      price: "$19.99",
-      description: "Rompecabezas de animales en madera natural",
+      name: "Scooter para niños (Aluminio)",
+      description: "Scooter de aluminio para niños, ligero y resistente.",
       image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop"
     },
     {
       id: 3,
-      name: "Juego de Mesa Estrategia",
-      price: "$45.99",
-      description: "Juego familiar para 2-6 jugadores",
+      name: "Scoorter para niños (Poliuretano)",
+      description: "Scooter de poliuretano para niños, ligero y resistente.",
       image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop"
     },
-    {
-      id: 4,
-      name: "Peluche Interactivo",
-      price: "$34.99",
-      description: "Peluche que responde a caricias y sonidos",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
-    }
   ],
   home: [
     {
       id: 1,
-      name: "Lámpara LED Moderna",
-      price: "$89.99",
-      description: "Lámpara de mesa con control remoto y múltiples colores",
+      name: "Base de papel para Airfryer",
+      description: "Base de papel desechable para cocinar en Airfryer",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
     },
     {
       id: 2,
-      name: "Organizador de Cocina",
-      price: "$24.99",
-      description: "Set de contenedores herméticos para almacenamiento",
+      name: "Encendedor USB Recargable",
+      description: "Encendedor USB recargable, ideal para cocina y camping",
       image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop"
     },
-    {
-      id: 3,
-      name: "Cojines Decorativos",
-      price: "$15.99",
-      description: "Set de 2 cojines con diseños modernos",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop"
-    },
-    {
-      id: 4,
-      name: "Difusor de Aromas",
-      price: "$39.99",
-      description: "Difusor ultrasónico con temporizador",
-      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop"
-    }
   ],
   parts: [
     {
       id: 1,
-      name: "Filtro de Aceite Universal",
-      price: "$12.99",
-      description: "Compatible con múltiples modelos de vehículos",
+      name: "Papel Film grado alimentación",
+      description: "Ideal para uso intensivo",
       image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop"
     },
     {
       id: 2,
-      name: "Pastillas de Freno Premium",
-      price: "$45.99",
-      description: "Pastillas de freno de alto rendimiento",
+      name: "Papel film industrial",
+      description: "Papel film de alta resistencia para uso industrial",
       image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&h=300&fit=crop"
     },
     {
       id: 3,
-      name: "Amortiguadores Delanteros",
-      price: "$89.99",
-      description: "Par de amortiguadores para suspensión delantera",
+      name: "Cinta Kinesiológica",
+      description: "Cinta elástica para soporte muscular.",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
     },
-    {
-      id: 4,
-      name: "Batería Auto 12V",
-      price: "$79.99",
-      description: "Batería de larga duración 12V 60Ah",
-      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&h=300&fit=crop"
-    }
   ],
   pets: [
     {
       id: 1,
-      name: "Collar GPS para Mascotas",
-      price: "$69.99",
-      description: "Collar inteligente con rastreamento GPS",
+      name: "Pads de Entrenamiento para Mascotas",
+      description: "Entrenamiento de cachorros y mascotas adultas, protección de superficies.",
       image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop"
     },
     {
       id: 2,
-      name: "Cama Ortopédica para Perros",
-      price: "$59.99",
-      description: "Cama de espuma viscoelástica para mascotas",
+      name: "Toallas Húmedas para Mascotas",
+      description: "Ingredientes naturales y seguros para el cuidado diario de tu mascota.",
       image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=300&fit=crop"
     },
     {
       id: 3,
-      name: "Juguete Interactivo",
-      price: "$25.99",
-      description: "Juguete que dispensa premios automáticamente",
+      name: "Bolsas para desechos de Mascotas",
+      description: "Bolsas resistentes y biodegradables para desechos de mascotas.",
       image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400&h=300&fit=crop"
     },
-    {
-      id: 4,
-      name: "Comedero Automático",
-      price: "$49.99",
-      description: "Dispensador de comida programable",
-      image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=300&fit=crop"
-    }
   ]
 };
 
 const categoryNames = {
   toys: "Juguetes",
   home: "Hogar", 
-  parts: "Repuestos",
+  parts: "Insumos",
   pets: "Mascotas"
 };
 
@@ -174,11 +127,13 @@ const CatalogPage = () => {
 
   const products = productData[category as keyof typeof productData];
   const categoryName = categoryNames[category as keyof typeof categoryNames];
+  const productsWithSpecs = (products as any[]).map((p) => ({
+    ...p,
+    specs: lookupSpecs(category as string, p.id, p.name),
+  }));
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      {/* Header: usar degradado previamente utilizado (azul/verde -> azul) */}
       <div className="bg-gradient-to-r from-green-500 via-primary to-blue-500 text-white">
         <div className="container mx-auto px-4 py-6 md:py-8">
           <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
@@ -199,7 +154,7 @@ const CatalogPage = () => {
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
-          {products.map((product) => (
+          {productsWithSpecs.map((product) => (
             <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="relative h-40 sm:h-48 overflow-hidden">
                 <img 
@@ -223,6 +178,7 @@ const CatalogPage = () => {
                     variant="outline"
                     className="w-full sm:w-auto"
                     onClick={() => {
+                      // guardamos el producto enriquecido (incluye .specs)
                       setSelectedProduct(product);
                       setDialogOpen(true);
                     }}
@@ -246,7 +202,15 @@ const CatalogPage = () => {
           </DialogHeader>
 
           <div className="mt-4">
-            <ProductSpecsTable specs={selectedProduct ? getSpecsForProduct(selectedProduct) : defaultProductSpec} />
+            {/* Si el producto seleccionado ya trae specs, las usamos directamente.
+                Si no, se recalcan con getSpecsForProduct como fallback. */}
+            <ProductSpecsTable
+              specs={
+                selectedProduct
+                  ? (selectedProduct.specs ?? getSpecsForProduct(selectedProduct, category))
+                  : defaultProductSpec
+              }
+            />
           </div>
 
           <DialogFooter className="mt-4">
