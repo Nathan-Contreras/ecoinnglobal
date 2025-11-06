@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 import missionImg from '@/assets/about_section/mision.jpg';
 import visionImg from '@/assets/about_section/vision.jpg';
-import valuesImg from '@/assets/about_section/vision.jpg';
+import valuesImg from '@/assets/about_section/values.jpg';
 
 const AboutSection = () => {
   const values = [
@@ -28,8 +28,6 @@ const AboutSection = () => {
       color: "bg-success"
     }
   ];
-
-  // Equipo: imágenes en /public/assets/team-1.jpg .. team-4.jpg (reemplazar por fotos reales)
   const team = [
     {
       slug: "angel-mendez",
@@ -254,7 +252,6 @@ const AboutSection = () => {
         </div>
       )}
 
-      {/* ...existing other sections below ... */}
     </div>
   );
 };

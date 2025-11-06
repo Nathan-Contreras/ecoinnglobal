@@ -13,7 +13,11 @@ const NormandoContreras = () => {
           <h2 className="text-3xl font-bold mb-2">Normando Contreras</h2>
           <p className="text-sm text-muted-foreground mb-4">Gerente de Importaciones</p>
           <div className="text-base leading-relaxed">
-            <p>Especialista en cadena de suministro y trámites aduaneros, con amplia trayectoria en operaciones internacionales.</p>
+            <p>Magíster en Administración, Mención Mercadeo. Especialista en Finanzas. Contador Público.
+
+Profesional con una sólida trayectoria de más de 25 años en los sectores logístico y comercial, focalizado en el ámbito de empresas de consumo masivo. Combina una profunda experiencia práctica con una sólida formación académica en administración y finanzas.
+
+Amplia experiencia en el diseño e implementación de estrategias comerciales y logísticas para optimizar la cadena de suministro y alcanzar objetivos de negocio en entornos de consumo masivo. Experto en optimización de procesos de servicio, enfocando la gestión hacia la eficiencia operativa, la reducción de costes y la mejora de la experiencia del cliente. Sólidos conocimientos como Especialista en Finanzas, que permiten la toma de decisiones estratégicas basadas en el análisis financiero y la rentabilidad. Dominio integral de procesos logísticos (almacenamiento, distribución, transporte) y comerciales, garantizando la disponibilidad y la rotación efectiva de productos de consumo masivo.</p>
             <p className="mt-4">Resumen curricular: [aquí va el resumen detallado del CV].</p>
           </div>
 

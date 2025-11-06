@@ -3,6 +3,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Package, Users, Truck, Globe, Shield, TrendingUp, CheckCircle } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
+import importacionImg from "@/assets/business_model/importacion.jpg";
+import comercialImg from "@/assets/business_model/comercial.jpeg";
+
 interface BusinessModelsSectionProps {
   onTabChange: (tab: string) => void;
   activeModel?: string;
@@ -16,7 +19,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       description: "Gestionamos todo el proceso de importación por ti",
       icon: Package,
       color: "from-blue-500 to-blue-600",
-      image: "/assets/business-importacion.jpg",
+      image: importacionImg, // ← antes: "/assets/business_model/importacion.jpg"
       features: [
         "Gestión completa de documentación",
         "Negociación directa con fabricantes",
@@ -37,7 +40,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       description: "Precios especiales y gestión comercial para compras en volumen",
       icon: Users,
       color: "from-green-500 to-green-600",
-      image: "/assets/business-comercializadora.jpg",
+      image: comercialImg, // ← antes: "/assets/business_model/comercial.jpg"
       features: [
         "Precios preferenciales por volumen",
         "Catálogo exclusivo mayorista",
@@ -192,11 +195,11 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
 
                   {/* Right: una sola imagen centrada verticalmente */}
                   <div className="flex items-center justify-center">
-                    <div className="w-full max-w-md h-64 rounded-lg overflow-hidden bg-gray-100 shadow-sm">
+                    <div className="w-full max-w-md h-96 rounded-xl overflow-hidden bg-gray-100 shadow-lg">
                       <img
                         src={model.image ?? "/assets/business-1.jpg"}
                         alt={model.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
                   </div>
@@ -207,8 +210,6 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
         </Tabs>
       </section>
 
-      {/* NOTE: Se eliminaron 'Nuestros Resultados' y 'Proceso' según solicitud */}
-      {/* CTA final (mantener una llamada a la acción) */}
       <section className="text-center bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-8">
         <h3 className="text-2xl font-bold mb-4">¿Listo para implementar un modelo?</h3>
         <p className="text-muted-foreground mb-6">Contáctanos para diseñar la solución a la medida de tu negocio.</p>

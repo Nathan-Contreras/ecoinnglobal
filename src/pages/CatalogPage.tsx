@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState, useMemo, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
@@ -12,133 +12,166 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import ProductSpecsTable, { ProductSpecs } from "@/pages/ProductSpecsTable";
-import { lookupSpecs, defaultSpec as defaultProductSpec } from "@/data/productSpecs";
+import { lookupSpecs } from "@/data/productSpecs";
 
+// ✅ Ruta RELATIVA (este archivo está en src/pages → sube 1 nivel a src → baja a assets)
+const importImage = (p: string) => new URL(`../assets/products/${p}`, import.meta.url).href;
+
+// (opcional) placeholder si faltara alguna imagen
+const FALLBACK_IMG =
+  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="%23f2f2f2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23999" font-family="Arial" font-size="20">Imagen no disponible</text></svg>';
+
+// 👇 Usa EXACTAMENTE los nombres/carpetas que mostraste: home, pets, supplies, toys
 const productData = {
   toys: [
     {
       id: 1,
       name: "Scooter para niños (Acero)",
       description: "Scooter de acero para niños, ligero y resistente.",
-      image: "https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=400&h=300&fit=crop"
+      image: importImage("toys/scooter_acero.png"),
     },
     {
       id: 2,
-      name: "Scooter para niños (Aluminio)",
-      description: "Scooter de aluminio para niños, ligero y resistente.",
-      image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=300&fit=crop"
+      name: "Scooter para niños (Niños)",
+      description: "Scooter pensado para los más pequeños.",
+      image: importImage("toys/scooter_ninos.png"),
     },
     {
       id: 3,
-      name: "Scoorter para niños (Poliuretano)",
-      description: "Scooter de poliuretano para niños, ligero y resistente.",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop"
+      name: "Scooter para niños (Poli)",
+      description: "Ruedas de poli para mejor deslizamiento.",
+      image: importImage("toys/scooter_poli.png"),
     },
   ],
   home: [
     {
       id: 1,
-      name: "Base de papel para Airfryer",
-      description: "Base de papel desechable para cocinar en Airfryer",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop"
+      name: "Encendedor USB Recargable",
+      description: "Encendedor USB recargable, ideal para cocina y camping.",
+      image: importImage("home/encendedor_usb.png"),
     },
     {
       id: 2,
-      name: "Encendedor USB Recargable",
-      description: "Encendedor USB recargable, ideal para cocina y camping",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop"
+      name: "Base de papel para Airfryer",
+      description: "Base de papel desechable para cocinar en Airfryer.",
+      image: importImage("home/papel_airfryer.png"),
     },
   ],
-  parts: [
+  supplies: [
     {
       id: 1,
-      name: "Papel Film grado alimentación",
-      description: "Ideal para uso intensivo",
-      image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=400&h=300&fit=crop"
+      name: "Cauchos para moto",
+      description: "Cauchos de alto rendimiento para motocicletas.",
+      image: importImage("supplies/cauchos_moto.png"),
     },
     {
       id: 2,
-      name: "Papel film industrial",
-      description: "Papel film de alta resistencia para uso industrial",
-      image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&h=300&fit=crop"
+      name: "Cinta Kinesiológica",
+      description: "Cinta elástica para soporte muscular.",
+      image: importImage("supplies/cinta_kinesiologica.png"),
     },
     {
       id: 3,
-      name: "Cinta Kinesiológica",
-      description: "Cinta elástica para soporte muscular.",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop"
+      name: "Papel film grado alimentación",
+      description: "Ideal para uso de contacto con alimentos.",
+      image: importImage("supplies/papel_film_alim.png"),
+    },
+    {
+      id: 4,
+      name: "Papel film industrial",
+      description: "Película de alta resistencia para uso industrial.",
+      image: importImage("supplies/papel_film_industrial.png"),
     },
   ],
   pets: [
     {
       id: 1,
-      name: "Pads de Entrenamiento para Mascotas",
-      description: "Entrenamiento de cachorros y mascotas adultas, protección de superficies.",
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop"
+      name: "Bolsas para desechos de mascotas",
+      description: "Bolsas resistentes y biodegradables.",
+      image: importImage("pets/bolsa_desechos.png"),
     },
     {
       id: 2,
-      name: "Toallas Húmedas para Mascotas",
-      description: "Ingredientes naturales y seguros para el cuidado diario de tu mascota.",
-      image: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&h=300&fit=crop"
+      name: "Pad de entrenamiento",
+      description: "Absorbentes para entrenamiento de mascotas.",
+      image: importImage("pets/pad_entrenamiento.png"),
     },
     {
       id: 3,
-      name: "Bolsas para desechos de Mascotas",
-      description: "Bolsas resistentes y biodegradables para desechos de mascotas.",
-      image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=400&h=300&fit=crop"
+      name: "Toallas húmedas",
+      description: "Cuidado diario con ingredientes seguros.",
+      image: importImage("pets/toallas_humedas.png"),
     },
-  ]
-};
+  ],
+} as const;
 
 const categoryNames = {
   toys: "Juguetes",
-  home: "Hogar", 
-  parts: "Insumos",
-  pets: "Mascotas"
-};
+  home: "Hogar",
+  supplies: "Insumos",
+  pets: "Mascotas",
+} as const;
+
+type CategoryKey = keyof typeof productData;
 
 const CatalogPage = () => {
   const { category } = useParams<{ category: string }>();
-  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const navigate = useNavigate();
+  const [selectedProduct, setSelectedProduct] = useState<(typeof productData)[CategoryKey][number] & { specs?: ProductSpecs } | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const getSpecsForProduct = (product: any, categoryKey?: string): ProductSpecs => {
-    return lookupSpecs(categoryKey ?? category ?? undefined, product?.id ?? undefined, product?.name ?? undefined) as ProductSpecs;
-  };
-  
-  if (!category || !productData[category as keyof typeof productData]) {
+  // Normalizar posibles rutas antiguas -> usar siempre "supplies"
+  const normalized = category === "parts" ? "supplies" : category;
+
+  // si el parámetro de la URL es "parts", redirigimos a la ruta correcta (/catalog/supplies)
+  useEffect(() => {
+    if (category === "parts") {
+      navigate("/catalog/supplies", { replace: true });
+    }
+  }, [category, navigate]);
+
+  const validCategory = useMemo(
+    () => (normalized && Object.hasOwn(productData, normalized) ? (normalized as CategoryKey) : null),
+    [normalized]
+  );
+
+  if (!validCategory) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground mb-4">Categoría no encontrada</h1>
-            <Link to="/">
-              <Button>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Volver al inicio
-              </Button>
-            </Link>
-          </div>
+        <div className="container mx-auto px-4 py-8 text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-4">Categoría no encontrada</h1>
+          <Link to="/">
+            <Button>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Volver al inicio
+            </Button>
+          </Link>
         </div>
       </div>
     );
   }
 
-  const products = productData[category as keyof typeof productData];
-  const categoryName = categoryNames[category as keyof typeof categoryNames];
-  const productsWithSpecs = (products as any[]).map((p) => ({
-    ...p,
-    specs: lookupSpecs(category as string, p.id, p.name),
-  }));
+  // usar la categoría normalizada para obtener datos (si vino "parts" ya fue redirigido)
+  const dataKey = normalized as keyof typeof productData;
+  const products = productData[dataKey] ?? [];
+  const categoryName = categoryNames[(dataKey as keyof typeof categoryNames)] ?? dataKey;
+
+  const productsWithSpecs = useMemo(
+    () =>
+      (products as any[]).map((p) => ({
+        ...p,
+        specs: lookupSpecs(validCategory as string, p.id, p.name),
+      })),
+    [products, validCategory]
+  );
 
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-gradient-to-r from-green-500 via-primary to-blue-500 text-white">
         <div className="container mx-auto px-4 py-6 md:py-8">
-          <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
-              <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-3 md:mb-4">
+              <Link to="/" className="inline-flex items-center text-white/80 hover:text-white mb-3">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Volver al catálogo
               </Link>
@@ -153,13 +186,14 @@ const CatalogPage = () => {
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {productsWithSpecs.map((product) => (
             <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
               <div className="relative h-40 sm:h-48 overflow-hidden">
-                <img 
-                  src={product.image} 
+                <img
+                  src={product.image}
                   alt={product.name}
+                  onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -172,51 +206,44 @@ const CatalogPage = () => {
                 <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
                   {product.description}
                 </CardDescription>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="w-full sm:w-auto"
-                    onClick={() => {
-                      // guardamos el producto enriquecido (incluye .specs)
-                      setSelectedProduct(product);
-                      setDialogOpen(true);
-                    }}
-                  >
-                    Ver detalles
-                  </Button>
-                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setSelectedProduct(product);
+                    setDialogOpen(true);
+                  }}
+                >
+                  Ver detalles
+                </Button>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
+
       {/* Dialog con especificaciones */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-hidden">
           <DialogHeader>
-            <DialogTitle>{selectedProduct ? selectedProduct.name : "Detalles del producto"}</DialogTitle>
-            <DialogDescription>
-              {selectedProduct ? selectedProduct.description : "Especificaciones del producto"}
-            </DialogDescription>
+            <DialogTitle>{selectedProduct?.name ?? "Detalles del producto"}</DialogTitle>
+            <DialogDescription>{selectedProduct?.description ?? "Especificaciones del producto"}</DialogDescription>
           </DialogHeader>
 
-          <div className="mt-4">
-            {/* Si el producto seleccionado ya trae specs, las usamos directamente.
-                Si no, se recalcan con getSpecsForProduct como fallback. */}
+          <div className="mt-4 max-h-[70vh] overflow-y-auto pr-2">
             <ProductSpecsTable
               specs={
-                selectedProduct
-                  ? (selectedProduct.specs ?? getSpecsForProduct(selectedProduct, category))
-                  : defaultProductSpec
+                selectedProduct?.specs ??
+                (selectedProduct
+                  ? (lookupSpecs(validCategory as string, selectedProduct.id, selectedProduct.name) as ProductSpecs)
+                  : {})
               }
             />
           </div>
 
           <DialogFooter className="mt-4">
-            <div className="w-full flex justify-end">
-              <Button onClick={() => setDialogOpen(false)}>Cerrar</Button>
-            </div>
+            <Button onClick={() => setDialogOpen(false)}>Cerrar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

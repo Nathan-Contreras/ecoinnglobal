@@ -8,6 +8,7 @@ import importBusinessImage from "@/assets/import-business.jpg";
 import toysImage from "@/assets/categories/toys-category.jpg";
 import homeImage from "@/assets/categories/home-category.jpg";
 import partsImage from "@/assets/categories/parts-category.jpg";
+import decorImage from "@/assets/categories/home-category.jpg";
 import petsImage from "@/assets/categories/pets-category.jpeg";
 import serviceImportImage from "@/assets/services/service-import.jpg";
 import serviceSuppliersImage from "@/assets/services/service-suppliers.jpg";
@@ -24,6 +25,7 @@ interface HomeSectionProps {
 }
 
 const HomeSection = ({ onTabChange }: HomeSectionProps) => {
+  // reemplaza el array original de categories por este (añade Decoración)
   const categories = [
     {
       id: "pets",
@@ -38,7 +40,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       image: homeImage,
     },
     {
-      id: "supplies",
+      id: "parts", // mantiene id actual usado en rutas (alias tratado en CatalogPage)
       name: "Insumos",
       description: "Materiales y suministros para tu negocio",
       image: partsImage,
@@ -48,7 +50,13 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       name: "Juguetes",
       description: "Juguetes educativos y de entretenimiento",
       image: toysImage,
-    }
+    },
+    {
+      id: "decoracion",
+      name: "Decoración",
+      description: "Decoración y complementos para interiores",
+      image: decorImage,
+    },
   ];
 
   const services = [
@@ -110,16 +118,27 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
     return () => clearInterval(timer);
   }, [paused, slides.length]);
 
+  // estado para deslizar categorías en escritorio (solo lg+)
+  const [catStart, setCatStart] = useState(0);
+
+  // número visible en escritorio (fijo en 4 según tu requisito)
+  const visibleDesktop = 4;
+  const maxStart = Math.max(0, categories.length - visibleDesktop);
+
+  const slideNext = () => {
+    // avanza y vuelve a 0 si llega al final (loop)
+    setCatStart((s) => (s >= maxStart ? 0 : s + 1));
+  };
+
+  const slidePrev = () => {
+    setCatStart((s) => (s <= 0 ? maxStart : s - 1));
+  };
+
   return (
     <>
       {/* Hero a todo lo ancho - dividido en dos columnas (texto izquierda, carrusel derecha) */}
   <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-20 lg:-mt-24 min-h-[480px] max-h-[900px]">
-        <img
-          src={importBusinessImage}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-                  />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+        <div className="absolute inset-0 w-full h-full bg-[#0A2540]"></div>
 
         {/* spacer (evita usar <br />) */}
         <div className="my-16" />
@@ -127,21 +146,23 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
         <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
           <div className="w-full lg:w-1/2 pr-0 lg:pr-12 z-30 relative">
             <div style={{ maxWidth: "820px" }}>
-              <p className="text-lg text-white/95 mb-4 leading-relaxed drop-shadow">
+              <p className="text-xl text-white/95 mb-4 leading-relaxed drop-shadow">
                 Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor relación calidad-precio, haciendo que la excelencia sea accesible.
               </p>
 
-                <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
+              <p className="text-xl text-white/90 mb-6 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad, diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación precio-calidad-beneficio.
               </p>
 
-                <p className="text-lg text-white/90 mb-6 leading-relaxed drop-shadow">
-                Somos  profesionales venezolanos que apostamos al crecimiento y desarrollo del comercio local, a través de las relaciones comerciales intercontinentales con aliados estratégicos en china, quien es hoy en día el mayor generador de intercambio comercial con países de américa.
+              <p className="text-xl text-white/90 mb-6 leading-relaxed drop-shadow">
+                Somos profesionales venezolanos que apostamos al crecimiento y desarrollo del comercio local, a través de las relaciones comerciales intercontinentales con aliados estratégicos en China, quien es hoy en día el mayor generador de intercambio comercial con países de América.
               </p>
 
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-              Productos que inspiran, precios que sorprenden. Tu guía experta para importar con seguridad
-            </h2>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
+                <span className="block">Productos que inspiran, precios que sorprenden.</span>
+                <span className="block text-white/95">Tu guía experta para importar con seguridad</span>
+              </h2>
+
             </div>
 
           </div>
@@ -246,37 +267,92 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </motion.h3>
           <br /><br />
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-4 container mx-auto">
-          {categories.map((category, idx) => (
-            <Link key={category.id} to={`/catalog/${category.id}`}>
-              <motion.div
-                className="flex flex-col items-center group cursor-pointer"
-                initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.45, delay: idx * 0.06 }}
+        {/* Único carousel de categorías (muestra 4 en escritorio, responsive en pantallas pequeñas)
+            se mantiene una sola renderización y las flechas desplazan la ventana mostrando siempre up to visibleCount items */}
+        <div className="container mx-auto px-4 mt-6">
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div
+                className="flex transition-transform duration-400 ease-in-out"
+                style={{
+                  width: `${(categories.length / visibleDesktop) * 100}%`,
+                  /* 1) desplazamiento exacto de 1 ítem */
+                  transform: `translateX(-${catStart * (100 / categories.length)}%)`,
+                }}
               >
-                  <div className="w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4 group-hover:scale-105 transition-transform duration-300 bg-gradient-to-b from-green-500 via-primary to-blue-500">
-                    <img
-                      src={category.image}
-                      alt={category.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                {categories.map((category) => (
+                  <Link
+                    key={category.id}
+                    to={`/catalog/${category.id}`}
+                    className="group flex-shrink-0"
+                    style={{ width: `${100 / categories.length}%` }}
+                  >
+                    <div className="p-6 flex flex-col items-center cursor-pointer">
+                      <div
+                        className="
+                          w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4
+                          bg-gradient-to-b from-green-500 via-primary to-blue-500 mx-auto
+                          transition-transform duration-300
+                          group-hover:scale-105 hover:scale-105
+                        "
+                      >
+                        <img src={category.image} alt={category.name} className="w-full h-full object-cover" />
+                      </div>
 
-                <div className="w-full max-w-[220px] mb-3">
-                  <div className="h-1 w-full rounded bg-gradient-to-r from-green-500 via-primary to-blue-500" />
-                </div>
+                      <div className="w-full max-w-[220px] mb-3 mx-auto">
+                        <div className="h-1 w-full rounded bg-gradient-to-r from-green-500 via-primary to-blue-500" />
+                      </div>
 
-                <div className="text-center max-w-[220px]">
-                  <h4 className="text-[26px] font-semibold text-primary mb-1">{category.name}</h4>
-                  <p className="text-muted-foreground text-sm text-center">
-                    {category.description}
-                  </p>
-                </div>
-              </motion.div>
-            </Link>
-          ))} 
+                      <div className="text-center max-w-[220px] mx-auto">
+                        <h4 className="text-[26px] font-semibold text-primary mb-1">{category.name}</h4>
+                        <p className="text-muted-foreground text-sm text-center">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+))}
+
+              </div>
+            </div>
+
+            <button
+              aria-label="Anterior categorías"
+              onClick={slidePrev}
+              className="
+                absolute left-2 top-1/2 -translate-y-1/2
+                w-12 h-12 rounded-full
+                bg-primary text-white
+                shadow-lg ring-2 ring-white/70
+                hover:scale-105 hover:bg-primary/90
+                transition-all
+                focus:outline-none focus:ring-4 focus:ring-white
+              "
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            {/* Flecha siguiente (más visible) */}
+            <button
+              aria-label="Siguiente categorías"
+              onClick={slideNext}
+              className="
+                absolute right-2 top-1/2 -translate-y-1/2
+                w-12 h-12 rounded-full
+                bg-primary text-white
+                shadow-lg ring-2 ring-white/70
+                hover:scale-105 hover:bg-primary/90
+                transition-all
+                focus:outline-none focus:ring-4 focus:ring-white
+              "
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -321,21 +397,21 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                   {service.id === "import" ? (
                     <Button
                       onClick={() => onTabChange("business-import")}
-                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                      className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
                     >
-                      Describir servicio de importación
+                      Importa con nosotros
                     </Button>
                   ) : service.id === "suppliers" ? (
                     <Button
                       onClick={() => onTabChange("business-aliados")}
-                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                      className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
                     >
-                      Aliados recomendados
+                      Descubre nuestros aliados
                     </Button>
                   ) : (
                     <Button
                       onClick={() => onTabChange("contact")}
-                      className="bg-primary text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all px-4 py-2"
+                      className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
                     >
                       Solicitar Consultoría
                     </Button>
@@ -350,7 +426,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       {/* Más separación antes de siguientes bloques */}
       <div className="h-12" />
 
-      <section className="w-full bg-primary text-white">
+      <section className="w-full bg-primary text-white dark:bg-card dark:text-white">
         <div className="container mx-auto px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             {/* Video a la izquierda */}
@@ -366,19 +442,27 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
               />
             </div>
 
+            {/* Texto a la derecha */}
             <div className="w-full">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">Por qué elegirnos</h3>
-              <p className="text-lg mb-6 leading-relaxed">
+              <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                Por qué elegirnos
+              </h3>
+              <p className="text-lg mb-6 leading-relaxed text-white/95">
                 Seleccionamos proveedores verificados, gestionamos la logística y garantizamos respaldo documental para que su importación llegue segura y a tiempo. Somos su aliado para llevar productos de calidad al mercado venezolano.
               </p>
-              <div>
-                <Button
-                  onClick={() => onTabChange("about")}
-                  className="bg-white text-primary font-semibold px-6 py-3 shadow-lg hover:shadow-xl transition"
-                >
-                  Conoce más
-                </Button>
-              </div>
+              <Button
+                onClick={() => onTabChange("about")}
+                className="
+                  bg-white text-primary font-semibold px-6 py-3 shadow-lg transition
+                  hover:bg-white/90 hover:text-primary
+                  dark:bg-primary dark:text-primary-foreground
+                  dark:hover:bg-primary/90 dark:hover:text-primary-foreground
+                  focus-outline
+                "
+              >
+                Conoce más
+              </Button>
+
             </div>
           </div>
         </div>
