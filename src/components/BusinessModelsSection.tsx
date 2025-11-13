@@ -15,7 +15,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
   const businessModels = [
     {
       id: "importacion",
-      title: "Importa con nosotros",
+      title: "Servicio de Importación",
       description: "Gestionamos todo el proceso de importación por ti",
       icon: Package,
       color: "from-blue-500 to-blue-600",
@@ -36,11 +36,11 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
     },
     {
       id: "mayoreo",
-      title: "Comercializadora",
+      title: "Importación y Comercialización",
       description: "Precios especiales y gestión comercial para compras en volumen",
       icon: Users,
       color: "from-green-500 to-green-600",
-      image: comercialImg, // ← antes: "/assets/business_model/comercial.jpg"
+      image: comercialImg,
       features: [
         "Precios preferenciales por volumen",
         "Catálogo exclusivo mayorista",
@@ -155,7 +155,7 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
               Servicio de Importación
             </TabsTrigger>
             <TabsTrigger value="mayoreo" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
-              Venta al Mayor
+              Importación y Comercialización
             </TabsTrigger>
           </TabsList>
 

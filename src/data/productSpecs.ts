@@ -239,6 +239,91 @@ export const specsMapByNameSlug: Record<string, ProductSpecs> = {
   [slugify("Toallas húmedas")]: toallasMascotas,
   [slugify("Toallitas húmedas")]: toallasMascotas,
 
+    /* ---------- DECORACIÓN ---------- */
+  [slugify("Wall Panel Acústico")]: {
+    modelo: "CWS-01/CWS-02",
+    tipo: "Paneles acústicos",
+    material: "Chapa de madera natural + MDF + tablero de fibra de poliéster",
+    dimension: "600 × 21 mm",
+    longitud: "2,80 m",
+    descripcion:
+      "Paneles diseñados para absorber el sonido y mejorar la estética de cualquier espacio, utilizando fibras de poliéster y estructura tridimensional para reducir la reflexión y propagación del sonido.",
+  },
+
+  [slugify("Flat Wall Panel")]: {
+    tipo: "Chapa de madera",
+    dimensiones: "1220 × 2800 mm",
+    espesor: "8 mm",
+    material: "Compuesto de madera y plástico",
+    descripcion:
+      "Panel tipo chapa de madera con texturas en relieve 5D (madera, piedra, tela, metal y colores sólidos), resistente a moho, descascarillado, agrietamiento y rayones.",
+  },
+
+  [slugify("Wall Panel 3D")]: {
+    tipo: "Panel de pared 3D",
+    dimensiones: "600 × 600 × 9 mm",
+    superficie: "Recubrimiento",
+    material: "PVC + MDF",
+    descripcion:
+      "Paneles modulares de MDF 3D que permiten crear patrones creativos, reconfigurables y personalizados para una narrativa visual única en muros interiores.",
+  },
+
+  [slugify("Tubos Separación para interiores")]: {
+    modelos: "TU50-40; TU100-50",
+    tipo: "Tubo de madera",
+    superficie: "Recubrimiento",
+    dimension: "50 × 40 mm",
+    longitud: "2,9 m (o personalizado)",
+    material: "Compuesto de madera y plástico (WPC)",
+    descripcion:
+      "Tubos WPC para interiores, ideales como elementos arquitectónicos, separadores, pantallas o mobiliario, con apariencia y tacto de madera real.",
+  },
+
+  [slugify("Tubos de Techos para interiores")]: {
+    modelos: "CE50-90; CE50-60",
+    tipo: "Techo",
+    superficie: "Estándar y recubrimiento",
+    dimension: "50 × 90 mm y 50 × 60 mm",
+    longitud: "2,9 m",
+    material: "Compuesto de madera y plástico (WPC)",
+    descripcion:
+      "Techos WPC que combinan la calidez de la madera real con mayor durabilidad y menor mantenimiento, ideales para espacios interiores modernos o clásicos.",
+  },
+
+  [slugify("Tubos para exteriores")]: {
+    modelo: "CT-04",
+    superficie: "Estándar y recubrimiento",
+    dimension: "100 × 50 mm",
+    longitud: "2,9 m",
+    material: "Fibra de madera y HDPE",
+    descripcion:
+      "Tubo de madera WPC para exteriores, diseñado para persianas arquitectónicas, tabiques, cercas, pérgolas y techos deflectores, con alta resistencia a moho, hongos, termitas y clima extremo.",
+  },
+
+  [slugify("Wall Panel para exteriores")]: {
+    modelo: "CO-09",
+    superficie: "Veta de madera 3D",
+    dimension: "219 × 26 mm",
+    longitud: "2,9 m",
+    material: "Fibra de madera y HDPE",
+    descripcion:
+      "Wall panel para exteriores con veta de madera 3D y sistema machihembrado, que facilita la instalación y ofrece un acabado continuo sin fijaciones visibles.",
+  },
+
+  [slugify("Estructura para Pérgola")]: {
+    superficieCubierta: "3 × 3 m (≈9 m²)",
+    alturaTotal: "2,70 m",
+    areaUtilAproximada: "≈9 m²",
+    sistema: "Armable y modular (kit de instalación incluido)",
+    estructura: "Aluminio anodizado, perfiles cuadrados 50 × 50 mm, anticorrosivo",
+    uniones: "Acero inoxidable con tratamiento anticorrosivo",
+    techo: "Paneles WPC (Wood Plastic Composite), acabado tipo madera",
+    colorEstandar: "Estructura: gris grafito / Techo: roble natural",
+    tornilleria: "Galvanizada, apta para exteriores",
+    descripcion:
+      "Pérgola modular para espacios exteriores elegantes y funcionales, combinando estructura de aluminio anodizado y techo WPC tipo madera, de fácil instalación y bajo mantenimiento.",
+  },
+
   /* ---------- JUGUETES (SCOOTERS) ---------- */
   [slugify("Scooter para niños (Acero)")]: {
     modelo: "200",

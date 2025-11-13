@@ -42,6 +42,12 @@ const productData = {
       description: "Ruedas de poli para mejor deslizamiento.",
       image: importImage("toys/scooter_poli.png"),
     },
+    {
+      id: 4,
+      name: "Balón de Fútbol",
+      description: "Balón para prácticas de fútbol campo",
+      image: importImage("toys/balon.jpg"),
+    },
   ],
   home: [
     {
@@ -113,8 +119,8 @@ decoration: [
     {
       id: 2,
       name: "Flat Wall Panel",
-      description: "Panel plano tipo chapa de madera con textura 5D para revestimientos interiores.",
-      image: importImage("decoracion/flat_wall_panel.png"),
+      description: "Panel plano tipo chapa de madera con textura 3D para revestimientos interiores.",
+      image: importImage("decoration/flat_wall_panel.png"),
     },
     {
       id: 3,
@@ -239,37 +245,40 @@ const CatalogPage = () => {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {productsWithSpecs.map((product) => (
-            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-              <div className="relative h-40 sm:h-48 overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
-                <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                  {product.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
-                <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
-                  {product.description}
-                </CardDescription>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setDialogOpen(true);
-                  }}
-                >
-                  Ver detalles
-                </Button>
-              </CardContent>
-            </Card>
+            
+          <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+            <div className="relative h-40 sm:h-48 bg-white flex items-center justify-center overflow-hidden">
+              <img
+                src={product.image}
+                alt={product.name}
+                onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
+                className="w-full h-full object-fill transition-transform duration-300"
+              />
+            </div>
+            <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
+              <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                {product.name}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
+              <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
+                {product.description}
+              </CardDescription>
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setSelectedProduct(product);
+                  setDialogOpen(true);
+                }}
+              >
+                Ver detalles
+              </Button>
+            </CardContent>
+          </Card>
+
+
           ))}
         </div>
       </div>
