@@ -103,6 +103,56 @@ const productData = {
       image: importImage("pets/toallas_humedas.png"),
     },
   ],
+decoration: [
+    {
+      id: 1,
+      name: "Wall Panel Acústico",
+      description: "Panel acústico decorativo en MDF + poliéster, ideal para mejorar la acústica y la estética.",
+      image: importImage("decoration/wall_panel_acustico.png"), // o .jpg según tu archivo
+    },
+    {
+      id: 2,
+      name: "Flat Wall Panel",
+      description: "Panel plano tipo chapa de madera con textura 5D para revestimientos interiores.",
+      image: importImage("decoracion/flat_wall_panel.png"),
+    },
+    {
+      id: 3,
+      name: "Wall Panel 3D",
+      description: "Panel de pared 3D en MDF/PVC para crear relieves y efectos volumétricos.",
+      image: importImage("decoration/wall_panel_3d.png"),
+    },
+    {
+      id: 4,
+      name: "Tubos de separación para interiores",
+      description: "Tubos WPC decorativos para separar espacios interiores con estética cálida.",
+      image: importImage("decoration/tubos_separacion_interiores.png"),
+    },
+    {
+      id: 5,
+      name: "Tubos de techos para interiores",
+      description: "Perfiles WPC para techos interiores con look de madera.",
+      image: importImage("decoration/tubos_techos_interiores.png"),
+    },
+    {
+      id: 6,
+      name: "Tubos para exteriores",
+      description: "Tubos WPC de alta densidad para persianas, cercas y pérgolas exteriores.",
+      image: importImage("decoration/tubos_exteriores.png"),
+    },
+    {
+      id: 7,
+      name: "Wall Panel para exteriores",
+      description: "Revestimiento exterior con veta de madera 3D y sistema machihembrado.",
+      image: importImage("decoration/wall_panel_exteriores.png"),
+    },
+    {
+      id: 8,
+      name: "Estructura para pérgola",
+      description: "Pérgola modular en aluminio + WPC, ideal para patios y terrazas.",
+      image: importImage("decoration/estructura_pergola.png"),
+    },
+  ],
 } as const;
 
 const categoryNames = {
@@ -110,6 +160,7 @@ const categoryNames = {
   home: "Hogar",
   supplies: "Insumos",
   pets: "Mascotas",
+  decoration: "Decoración"
 } as const;
 
 type CategoryKey = keyof typeof productData;

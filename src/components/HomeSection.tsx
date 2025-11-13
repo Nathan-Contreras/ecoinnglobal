@@ -52,7 +52,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       image: toysImage,
     },
     {
-      id: "decoracion",
+      id: "decoration",
       name: "Decoración",
       description: "Decoración y complementos para interiores",
       image: decorImage,

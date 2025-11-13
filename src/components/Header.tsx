@@ -23,8 +23,8 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   ];
 
   const businessModels = [
-    { id: "importacion", label: "Importación" },
-    { id: "comercializadora", label: "Comercializadora" },
+    { id: "importacion", label: "Servicio de Importación" },
+    { id: "comercializadora", label: "Importación y Comercialización" },
   ];
  
   // -- Hover timing logic: mantiene el submenú abierto unos ms después de salir --
@@ -119,7 +119,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                       <button
                         key={model.id}
                         onClick={() => onTabChange(`business-${model.id}`)}
-                        className="w-full text-left px-4 py-3 hover:bg-accent focus:bg-accent"
+                        className="w-full text-center px-4 py-3 hover:bg-accent focus:bg-accent"
                       >
                         {model.label}
                       </button>
