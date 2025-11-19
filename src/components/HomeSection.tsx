@@ -54,11 +54,6 @@ const aliados = [
     url: "#",
   },
   {
-    name: "Gama",
-    image: gama,
-    url: "#",
-  },
-  {
     name: "Páramo",
     image: paramo,
     url: "#",
@@ -100,6 +95,12 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       description: "Artículos para el hogar y decoración",
       image: homeImage,
     },
+    {
+      id: "repuestos", // alias para supplies en CatalogPage
+      name: "Repuestos",
+      description: "Repuestos y componentes para tus equipos y proyectos",
+      image: partsImage,
+    }, 
     {
       id: "parts", // alias para supplies en CatalogPage
       name: "Insumos",
@@ -581,7 +582,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
             <div className="w-full">
               <h3 className="text-3xl md:text-4xl font-bold mb-4">¿Por qué elegirnos?</h3>
               <p className="text-lg mb-6 leading-relaxed text-white/95">
-                Seleccionamos proveedores verificados, gestionamos la logística y garantizamos respaldo documental para
+                Seleccionamos aliados verificados, gestionamos la logística y garantizamos respaldo documental para
                 que su importación llegue segura y a tiempo. Somos su aliado para llevar productos de calidad al mercado
                 venezolano.
               </p>

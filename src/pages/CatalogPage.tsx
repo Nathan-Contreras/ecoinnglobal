@@ -48,6 +48,32 @@ const productData = {
       description: "Balón para prácticas de fútbol campo",
       image: importImage("toys/balon.jpg"),
     },
+    {
+      id: 5,
+      name: "Patines en línea convertible",
+      description: "Patines en línea con colores del mundial 2026 y kit de conversión.",
+      image: importImage("toys/patines.jpg"),
+    },
+  ],
+  repuestos: [
+    {
+      id: 1,
+      name: "Cauchos para moto",
+      description: "Cauchos de alto rendimiento para motocicletas.",
+      image: importImage("repuestos/cauchos_moto.png"),
+    },
+    {
+      id: 2,
+      name: "Cámara/Tripa",
+      description: "Cauchos de alto rendimiento para motocicletas.",
+      image: importImage("repuestos/cauchos_moto.png"),
+    },
+    {
+      id: 3,
+      name: "Válvula",
+      description: "Válvula para neumáticos sin cámara.",
+      image: importImage("repuestos/cauchos_moto.png"),
+    },
   ],
   home: [
     {
@@ -66,28 +92,35 @@ const productData = {
   supplies: [
     {
       id: 1,
-      name: "Cauchos para moto",
-      description: "Cauchos de alto rendimiento para motocicletas.",
-      image: importImage("supplies/cauchos_moto.png"),
-    },
-    {
-      id: 2,
       name: "Cinta Kinesiológica",
       description: "Cinta elástica para soporte muscular.",
       image: importImage("supplies/cinta_kinesiologica.png"),
     },
     {
-      id: 3,
+      id: 2,
       name: "Papel film grado alimentación",
       description: "Ideal para uso de contacto con alimentos.",
       image: importImage("supplies/papel_film_alim.png"),
     },
+
     {
-      id: 4,
+      id: 3,
       name: "Papel film industrial",
       description: "Película de alta resistencia para uso industrial.",
       image: importImage("supplies/papel_film_industrial.png"),
     },
+    {
+      id: 4,
+      name: "Vendas Adhesivas",
+      description: "Fabricados en tela no tejida proporcionando elasticidad, suavidad y ligereza.",
+      image: importImage("supplies/vendas_adhesivas.png"),
+    },
+    {
+      id: 5,
+      name: "Cuellero",
+      description: "Fabricados con papel de celulosa o fibra no tejida (non woven), suave y desechable.",
+      image: importImage("supplies/cuellero.png"),
+    }
   ],
   pets: [
     {
@@ -109,12 +142,12 @@ const productData = {
       image: importImage("pets/toallas_humedas.png"),
     },
   ],
-decoration: [
+  decoration: [
     {
       id: 1,
       name: "Wall Panel Acústico",
       description: "Panel acústico decorativo en MDF + poliéster, ideal para mejorar la acústica y la estética.",
-      image: importImage("decoration/wall_panel_acustico.png"), // o .jpg según tu archivo
+      image: importImage("decoration/wall_panel_acustico.png"),
     },
     {
       id: 2,
@@ -158,15 +191,22 @@ decoration: [
       description: "Pérgola modular en aluminio + WPC, ideal para patios y terrazas.",
       image: importImage("decoration/estructura_pergola.png"),
     },
+    {
+      id: 9,
+      name: "Láminas Techos UPVC",
+      description: "Lámina termoacústica para techado y revestimiento, fabricada en material UPVC.",
+      image: importImage("decoration/laminas_techo_upvc.png"),
+    },
   ],
-} as const;
+};
 
 const categoryNames = {
   toys: "Juguetes",
   home: "Hogar",
   supplies: "Insumos",
   pets: "Mascotas",
-  decoration: "Decoración"
+  decoration: "Decoración",
+  repuestos: "Repuestos",
 } as const;
 
 type CategoryKey = keyof typeof productData;
@@ -177,10 +217,8 @@ const CatalogPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<(typeof productData)[CategoryKey][number] & { specs?: ProductSpecs } | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // Normalizar posibles rutas antiguas -> usar siempre "supplies"
   const normalized = category === "parts" ? "supplies" : category;
 
-  // si el parámetro de la URL es "parts", redirigimos a la ruta correcta (/catalog/supplies)
   useEffect(() => {
     if (category === "parts") {
       navigate("/catalog/supplies", { replace: true });
@@ -208,7 +246,6 @@ const CatalogPage = () => {
     );
   }
 
-  // usar la categoría normalizada para obtener datos (si vino "parts" ya fue redirigido)
   const dataKey = normalized as keyof typeof productData;
   const products = productData[dataKey] ?? [];
   const categoryName = categoryNames[(dataKey as keyof typeof categoryNames)] ?? dataKey;
@@ -245,40 +282,37 @@ const CatalogPage = () => {
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {productsWithSpecs.map((product) => (
-            
-          <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-            <div className="relative h-40 sm:h-48 bg-white flex items-center justify-center overflow-hidden">
-              <img
-                src={product.image}
-                alt={product.name}
-                onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
-                className="w-full h-full object-fill transition-transform duration-300"
-              />
-            </div>
-            <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
-              <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                {product.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
-              <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
-                {product.description}
-              </CardDescription>
-              <Button
-                size="sm"
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  setSelectedProduct(product);
-                  setDialogOpen(true);
-                }}
-              >
-                Ver detalles
-              </Button>
-            </CardContent>
-          </Card>
-
-
+            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
+              <div className="relative h-40 sm:h-48 bg-white flex items-center justify-center overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
+                  className="w-full h-full object-fill transition-transform duration-300"
+                />
+              </div>
+              <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
+                <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                  {product.name}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
+                <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
+                  {product.description}
+                </CardDescription>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setSelectedProduct(product);
+                    setDialogOpen(true);
+                  }}
+                >
+                  Ver detalles
+                </Button>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
@@ -294,7 +328,7 @@ const CatalogPage = () => {
           <div className="mt-4 max-h-[70vh] overflow-y-auto pr-2">
             <ProductSpecsTable
               specs={
-                selectedProduct?.specs ??
+                selectedProduct?.specs ?? 
                 (selectedProduct
                   ? (lookupSpecs(validCategory as string, selectedProduct.id, selectedProduct.name) as ProductSpecs)
                   : {})

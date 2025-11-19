@@ -360,14 +360,31 @@ export const specsMapByNameSlug: Record<string, ProductSpecs> = {
     cargaMaxima: "100 kg",
   },
 
-  /* ---------- REPUESTOS ---------- */
-  // Original del documento
-  [slugify("Caucho para Motos")]: cauchosMoto,
-  // Aliases para coincidir con CatalogPage.tsx (plural y minúsculas)
-  [slugify("Cauchos para moto")]: cauchosMoto,
-  [slugify("Caucho para moto")]: cauchosMoto,
+  [slugify("Balón de Fútbol")]: {
+    diseñoo: "Combina los colores de los países sedes del mundial 2026 (rojo, verde, blanco y azul), y logotipo superior que indica \"CUP WORLD\"",
+    materialExterior: "Verde",
+    camaraInterior: "34 × 73 × 104 cm",
+    materialRuedas: "Poliuretano (PU)",
+    numeroRuedas: "3 (luces)",
+    materialCuerpo: "Aluminio",
+    plegable: "Sí",
+    alturaAjustable: "Sí",
+    cargaMaxima: "100 kg",
+  },
 
-  /* ---------- DECORACIÓN (si usas estos en el sitio) ---------- */
+  [slugify("Cámara/Tripa")]:{
+  "Tamaño de la Cámara": [
+    { "Tamaño": "90/90-18 TR4", "Material": "Caucho Natural" },
+    { "Tamaño": "110/90-16 TR4", "Material": "Alta" },
+    { "Tamaño": "275-18 TR4", "Material": "Alta" }
+    ],
+  },
+
+  [slugify("Válvula")]: {
+    modelo: "PVR60 para neumático sin cámara"
+  },
+
+  [slugify("Cauchos para moto")]: cauchosMoto,
   [slugify("Wall Panel Acústico")]: {
     modelo: "CWS-01/CWS-02",
     tipo: "Paneles acústicos",
