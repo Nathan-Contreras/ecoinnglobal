@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export interface TeamMember {
   slug: string;
@@ -10,10 +10,10 @@ export interface TeamMember {
   role?: string;
   cvHref?: string;
 
-  // Campos extendidos para información rica
-  highlights?: string[]; // bullets principales (acepta HTML)
-  resume?: string[];     // resumen curricular (texto plano)
-  education?: string;    // línea inicial con títulos (acepta HTML)
+  highlights?: string[];
+  resume?: string[];
+  education?: string;
+  additionalResumes?: string[];
 }
 
 type Variant = "page" | "modal";
@@ -26,27 +26,35 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ member, variant = "page", onClose }) => {
   const isPage = variant === "page";
-  const cvUrl = member.cvHref ?? `/assets/cv-${member.slug}.pdf`;
+
+  // Cerrar el modal si se hace clic fuera de él
+  const handleClickOutside = (e: React.MouseEvent) => {
+    const modal = e.target as HTMLElement;
+    if (modal.classList.contains("modal-overlay")) {
+      onClose && onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (variant === "modal") {
+      document.body.style.overflow = "hidden"; // Deshabilitar desplazamiento cuando el modal está abierto
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Restaurar desplazamiento cuando el modal se cierre
+    };
+  }, [variant]);
 
   return (
     <div
-      className={
-        isPage
-          ? "max-w-5xl w-full bg-white rounded-xl shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2"
-          : "w-full bg-white overflow-hidden grid grid-cols-1 md:grid-cols-2"
-      }
+      className={`${
+        isPage ? "" : "modal-overlay"
+      } fixed inset-0 flex justify-center items-center bg-black/50`}
+      onClick={handleClickOutside}
     >
-      {/* FOTO */}
-      <div className={isPage ? "h-96 md:h-auto" : "h-full w-full md:h-auto md:w-full"}>
-        <img
-          src={member.img}
-          alt={member.name}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* CONTENIDO */}
-      <div className="p-8 relative">
+      <div
+        className={`w-full max-w-3xl bg-white rounded-xl shadow-lg p-8 overflow-hidden flex flex-col`}
+      >
         {/* Botón Cerrar (solo modal) */}
         {!isPage && onClose && (
           <button
@@ -66,21 +74,22 @@ const Profile: React.FC<ProfileProps> = ({ member, variant = "page", onClose }) 
           </button>
         )}
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-1">{member.name}</h2>
-        {member.role && (
-          <p className="text-sm md:text-base text-muted-foreground mb-5">{member.role}</p>
-        )}
-
-        <div className="text-base md:text-lg leading-relaxed space-y-4">
-          {/* Línea de formación (HTML permitido) */}
-          {member.education && (
-            <p dangerouslySetInnerHTML={{ __html: member.education }} />
+        {/* Título y Subtítulo */}
+        <div className="text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2">{member.name}</h2>
+          {member.role && (
+            <p className="text-sm md:text-base text-muted-foreground mb-5">{member.role}</p>
           )}
+        </div>
 
-          {/* Biografía larga */}
+        {/* Información del perfil */}
+        <div
+          className="text-base md:text-lg leading-relaxed space-y-4 overflow-y-auto" // Añadimos scroll aquí
+          style={{ maxHeight: "70vh" }} // Establecemos una altura máxima
+        >
+          {member.education && <p dangerouslySetInnerHTML={{ __html: member.education }} />}
           {member.longBio && <p>{member.longBio}</p>}
 
-          {/* Bullets principales (HTML permitido) */}
           {member.highlights && member.highlights.length > 0 && (
             <ul className="list-disc pl-5 space-y-2">
               {member.highlights.map((item, i) => (
@@ -89,7 +98,6 @@ const Profile: React.FC<ProfileProps> = ({ member, variant = "page", onClose }) 
             </ul>
           )}
 
-          {/* Resumen curricular */}
           {member.resume && member.resume.length > 0 && (
             <div className="mt-4 border rounded-lg p-5 bg-muted/30">
               <h3 className="text-lg md:text-xl font-semibold mb-2">Resumen curricular</h3>
@@ -100,28 +108,16 @@ const Profile: React.FC<ProfileProps> = ({ member, variant = "page", onClose }) 
               </ul>
             </div>
           )}
-        </div>
 
-        {/* BOTONES */}
-        <div className="mt-6 flex gap-3">
-          {cvUrl && (
-            <a
-              href={cvUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md"
-            >
-              Descargar CV
-            </a>
-          )}
-
-          {!isPage && onClose && (
-            <button
-              onClick={onClose}
-              className="inline-flex items-center px-4 py-2 border border-border rounded-md"
-            >
-              Cerrar
-            </button>
+          {member.additionalResumes && member.additionalResumes.length > 0 && (
+            <div className="mt-4 border rounded-lg p-5 bg-muted/30">
+              <h3 className="text-lg md:text-xl font-semibold mb-2">Resúmenes adicionales</h3>
+              <ul className="list-disc pl-5 space-y-1 text-sm md:text-base">
+                {member.additionalResumes.map((r, i) => (
+                  <li key={i}>{r}</li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>

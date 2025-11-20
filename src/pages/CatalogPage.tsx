@@ -52,7 +52,7 @@ const productData = {
       id: 5,
       name: "Patines en línea convertible",
       description: "Patines en línea con colores del mundial 2026 y kit de conversión.",
-      image: importImage("toys/patines.jpg"),
+      image: importImage("toys/patines_en_linea.png"),
     },
   ],
   repuestos: [
@@ -66,13 +66,13 @@ const productData = {
       id: 2,
       name: "Cámara/Tripa",
       description: "Cauchos de alto rendimiento para motocicletas.",
-      image: importImage("repuestos/cauchos_moto.png"),
+      image: importImage("repuestos/camara_tripa.png"),
     },
     {
       id: 3,
       name: "Válvula",
       description: "Válvula para neumáticos sin cámara.",
-      image: importImage("repuestos/cauchos_moto.png"),
+      image: importImage("repuestos/valvula.png"),
     },
   ],
   home: [
@@ -119,7 +119,7 @@ const productData = {
       id: 5,
       name: "Cuellero",
       description: "Fabricados con papel de celulosa o fibra no tejida (non woven), suave y desechable.",
-      image: importImage("supplies/cuellero.png"),
+      image: importImage("supplies/cuelleros.png"),
     }
   ],
   pets: [
@@ -195,7 +195,7 @@ const productData = {
       id: 9,
       name: "Láminas Techos UPVC",
       description: "Lámina termoacústica para techado y revestimiento, fabricada en material UPVC.",
-      image: importImage("decoration/laminas_techo_upvc.png"),
+      image: importImage("decoration/lamina.png"),
     },
   ],
 };

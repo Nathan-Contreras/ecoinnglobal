@@ -11,7 +11,6 @@ import ronnyPhoto1 from "@/assets/team/ronny_team1.png";
 import angelPhoto1 from "@/assets/team/angel_team1.png";
 import tulioPhoto1 from "@/assets/team/normando_team1.png";
 
-// 🔹 Componente genérico de perfil
 import Profile, { TeamMember as TM } from "@/pages/team/Profile";
 
 const AboutSection = () => {
@@ -44,17 +43,63 @@ const AboutSection = () => {
 
   // 🔹 Equipo
   const team: TM[] = [
+
     {
       slug: "angel-mendez",
       name: "Ángel Méndez",
-      role: "Dirección Estratégica",
-      bio: "Profesional en gestión empresarial y comercio internacional.",
+      role: "Gerente de Operaciones",
+      bio: "Gerente de Operaciones con 20 años de experiencia en áreas de logística, procesos y proyectos comerciales.",
       longBio:
-        "Profesional con amplia experiencia en gestión empresarial y comercio internacional. Responsable de la dirección estratégica y operativa de la compañía, con foco en expansión y relaciones comerciales.",
-      img: angelPhoto1,
+        "Estudios de Gerencia en el IESA, Magíster en Gerencia de Empresas, Mercadeo de la UNET, Contador Público de la UCAT. Especializado en decisiones estratégicas, implementación de herramientas de control y optimización de la eficiencia operativa. Abriendo horizontes en el sector Retail. Papá, esposo y católico. Apasionado por la cocina y las brasas.",
+      education:
+        "<em>Estudios de Gerencia en el IESA</em> | <em>Magíster en Gerencia de Empresas, Mercadeo</em> (UNET) | <em>Contador Público</em> (UCAT)",
+      highlights: [
+        "<strong>Decisiones Estratégicas:</strong> Desarrollo e implementación de decisiones clave para la dirección estratégica de la empresa.",
+        "<strong>Optimización de Operaciones:</strong> Implementación de herramientas de control y mejora de la eficiencia operativa.",
+        "<strong>Procesos de Negociación:</strong> Amplia experiencia en procesos de negociación en el sector comercial.",
+        "<strong>Expansión Retail:</strong> Contribución al crecimiento y apertura de nuevos horizontes en el sector Retail.",
+      ],
+      resume: [
+        "Magíster en Gerencia de Empresas, Mercadeo (UNET).",
+        "Contador Público (UCAT).",
+        "20 años de experiencia en logística, procesos y proyectos comerciales.",
+        "Especializado en decisiones estratégicas y optimización de operaciones.",
+        "Papá, esposo, católico y apasionado por la cocina y las brasas.",
+      ],
+      img: angelPhoto1,  // Asegúrate de que la ruta sea correcta
       colorClass: "bg-primary",
-      cvHref: "/assets/cv-angel-mendez.pdf",
+      cvHref: "/assets/cv-angel-mendez.pdf",  // Asegúrate de que la ruta sea correcta
     },
+
+    {
+      slug: "ronny-pena",
+      name: "Ronny Peña",
+      role: "Director y Accionista",
+      bio: "Licenciado en Administración de Empresas con más de 27 años de experiencia en Empresas Polar y actualmente Director de Ecoinn Global.",
+      longBio:
+        "Licenciado en Administración de Empresas en la Universidad Rafael Urdaneta (1997), con Especialización en Gerencia Empresarial (Universidad Santa María) y en Recursos Humanos (Universidad Simón Rodríguez). En 2017 obtuvo la especialización en Relaciones Comerciales Internacionales (Universidad Católica del Táchira). Con una larga trayectoria en Empresas Polar, comenzó como Supervisor de Almacén y ascendió hasta Gerente Territorial de Operaciones Comerciales, gestionando diversas áreas como Almacén, Despacho y Gestión Operativa. Actualmente es Director y accionista de Ecoinn Global, una importadora con su propia marca GLOB, especializada en tecnología e innovación.",
+      education:
+        "<em>Licenciado en Administración de Empresas</em> (Universidad Rafael Urdaneta) | <em>Especialización en Gerencia Empresarial</em> (Universidad Santa María) | <em>Especialización en Recursos Humanos</em> (Universidad Simón Rodríguez) | <em>Especialización en Relaciones Comerciales Internacionales</em> (Universidad Católica del Táchira)",
+      highlights: [
+        "<strong>Trayectoria en Empresas Polar:</strong> Más de 27 años de experiencia en áreas de Almacén, Despacho y Gestión Operativa.",
+        "<strong>Gerencia Ejecutiva:</strong> Gestión y supervisión de operaciones comerciales y corporativas a nivel nacional.",
+        "<strong>Director y Accionista:</strong> Actualmente es Director y accionista en Ecoinn Global, con la marca GLOB especializada en tecnología.",
+        "<strong>Jubilación Programada:</strong> Cierre de su ciclo laboral en Empresas Polar en 2025 tras una exitosa carrera.",
+      ],
+      resume: [
+        "Licenciado en Administración de Empresas (1997).",
+        "Especialización en Gerencia Empresarial (USM).",
+        "Especialización en Recursos Humanos (USR).",
+        "Especialización en Relaciones Comerciales Internacionales (UCAT).",
+        "27 años de experiencia en Empresas Polar en diversas posiciones de liderazgo.",
+        "Director y accionista de Ecoinn Global, con marca GLOB en el sector tecnológico.",
+        "Jubilación programada para enero 2025 tras una carrera exitosa en Empresas Polar.",
+      ],
+      img: ronnyPhoto1,  // Asegúrate de que la ruta sea correcta
+      colorClass: "bg-info",
+      cvHref: "/assets/cv-ronny-pena.pdf",  // Asegúrate de que la ruta sea correcta
+    },
+
     {
       slug: "normando-contreras",
       name: "Normando Contreras",
@@ -81,17 +126,6 @@ const AboutSection = () => {
       img: normandoPhoto1,
       colorClass: "bg-secondary",
       cvHref: "/assets/cv-normando-contreras.pdf",
-    },
-    {
-      slug: "ronny-castillo",
-      name: "Ronny Castillo",
-      role: "Gerente de Logística",
-      bio: "Especialista en distribución y coordinación de operaciones internacionales.",
-      longBio:
-        "Responsable de planificar, coordinar y ejecutar operaciones logísticas internacionales, asegurando eficiencia y cumplimiento en cada etapa del proceso.",
-      img: ronnyPhoto1,
-      colorClass: "bg-info",
-      cvHref: "/assets/cv-ronny-castillo.pdf",
     },
     {
       slug: "tulio-mendoza",
@@ -248,6 +282,7 @@ const AboutSection = () => {
       </section>
 
       {/* MODAL RESPONSIVE CON SCROLL */}
+      {/* MODAL RESPONSIVE CON SCROLL */}
       {modalOpen && selectedMember && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
@@ -256,13 +291,12 @@ const AboutSection = () => {
         >
           <div className="relative w-full max-w-5xl bg-white rounded-lg shadow-xl overflow-hidden flex flex-col max-h-[90vh]">
             {/* Contenido scrollable */}
-            <div className="overflow-y-auto">
+            <div className="overflow-y-auto max-h-[80vh]"> {/* Aquí añadimos scroll */}
               <Profile member={selectedMember} variant="modal" onClose={closeMemberModal} />
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };

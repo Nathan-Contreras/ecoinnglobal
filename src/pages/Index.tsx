@@ -50,6 +50,9 @@ const Index = () => {
           <div className="text-center text-primary-foreground">
             <h3 className="text-2xl font-bold mb-4">EcoInn Global</h3>
             <p className="mb-2">
+              J-506869999-3
+            </p>
+            <p className="mb-2">
               Innovación, Calidad y Sostenibilidad
             </p>
             {/* Redes sociales */}

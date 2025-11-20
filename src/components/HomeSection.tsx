@@ -18,6 +18,7 @@ import homeImage from "@/assets/categories/home-category.jpg";
 import partsImage from "@/assets/categories/parts-category.png";
 import decorImage from "@/assets/categories/decor-category.jpg";
 import petsImage from "@/assets/categories/pets-category.jpeg";
+import repuestosImage from "@/assets/categories/repuestos-category.jpg"
 
 import serviceImportImage from "@/assets/services/service-import.jpg";
 import serviceSuppliersImage from "@/assets/services/service-suppliers.jpg";
@@ -99,7 +100,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       id: "repuestos", // alias para supplies en CatalogPage
       name: "Repuestos",
       description: "Repuestos y componentes para tus equipos y proyectos",
-      image: partsImage,
+      image: repuestosImage,
     }, 
     {
       id: "parts", // alias para supplies en CatalogPage
