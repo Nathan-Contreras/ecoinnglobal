@@ -11,7 +11,7 @@ interface BusinessModelsSectionProps {
   activeModel?: string;
 }
 
-const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: BusinessModelsSectionProps) => {
+const BusinessModelsSection = ({ onTabChange, activeModel = "mayoreo" }: BusinessModelsSectionProps) => {
   const businessModels = [
     {
       id: "importacion",
@@ -151,13 +151,13 @@ const BusinessModelsSection = ({ onTabChange, activeModel = "importacion" }: Bus
       <section>
         <Tabs value={active} onValueChange={handleTabChange} className="w-full">
           <TabsList className="flex w-full justify-center gap-2 bg-transparent">
-            <TabsTrigger value="importacion" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
-              Servicio de Importación
-            </TabsTrigger>
             <TabsTrigger value="mayoreo" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
               Importación y Comercialización
             </TabsTrigger>
-          </TabsList>
+            <TabsTrigger value="importacion" className="px-6 py-3 rounded-full font-semibold text-primary data-[state=active]:bg-primary data-[state=active]:text-white transition-colors">
+              Servicio de Importación
+            </TabsTrigger>
+           </TabsList>
 
           {businessModels.map((model) => (
             <TabsContent key={model.id} value={model.id} className="mt-8">

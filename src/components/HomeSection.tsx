@@ -26,12 +26,15 @@ import serviceConsultationImage from "@/assets/services/service-consultation.jpg
 
 // ALIADOS
 import centralMadeirense from "@/assets/carrusel_aliados/central_madeirense.png";
-import gama from "@/assets/carrusel_aliados/gama.png";
 import paramo from "@/assets/carrusel_aliados/paramo.png";
 import petsHome from "@/assets/carrusel_aliados/pets_home.png";
 import planSuarez from "@/assets/carrusel_aliados/plan_suarez.png";
 import santaRosa from "@/assets/carrusel_aliados/santa_rosa.png";
 import vidaPets from "@/assets/carrusel_aliados/vida_pets.png";
+import baratta from "@/assets/carrusel_aliados/baratta.png";
+import prado from "@/assets/carrusel_aliados/prado.png";
+import bodeguita from "@/assets/carrusel_aliados/bodeguita.png";
+import descuentazo from "@/assets/carrusel_aliados/descuentazo.png";
 
 import logoGlob from "@/assets/logo_glob.png";
 
@@ -79,6 +82,26 @@ const aliados = [
     image: vidaPets,
     url: "#",
   },
+  {
+    name: "Baratta",
+    image: baratta,
+    url: "#",
+  },
+  {
+    name: "Prado",
+    image: prado,
+    url: "#",
+  },
+  {
+    name: "Bodeguita",
+    image: bodeguita,
+    url: "#",
+  },
+  {
+    name: "Descuentazo",
+    image: descuentazo,
+    url: "#",
+  }
 ];
 
 const HomeSection = ({ onTabChange }: HomeSectionProps) => {
@@ -197,37 +220,31 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
   // 🟢 Cinta infinita de aliados
   const aliadosTrackRef = useRef<HTMLDivElement | null>(null);
-  const [aliadosOffset, setAliadosOffset] = useState(0);
+  const [loopWidth, setLoopWidth] = useState<number>(0);
 
   useEffect(() => {
     const track = aliadosTrackRef.current;
     if (!track) return;
 
-    let animationFrame: number;
-    const speed = 0.5; // píxeles por frame aprox
-
-    const animate = () => {
-      setAliadosOffset((prev) => {
-        const totalWidth = track.scrollWidth;
-        if (!totalWidth) return prev;
-
-        const next = prev - speed;
-
-        // como duplicamos la lista de aliados, reiniciamos a la mitad
-        if (next <= -totalWidth / 2) {
-          return 0;
-        }
-
-        return next;
-      });
-
-      animationFrame = requestAnimationFrame(animate);
+    const measure = () => {
+      // El contenido está duplicado; la mitad del scrollWidth es el ancho de un ciclo
+      const total = track.scrollWidth || 0;
+      setLoopWidth(total / 2);
     };
 
-    animationFrame = requestAnimationFrame(animate);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+    window.addEventListener("load", measure);
 
-    return () => cancelAnimationFrame(animationFrame);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("load", measure);
+    };
   }, []);
+
+  // Estado para el modal de "Descubre a nuestros aliados"
+  const [showAlliesModal, setShowAlliesModal] = useState(false);
 
   return (
     <>
@@ -370,8 +387,8 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
         <div className="container mx-auto px-4 mt-6">
           <div className="relative">
-            {/* Desktop: carrusel con 4 visibles + flechas abajo */}
-            <div className="hidden lg:block">
+            {/* Desktop: carrusel con 4 visibles */}
+            <div className="hidden lg:block relative">
               <div className="overflow-hidden">
                 <div
                   className="flex transition-transform duration-400 ease-in-out"
@@ -389,12 +406,10 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                     >
                       <div className="p-6 flex flex-col items-center cursor-pointer">
                         <div
-                          className="
-                            w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4
+                          className="w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4
                             bg-gradient-to-b from-green-500 via-primary to-blue-500 mx-auto
                             transition-transform duration-300
-                            group-hover:scale-105 hover:scale-105
-                          "
+                            group-hover:scale-105 hover:scale-105"
                         >
                           <img
                             src={category.image}
@@ -421,70 +436,30 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 </div>
               </div>
 
-              {/* Flechas sencillas, en los extremos y sin sobreponerse a las categorías */}
-              <div className="flex items-center justify-between mt-4">
+              {/* Flechas de navegación en los lados */}
+              <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-40">
                 <button
                   aria-label="Anterior categorías"
                   onClick={slidePrev}
-                  className="flex items-center justify-center px-3 py-2 border rounded-full text-sm text-foreground hover:bg-muted transition"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/90 dark:bg-gray-800/80 shadow-sm hover:shadow-md transition-transform duration-150 transform hover:-translate-y-0.5 border border-transparent hover:border-gray-200"
                 >
-                  <ChevronLeft className="w-4 h-4 mr-1" />
-                  Anterior
+                  <ChevronLeft className="w-5 h-5 text-primary" />
                 </button>
+              </div>
+              <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-40">
                 <button
                   aria-label="Siguiente categorías"
                   onClick={slideNext}
-                  className="flex items-center justify-center px-3 py-2 border rounded-full text-sm text-foreground hover:bg-muted transition"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/90 dark:bg-gray-800/80 shadow-sm hover:shadow-md transition-transform duration-150 transform hover:-translate-y-0.5 border border-transparent hover:border-gray-200"
                 >
-                  Siguiente
-                  <ChevronRight className="w-4 h-4 ml-1" />
+                  <ChevronRight className="w-5 h-5 text-primary" />
                 </button>
-              </div>
-            </div>
-
-            {/* Mobile / tablet: scroll horizontal sin amontonarse */}
-            <div className="lg:hidden">
-              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    to={`/catalog/${category.id}`}
-                    className="group flex-shrink-0 w-56"
-                  >
-                    <div className="p-4 flex flex-col items-center cursor-pointer">
-                      <div
-                        className="
-                          w-48 h-48 rounded-full overflow-hidden shadow-lg mb-4
-                          bg-gradient-to-b from-green-500 via-primary to-blue-500 mx-auto
-                          transition-transform duration-300
-                          group-hover:scale-105 hover:scale-105
-                        "
-                      >
-                        <img
-                          src={category.image}
-                          alt={category.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="w-full max-w-[200px] mb-3 mx-auto">
-                        <div className="h-1 w-full rounded bg-gradient-to-r from-green-500 via-primary to-blue-500" />
-                      </div>
-                      <div className="text-center max-w-[200px] mx-auto">
-                        <h4 className="text-lg font-semibold text-primary mb-1">
-                          {category.name}
-                        </h4>
-                        <p className="text-muted-foreground text-sm">
-                          {category.description}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
+
 
       <div className="h-8" />
 
@@ -535,14 +510,18 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 <div className="flex flex-wrap justify-center gap-2">
                   {service.id === "import" ? (
                     <Button
-                      onClick={() => onTabChange("business-import")}
+                      onClick={() => {
+                        onTabChange("business-mayoreo");
+                        // llevar al tope de la página
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
                       className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
                     >
                       Importa con nosotros
                     </Button>
                   ) : service.id === "suppliers" ? (
                     <Button
-                      onClick={() => onTabChange("business-aliados")}
+                      onClick={() => setShowAlliesModal(true)}
                       className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
                     >
                       Descubre nuestros aliados
@@ -628,12 +607,14 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
             {/* CONTENEDOR DEL LOOP */}
             <motion.div
+              ref={aliadosTrackRef}
               className="flex gap-20 items-center"
               style={{ width: "max-content" }}
-              animate={{ x: ["0%", "-100%"] }}
+              animate={loopWidth ? { x: [0, -loopWidth] } : undefined}
               transition={{
                 ease: "linear",
-                duration: 35,  // hazlo más lento aumentando esto
+                // duración en segundos calculada según ancho para mantener velocidad constante
+                duration: loopWidth ? Math.max(20, loopWidth / 30) : 35,
                 repeat: Infinity,
               }}
             >
@@ -728,6 +709,89 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           Solicitar Información
         </Button>
       </section>
+
+      {/* Modal: Descubre a nuestros aliados (inline table) */}
+      {showAlliesModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setShowAlliesModal(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 8, scale: 0.995 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="relative bg-white dark:bg-card rounded-lg shadow-lg max-w-4xl w-full mx-4 max-h-[85vh] overflow-auto p-6"
+          >
+            {/* Franja decorativa superior (sin tapar contenido) */}
+            <div className="absolute left-0 right-0 top-0 h-2 rounded-t-lg bg-gradient-to-r from-green-500 to-blue-500" />
+            <div className="pt-4"> {/* espaciado para no tapar por la franja */}
+              <div className="flex items-start justify-between mb-4">
+                <h4 className="text-xl font-bold">Descubre a nuestros aliados</h4>
+                <button
+                  aria-label="Cerrar modal"
+                  onClick={() => setShowAlliesModal(false)}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm table-auto border-collapse">
+                  <thead>
+                    <tr className="text-left">
+                      <th className="py-2 pr-4 w-56">Region</th>
+                      <th className="py-2 pr-4">Nombre</th>
+                      <th className="py-2 pr-4">Ubicación</th>
+                      <th className="py-2 pr-4">Municipio</th>
+                      <th className="py-2 pr-4">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* Filas tal como las proporcionaste (inline) */}
+                    <tr><td className="w-56"></td><td>Automercado Santa Rosa De Lima C.A</td><td>Santa Rosa De Lima</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Agro Finca Don Fernando, C.A</td><td>El Hatillo</td><td>El Hatillo</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Avicola Cantaclaro, C.A</td><td>Propatria</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Finca Agro De Venezuela, C.A</td><td>Panamericana</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Tiendas Vidapets</td><td>Bello Monte</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Todo Pets C.A</td><td>Chacao</td><td>Chacao</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Master Dogs. C.A.</td><td>Paraiso</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Agropecuaria Mascotas Mia, C.A</td><td>Los Teques</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Tienda De Animales Pata Pata, C.A</td><td>Santa Monica</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Hipermercado Paramo, C.A</td><td>Baruta</td><td>Baruta</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Melao Tipico Casadibello</td><td>La Candelaria</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td colSpan={5} className="font-semibold py-2">La Gran Caracas</td></tr>
+                    <tr><td className="w-56"></td><td>Inversiones Mascotalandia Ii Ca</td><td>Av. Fuerzas Armadas</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Plansuarez C.A.</td><td></td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Inversiones Mastersdogs</td><td>Plaza Venezuela</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Automercado Santa Paula, C.A</td><td>Santa Paula</td><td>Baruta</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Pet Home Petare, C.A.</td><td>Chacao</td><td>Chacao</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Pets Doodles, C.A</td><td>Los Naranjos</td><td>Baruta</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Distribuidora La Copa Del Rey, C.A</td><td>Av. Fuerzas Armadas</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Paraiso Animal, C.A</td><td>El Marques</td><td></td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Distribuidora Mundo Pets, C.A</td><td>Chacao</td><td>Chacao</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Central Madeirense, C.A</td><td>Filas De Mariche</td><td>Sucre</td><td>Miranda</td></tr>
+                    <tr><td className="w-56"></td><td>Distribuidora Jy 2020 C.A</td><td>Quinta Crespo</td><td>Libertador</td><td>Miranda</td></tr>
+                    <tr><td colSpan={5} className="font-semibold py-2">Los Andes</td></tr>
+                    <tr><td className="w-56"></td><td>Super Fresco</td><td>Barrio Obrero/Las Acacias</td><td>San Cristobal</td><td>Tachira</td></tr>
+                    <tr><td className="w-56"></td><td>Prado Express</td><td>Barrio Obrero</td><td>San Cristobal</td><td>Tachira</td></tr>
+                    <tr><td className="w-56"></td><td>Hipermercado Baratta</td><td>Ferrero Tamayo</td><td>San Cristobal</td><td>Tachira</td></tr>
+                    <tr><td className="w-56"></td><td>Automercado El Descuentazo</td><td>Barrio Obrero</td><td>San Cristobal</td><td>Tachira</td></tr>
+                    <tr><td className="w-56"></td><td>La Bodeguita Express</td><td>Ferrero Tamayo</td><td>San Cristobal</td><td>Tachira</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-4 flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setShowAlliesModal(false)}>
+                  Cerrar
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </>
   );
 };

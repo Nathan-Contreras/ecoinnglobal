@@ -14,7 +14,6 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   const isDark = theme === "dark";
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // nuevo estado para mostrar el menú de modelos al hacer hover (escritorio)
   const [businessHover, setBusinessHover] = useState(false);
 
   const tabs = [
@@ -23,11 +22,10 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
   ];
 
   const businessModels = [
-    { id: "importacion", label: "Servicio de Importación" },
-    { id: "comercializadora", label: "Importación y Comercialización" },
+    { id: "mayoreo", label: "Importación y Comercialización" },
+    { id: "importacion", label: "Servicio de Importación" },    
   ];
- 
-  // -- Hover timing logic: mantiene el submenú abierto unos ms después de salir --
+
   const hideTimer = useRef<number | null>(null);
 
   const showBusinessMenu = () => {
@@ -52,6 +50,19 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
     };
   }, []);
 
+  // helper: navega usando onTabChange y fuerza scroll arriba
+  const navigateAndScrollTop = (tabId: string) => {
+    onTabChange(tabId);
+    // pequeño timeout para asegurar que cualquier render basado en estado ocurra antes del scroll
+    setTimeout(() => {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+      } catch (e) {
+        /* noop */
+      }
+    }, 8);
+  };
+
   return (
     <>
       <header className="bg-white shadow-none border-b-0 sticky top-0 z-50">
@@ -73,7 +84,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                   <Button
                     key={tab.id}
                     variant={activeTab === tab.id ? "secondary" : "ghost"}
-                    onClick={() => onTabChange(tab.id)}
+                    onClick={() => navigateAndScrollTop(tab.id)}
                     className={`flex items-center space-x-2 ${
                       activeTab === tab.id 
                         ? "text-secondary-foreground" 
@@ -118,7 +129,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                     {businessModels.map((model) => (
                       <button
                         key={model.id}
-                        onClick={() => onTabChange(`business-${model.id}`)}
+                        onClick={() => navigateAndScrollTop(`business-${model.id}`)}
                         className="w-full text-center px-4 py-3 hover:bg-accent focus:bg-accent"
                       >
                         {model.label}
@@ -130,7 +141,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
 
               <Button
                 variant={activeTab === "contact" ? "default" : "outline"}
-                onClick={() => onTabChange("contact")}
+                onClick={() => navigateAndScrollTop("contact")}
                 className={`flex items-center space-x-2 ${
                   activeTab === "contact" 
                     ? "bg-blue-600 text-white hover:bg-blue-700" 
@@ -195,7 +206,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                     key={tab.id}
                     variant={activeTab === tab.id ? "secondary" : "ghost"}
                     onClick={() => {
-                      onTabChange(tab.id);
+                      navigateAndScrollTop(tab.id);
                       setMobileOpen(false);
                     }}
                     className={`justify-start flex items-center space-x-2 w-full ${
@@ -233,7 +244,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
                     <DropdownMenuItem
                       key={model.id}
                       onClick={() => {
-                        onTabChange(`business-${model.id}`);
+                        navigateAndScrollTop(`business-${model.id}`);
                         setMobileOpen(false);
                       }}
                       className="cursor-pointer hover:bg-accent focus:bg-accent py-3 text-base"
@@ -247,7 +258,7 @@ const Header = ({ activeTab, onTabChange }: HeaderProps) => {
               <Button
                 variant={activeTab === "contact" ? "default" : "outline"}
                 onClick={() => {
-                  onTabChange("contact");
+                  navigateAndScrollTop("contact");
                   setMobileOpen(false);
                 }}
                 className={`justify-start flex items-center space-x-2 w-full ${

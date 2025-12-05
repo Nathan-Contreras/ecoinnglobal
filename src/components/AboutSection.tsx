@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-import missionImg from "@/assets/about_section/mision.jpg";
+import missionImg from "@/assets/about_section/mision.jpeg";
 import visionImg from "@/assets/about_section/vision.jpg";
 import valuesImg from "@/assets/about_section/values.jpg";
 
@@ -281,7 +281,6 @@ const AboutSection = () => {
         </div>
       </section>
 
-      {/* MODAL RESPONSIVE CON SCROLL */}
       {/* MODAL RESPONSIVE CON SCROLL */}
       {modalOpen && selectedMember && (
         <div
