@@ -132,7 +132,7 @@ const bolsasDesechos: ProductSpecs = {
   resistencia: "Hasta 3 kg",
   fragancia: "Sin fragancia",
   compatibilidad: "Dispensadores estándar (núcleo ≈ 2.7 cm)",
-  colores: "Negro, Verde, Azul",
+  colores: "Naranja",
   incluyeDispensador: "Opcional (con clip para correa)",
   beneficios: `
     ✅ Biodegradables y resistentes.

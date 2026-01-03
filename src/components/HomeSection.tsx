@@ -105,6 +105,7 @@ const aliados = [
 ];
 
 const HomeSection = ({ onTabChange }: HomeSectionProps) => {
+  const productsRef = useRef<HTMLElement | null>(null);
   // categorías (incluye Decoración)
   const categories = [
     {
@@ -246,38 +247,43 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
   // Estado para el modal de "Descubre a nuestros aliados"
   const [showAlliesModal, setShowAlliesModal] = useState(false);
 
+  // Al montar, si venimos de una categoría, hacer scroll a la sección "Nuestros Productos"
+  useEffect(() => {
+    const shouldScroll = sessionStorage.getItem("scrollToProducts");
+    if (shouldScroll && productsRef.current) {
+      // Pequeña espera para asegurar layout y evitar saltos bruscos
+      setTimeout(() => {
+        productsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        sessionStorage.removeItem("scrollToProducts");
+      }, 80);
+    }
+  }, []);
+
   return (
     <>
       {/* Hero a todo lo ancho */}
-      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-20 lg:-mt-24 min-h-[480px] max-h-[900px] lg:h-[50vw]">
+      <section className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-20 lg:-mt-24 min-h-[360px] md:min-h-[420px] max-h-[900px] lg:h-[50vw]">
         <div className="absolute inset-0 w-full h-full bg-[#0A2540]" />
 
-        <div className="my-16" />
+        <div className="my-12" />
 
-        <div className="relative z-10 flex flex-col lg:flex-row items-center h-full px-6 lg:px-20 py-12">
+        <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center h-full px-6 lg:px-20 py-8 lg:py-12 gap-6">
           {/* Texto hero */}
           <div className="w-full lg:w-1/2 pr-0 lg:pr-12 z-30 relative">
             <div style={{ maxWidth: "820px" }}>
-              <p className="text-xl text-white/95 mb-4 leading-relaxed drop-shadow">
+              <p className="text-lg md:text-xl text-white/95 mb-4 leading-relaxed drop-shadow">
                 Ecoinn Global C.A. Nos dedicamos a traer al mercado venezolano productos innovadores con la mejor
                 relación calidad-precio, haciendo que la excelencia sea accesible.
               </p>
 
-              <p className="text-xl text-white/90 mb-6 leading-relaxed drop-shadow">
+              {/* Reduce texto en pantallas pequeñas para evitar saturación visual */}
+              <p className="hidden sm:block text-lg text-white/90 mb-4 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad,
                 diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación
                 precio-calidad-beneficio.
               </p>
 
-              <p className="text-xl text-white/90 mb-6 leading-relaxed drop-shadow">
-                Somos profesionales venezolanos que apostamos al crecimiento y desarrollo del comercio local, a través
-                de las relaciones comerciales intercontinentales con aliados estratégicos en China, quien es hoy en día
-                el mayor generador de intercambio comercial con países de América.
-              </p>
-
-              <br />
-              <br />
-              <h2 className="text-xl italic font-bold text-white/95 mb-4 leading-relaxed drop-shadow">
+              <h2 className="text-lg sm:text-xl md:text-2xl italic font-bold text-white/95 mb-2 leading-relaxed drop-shadow">
                 <span className="block">Productos que inspiran, precios que sorprenden.</span>
                 <span className="block text-white/90">Tu guía experta para importar con seguridad</span>
               </h2>
@@ -316,9 +322,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                   <button
                     key={i}
                     onClick={() => setCurrentSlide(i)}
-                    className={`w-2 h-2 rounded-full ${
-                      i === currentSlide ? "bg-white" : "bg-white/40"
-                    }`}
+                    className={`w-2 h-2 rounded-full ${i === currentSlide ? "bg-white" : "bg-white/40"}`}
                     aria-label={`Ir a slide ${i + 1}`}
                   />
                 ))}
@@ -326,10 +330,10 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
             </div>
           </div>
 
-          {/* Carrusel hero mobile */}
-          <div className="w-full lg:hidden mt-8">
+          {/* Carrusel hero mobile: imagen animada */}
+          <div className="w-full lg:hidden mt-2">
             <div
-              className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg bg-black/10"
+              className="relative w-full h-56 md:h-72 rounded-lg overflow-hidden shadow-lg bg-black/10"
               onMouseEnter={() => setPaused(true)}
               onMouseLeave={() => setPaused(false)}
             >
@@ -350,9 +354,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                   <button
                     key={i}
                     onClick={() => setCurrentSlide(i)}
-                    className={`w-2 h-2 rounded-full ${
-                      i === currentSlide ? "bg-white" : "bg-white/40"
-                    }`}
+                    className={`w-2 h-2 rounded-full ${i === currentSlide ? "bg-white" : "bg-white/40"}`}
                     aria-label={`Ir a slide ${i + 1}`}
                   />
                 ))}
@@ -366,7 +368,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
       <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen h-2 bg-gradient-to-r from-green-500 via-primary to-blue-500" />
 
       {/* NUESTROS PRODUCTOS */}
-      <section className="mt-8">
+      <section ref={(el) => (productsRef.current = el)} className="mt-8">
         <div className="flex flex-col items-center mb-2">
           <img
             src={logoGlob}
@@ -387,7 +389,7 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
 
         <div className="container mx-auto px-4 mt-6">
           <div className="relative">
-            {/* Desktop: carrusel con 4 visibles */}
+            {/* Desktop: carrusel con 4 visibles (sin cambios) */}
             <div className="hidden lg:block relative">
               <div className="overflow-hidden">
                 <div
@@ -398,12 +400,13 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                   }}
                 >
                   {categories.map((category) => (
-                    <Link
-                      key={category.id}
-                      to={`/catalog/${category.id}`}
-                      className="group flex-shrink-0"
-                      style={{ width: `${100 / categories.length}%` }}
-                    >
+                      <Link
+                        key={category.id}
+                        to={`/catalog/${category.id}`}
+                        className="group flex-shrink-0"
+                        style={{ width: `${100 / categories.length}%` }}
+                        onClick={() => sessionStorage.setItem("scrollToProducts", "1")}
+                      >
                       <div className="p-6 flex flex-col items-center cursor-pointer">
                         <div
                           className="w-64 h-64 rounded-full overflow-hidden shadow-lg mb-4
@@ -456,10 +459,44 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 </button>
               </div>
             </div>
+
+            {/* Mobile: carrusel táctil de categorías (1 por pantalla) */}
+            <div className="lg:hidden">
+              <div
+                className="flex gap-4 overflow-x-auto pb-6 pl-4 pr-4 -mx-4 snap-x snap-mandatory"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
+                {categories.map((category) => (
+                  <Link
+                    key={category.id}
+                    to={`/catalog/${category.id}`}
+                    className="snap-start flex-shrink-0 w-[86%] sm:w-[72%] md:w-[48%]"
+                    onClick={() => sessionStorage.setItem("scrollToProducts", "1")}
+                  >
+                    <div className="p-4 bg-card rounded-2xl shadow-md h-full flex flex-col items-center">
+                      <div
+                        className="w-56 h-56 rounded-full overflow-hidden shadow mb-4
+                          bg-gradient-to-b from-green-500 via-primary to-blue-500 mx-auto"
+                      >
+                        <img
+                          src={category.image}
+                          alt={category.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+
+                      <div className="text-center px-2">
+                        <h4 className="text-2xl font-semibold text-primary mb-1">{category.name}</h4>
+                        <p className="text-muted-foreground text-sm">{category.description}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
 
       <div className="h-8" />
 
@@ -483,7 +520,8 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
           </p>
         </div>
 
-        <div className="grid gap-10 md:grid-cols-3">
+        {/* Desktop grid (sin cambios visuales) */}
+        <div className="hidden md:grid gap-10 md:grid-cols-3">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -538,6 +576,64 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile: carrusel táctil de servicios (1 por pantalla) */}
+        <div className="md:hidden">
+          <div
+            className="flex overflow-x-auto gap-6 pb-6 pl-4 pr-4 -mx-4 snap-x snap-mandatory"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                className="snap-start flex-shrink-0 w-[86%] sm:w-[72%] bg-card rounded-2xl p-6 shadow-md"
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+              >
+                <div className="flex flex-col items-center text-center space-y-4">
+                  <div className="w-56 h-56 rounded-full overflow-hidden shadow mb-2 bg-gradient-to-b from-green-500 via-primary to-blue-500">
+                    <img src={service.image} alt={service.name} className="w-full h-full object-cover" />
+                  </div>
+
+                  <div className="space-y-2 max-w-xs">
+                    <h4 className="text-2xl font-semibold text-foreground">{service.name}</h4>
+                    <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
+
+                    <div className="flex flex-wrap justify-center gap-2 mt-2">
+                      {service.id === "import" ? (
+                        <Button
+                          onClick={() => {
+                            onTabChange("business-mayoreo");
+                            window.scrollTo({ top: 0, behavior: "smooth" });
+                          }}
+                          className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
+                        >
+                          Importa con nosotros
+                        </Button>
+                      ) : service.id === "suppliers" ? (
+                        <Button
+                          onClick={() => setShowAlliesModal(true)}
+                          className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
+                        >
+                          Descubre nuestros aliados
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => onTabChange("contact")}
+                          className="bg-primary text-primary-foreground shadow-lg hover:opacity-95 transform hover:-translate-y-0.5 transition-all px-4 py-2 focus-outline"
+                        >
+                          Solicitar Consultoría
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

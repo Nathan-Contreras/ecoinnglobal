@@ -29,7 +29,7 @@ const Row = ({ label, value }: { label: string; value: string }) => (
     <td className="py-3 px-4 font-medium text-sm text-foreground/90 w-1/3 align-top sticky left-0 bg-background z-10">
       {label}:
     </td>
-    <td className="py-3 px-4 text-sm text-muted-foreground">{value}</td>
+    <td className="py-3 px-4 text-sm text-muted-foreground whitespace-pre-line">{value}</td>
   </tr>
 );
 
@@ -150,7 +150,7 @@ const ProductSpecsTable = ({ specs }: Props) => {
           {items.map((it, idx) => (
             <div key={`${it.label}-${idx}`} className="bg-card/40 rounded-lg p-3 border border-border">
               <div className="text-sm font-medium text-foreground/90">{it.label}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{it.value}</div>
+              <div className="mt-1 text-sm text-muted-foreground whitespace-pre-line">{it.value}</div>
             </div>
           ))}
         </div>

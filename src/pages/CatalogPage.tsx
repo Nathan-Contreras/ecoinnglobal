@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { motion } from "framer-motion";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,24 +26,6 @@ const FALLBACK_IMG =
 const productData = {
   toys: [
     {
-      id: 1,
-      name: "Scooter para niños (Acero)",
-      description: "Scooter de acero para niños, ligero y resistente.",
-      image: importImage("toys/scooter_acero.png"),
-    },
-    {
-      id: 2,
-      name: "Scooter para niños (Niños)",
-      description: "Scooter pensado para los más pequeños.",
-      image: importImage("toys/scooter_ninos.png"),
-    },
-    {
-      id: 3,
-      name: "Scooter para niños (Poli)",
-      description: "Ruedas de poli para mejor deslizamiento.",
-      image: importImage("toys/scooter_poli.png"),
-    },
-    {
       id: 4,
       name: "Balón de Fútbol",
       description: "Balón para prácticas de fútbol campo",
@@ -53,6 +36,24 @@ const productData = {
       name: "Patines en línea convertible",
       description: "Patines en línea con colores del mundial 2026 y kit de conversión.",
       image: importImage("toys/patines_en_linea.png"),
+    },
+    {
+      id: 3,
+      name: "Scooter para niños (Poli)",
+      description: "Ruedas de poli para mejor deslizamiento.",
+      image: importImage("toys/scooter_poli.png"),
+    },
+    {
+      id: 1,
+      name: "Scooter para niños (Acero)",
+      description: "Scooter de acero para niños, ligero y resistente.",
+      image: importImage("toys/scooter_acero.png"),
+    },
+    {
+      id: 2,
+      name: "Scooter para niños (Niños)",
+      description: "Scooter pensado para los más pequeños.",
+      image: importImage("toys/scooter_ninos.png"),
     },
   ],
   repuestos: [
@@ -77,32 +78,25 @@ const productData = {
   ],
   home: [
     {
-      id: 1,
-      name: "Encendedor USB Recargable",
-      description: "Encendedor USB recargable, ideal para cocina y camping.",
-      image: importImage("home/encendedor_usb.png"),
-    },
-    {
       id: 2,
       name: "Base de papel para Airfryer",
       description: "Base de papel desechable para cocinar en Airfryer.",
       image: importImage("home/papel_airfryer.png"),
     },
-  ],
-  supplies: [
     {
       id: 1,
-      name: "Cinta Kinesiológica",
-      description: "Cinta elástica para soporte muscular.",
-      image: importImage("supplies/cinta_kinesiologica.png"),
+      name: "Encendedor USB Recargable",
+      description: "Encendedor USB recargable, ideal para cocina y camping.",
+      image: importImage("home/encendedor_usb.png"),
     },
+  ],
+  supplies: [
     {
       id: 2,
       name: "Papel film grado alimentación",
       description: "Ideal para uso de contacto con alimentos.",
       image: importImage("supplies/papel_film_alim.png"),
     },
-
     {
       id: 3,
       name: "Papel film industrial",
@@ -110,24 +104,30 @@ const productData = {
       image: importImage("supplies/papel_film_industrial.png"),
     },
     {
-      id: 4,
-      name: "Vendas Adhesivas",
-      description: "Fabricados en tela no tejida proporcionando elasticidad, suavidad y ligereza.",
-      image: importImage("supplies/vendas_adhesivas.png"),
-    },
-    {
       id: 5,
       name: "Cuellero",
       description: "Fabricados con papel de celulosa o fibra no tejida (non woven), suave y desechable.",
       image: importImage("supplies/cuelleros.png"),
+    },
+    {
+      id: 1,
+      name: "Cinta Kinesiológica",
+      description: "Cinta elástica para soporte muscular.",
+      image: importImage("supplies/cinta_kinesiologica.png"),
+    },
+    {
+      id: 4,
+      name: "Vendas Adhesivas",
+      description: "Fabricados en tela no tejida proporcionando elasticidad, suavidad y ligereza.",
+      image: importImage("supplies/vendas_adhesivas.png"),
     }
   ],
   pets: [
     {
-      id: 1,
-      name: "Bolsas para desechos de mascotas",
-      description: "Bolsas resistentes y biodegradables.",
-      image: importImage("pets/bolsa_desechos.png"),
+      id: 3,
+      name: "Toallas húmedas",
+      description: "Cuidado diario con ingredientes seguros.",
+      image: importImage("pets/toallas_humedas.png"),
     },
     {
       id: 2,
@@ -136,10 +136,10 @@ const productData = {
       image: importImage("pets/pad_entrenamiento.png"),
     },
     {
-      id: 3,
-      name: "Toallas húmedas",
-      description: "Cuidado diario con ingredientes seguros.",
-      image: importImage("pets/toallas_humedas.png"),
+      id: 1,
+      name: "Bolsas para desechos de mascotas",
+      description: "Bolsas resistentes y biodegradables.",
+      image: importImage("pets/bolsa_desechos.png"),
     },
   ],
   decoration: [
@@ -280,41 +280,65 @@ const CatalogPage = () => {
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {productsWithSpecs.map((product) => (
-            <Card key={product.id} className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
-              <div className="relative h-40 sm:h-48 bg-white flex items-center justify-center overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
-                  className="w-full h-full object-fill transition-transform duration-300"
-                />
-              </div>
-              <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6">
-                <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                  {product.name}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6">
-                <CardDescription className="mb-3 md:mb-4 line-clamp-2 text-sm">
-                  {product.description}
-                </CardDescription>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => {
-                    setSelectedProduct(product);
-                    setDialogOpen(true);
-                  }}
-                >
-                  Ver detalles
-                </Button>
-              </CardContent>
-            </Card>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.06 } },
+          }}
+        >
+          {productsWithSpecs.map((product, idx) => (
+            <motion.div
+              key={product.id}
+              variants={{
+                hidden: { opacity: 0, y: 10, scale: 0.995 },
+                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.42, ease: "easeOut" } },
+              }}
+              whileHover={{ scale: 1.03, translateY: -6 }}
+              className="h-[360px] sm:h-[420px] transition-shadow duration-200"
+            >
+              <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden h-full flex flex-col">
+                <div className="relative flex-none h-1/2 bg-white flex items-center justify-center overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
+                    className="w-full h-full object-contain object-center transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <CardHeader className="pb-2 px-3 md:px-6 pt-3 md:pt-6 flex-none">
+                  <CardTitle className="text-base md:text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                    {product.name}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0 px-3 md:px-6 pb-4 md:pb-6 flex flex-col justify-between flex-grow overflow-hidden">
+                  <div>
+                    <CardDescription className="mb-3 md:mb-4 line-clamp-3 text-sm">
+                      {product.description}
+                    </CardDescription>
+                  </div>
+                  <div className="mt-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setDialogOpen(true);
+                      }}
+                    >
+                      Ver detalles
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Dialog con especificaciones */}
