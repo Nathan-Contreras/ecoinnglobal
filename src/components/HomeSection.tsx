@@ -276,14 +276,19 @@ const HomeSection = ({ onTabChange }: HomeSectionProps) => {
                 relación calidad-precio, haciendo que la excelencia sea accesible.
               </p>
 
-              {/* Reduce texto en pantallas pequeñas para evitar saturación visual */}
-              <p className="hidden sm:block text-lg text-white/90 mb-4 leading-relaxed drop-shadow">
+              <p className="text-lg md:text-xl text-white/95 mb-4 leading-relaxed drop-shadow">
                 Es tu aliado estratégico en la importación y comercialización de productos de excelente calidad,
                 diseñados para impulsar tu negocio y satisfacer a tus clientes, asegurando la mejor relación
                 precio-calidad-beneficio.
               </p>
 
-              <h2 className="text-lg sm:text-xl md:text-2xl italic font-bold text-white/95 mb-2 leading-relaxed drop-shadow">
+              <p className="text-lg md:text-xl text-white/95 mb-4 leading-relaxed drop-shadow">
+                Somos profesionales venezolanos que apostamos al crecimiento y ddesarrollo del comercio local
+                a través de las relaciones comerciales intercontinentales con aliados estratégicos en China, quien
+                es hoy en día el mayor generador de intercambio comercial con países de América.
+              </p>
+
+              <h2 className="text-center text-lg sm:text-xl md:text-2xl italic font-bold text-white/95 mb-2 leading-relaxed drop-shadow">
                 <span className="block">Productos que inspiran, precios que sorprenden.</span>
                 <span className="block text-white/90">Tu guía experta para importar con seguridad</span>
               </h2>

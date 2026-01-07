@@ -9,7 +9,7 @@ import valuesImg from "@/assets/about_section/values.jpg";
 import normandoPhoto1 from "@/assets/team/normando_team1.png";
 import ronnyPhoto1 from "@/assets/team/ronny_team1.png";
 import angelPhoto1 from "@/assets/team/angel_team1.png";
-import tulioPhoto1 from "@/assets/team/normando_team1.png";
+import tulioPhoto1 from "@/assets/team/tulio_team1.png";
 
 import Profile, { TeamMember as TM } from "@/pages/team/Profile";
 
@@ -47,7 +47,6 @@ const AboutSection = () => {
     {
       slug: "angel-mendez",
       name: "Ángel Méndez",
-      role: "Gerente de Operaciones",
       bio: "Gerente de Operaciones con 20 años de experiencia en áreas de logística, procesos y proyectos comerciales.",
       longBio:
         "Estudios de Gerencia en el IESA, Magíster en Gerencia de Empresas, Mercadeo de la UNET, Contador Público de la UCAT. Especializado en decisiones estratégicas, implementación de herramientas de control y optimización de la eficiencia operativa. Abriendo horizontes en el sector Retail. Papá, esposo y católico. Apasionado por la cocina y las brasas.",
@@ -74,7 +73,6 @@ const AboutSection = () => {
     {
       slug: "ronny-pena",
       name: "Ronny Peña",
-      role: "Director y Accionista",
       bio: "Licenciado en Administración de Empresas con más de 27 años de experiencia en Empresas Polar y actualmente Director de Ecoinn Global.",
       longBio:
         "Licenciado en Administración de Empresas en la Universidad Rafael Urdaneta (1997), con Especialización en Gerencia Empresarial (Universidad Santa María) y en Recursos Humanos (Universidad Simón Rodríguez). En 2017 obtuvo la especialización en Relaciones Comerciales Internacionales (Universidad Católica del Táchira). Con una larga trayectoria en Empresas Polar, comenzó como Supervisor de Almacén y ascendió hasta Gerente Territorial de Operaciones Comerciales, gestionando diversas áreas como Almacén, Despacho y Gestión Operativa. Actualmente es Director y accionista de Ecoinn Global, una importadora con su propia marca GLOB, especializada en tecnología e innovación.",
@@ -103,7 +101,6 @@ const AboutSection = () => {
     {
       slug: "normando-contreras",
       name: "Normando Contreras",
-      role: "Gerente de Importaciones",
       bio: "Especialista en cadena de suministro y trámites aduaneros.",
       longBio:
         "Profesional con una sólida trayectoria de más de 25 años en los sectores logístico y comercial, focalizado en empresas de consumo masivo. Combina experiencia práctica con una base académica robusta en administración y finanzas.",
@@ -130,7 +127,6 @@ const AboutSection = () => {
     {
       slug: "tulio-mendoza",
       name: "Tulio Mendoza",
-      role: "Supervisor de Aduanas",
       bio: "Experto en trámites aduaneros y control documental.",
       longBio:
         "Profesional con amplia experiencia en el área de aduanas y comercio exterior. Garantiza la correcta gestión de documentos y la conformidad con las normativas vigentes.",
